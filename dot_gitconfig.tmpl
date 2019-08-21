@@ -1,0 +1,38 @@
+[color]
+	ui = true
+[status]
+	showUntrackedFiles = no
+[alias]
+	st = status -s
+	ci = commit
+	co = checkout
+	br = branch
+	lo = log --pretty=oneline
+	lp = log --pretty=oneline -p
+	diffstat = diff --stat
+[user]
+	email = {{ .email }}
+	name = {{ .fullname }}
+	signingkey = {{ .gpg_keyid }}
+[diff]
+	submodule = log
+	tool = vimdiff
+[push]
+	default = current
+[difftool]
+	prompt = true
+[commit]
+	gpgsign = true
+[gpg]
+	program = /usr/local/bin/gpg
+[github]
+	oauth-token = "{{ (index (lastpass "private/github.com/oauth-token") 0).password }}"
+	user = "{{ (index (lastpass "private/github.com/oauth-token") 0).username }}"
+[magithub]
+	online = false
+[magithub "status"]
+	includeStatusHeader = false
+	includePullRequestsSection = false
+	includeIssuesSection = false
+[core]
+excludesfile = {{ .chezmoi.homedir }}/.gitignore_global
