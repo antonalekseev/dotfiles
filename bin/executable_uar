@@ -1,0 +1,106 @@
+#!/usr/bin/env python
+
+import os
+import re
+import sys
+from subprocess import run, PIPE
+from time import sleep
+
+import bs4
+import requests
+
+UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:49.0) Gecko/20100101 Firefox/49.0"
+SUBMIT_URL = "http://archive.li/submit/"
+LOCATION_RE = re.compile(
+    r".*document\.location\.replace\(\"([^\"]+)", flags=re.M)
+WT_TPL = '[[{0}|{1}]]<a href="{2}" target="_blank">^^†^^</a>'
+WT_HN_TPL = '[[{0}|{1}]]<a href="{2}" target="_blank">^^†^^</a>&nbsp;<a href="{3}" target="_blank">^^HN^^</a>'
+MAX_RETRIES = 30
+WAIT = 2
+
+def sanitize(text):
+    return text.strip(' \t\n\r')
+
+
+def parse_response(text):
+    soup = bs4.BeautifulSoup(text, "html.parser")
+
+    og_url = soup.find('meta', {'property': 'og:url'})
+    if og_url:
+        aurl = sanitize(og_url.attrs.get('content'))
+    else:
+        aurl = None
+
+    og_title = soup.find('meta', {'property': 'og:title'})
+    head_title = soup.find('title')
+    title = None
+    if head_title:
+        title = sanitize(head_title.string)
+    elif og_title:
+        title = sanitize(og_title.attrs.get('content'))
+    return (aurl, title)
+
+def parse_hnstory(url):
+    req = requests.get(url)
+    soup = bs4.BeautifulSoup(req.text, "html.parser")
+    story_link = soup.select('a[class="storylink"]')[0]
+    story_url = story_link.attrs.get('href')
+    if story_url.startswith('item'):
+        story_url, story_title = None, None
+    else:
+        story_title = sanitize(story_link.string)
+    return (story_url, story_title)
+
+def main():
+    aurl = None
+    hn_url = None
+    title = None
+    if len(sys.argv) < 2:
+        # try to get url from clipboard on macOS
+        if os.uname()[0] == 'Darwin':
+            url = run(['pbpaste'], stdout=PIPE, encoding='utf-8').stdout
+    else:
+        url = sys.argv[1]
+    if not url or not url.startswith(('http:', 'https:')):
+        sys.exit('error: URL is not provided')
+    if url.startswith('https://news.ycombinator.com'):
+        hn_story_url, hn_story_title = parse_hnstory(url)
+        if hn_story_url:
+            hn_url = url
+            url = hn_story_url
+    data = {'url': url, 'run': 1}
+    headers = {'User-Agent': UA}
+    req = requests.post(SUBMIT_URL, data=data, headers=headers)
+    redirect_match = LOCATION_RE.match(req.text)
+    if redirect_match:
+        aurl = redirect_match.group(1)
+    else:
+        aurl, title = parse_response(req.text)
+
+    retry = 0
+    rurl = aurl
+    while True:
+        if aurl and title:
+            # replace pipe symbol in title to unbreak TW5 markup
+            title = title.translate(str.maketrans("|", "–"))
+            if hn_url:
+                link_str = WT_HN_TPL.format(title, url, aurl, hn_url)
+            else:
+                link_str = WT_TPL.format(title, url, aurl)
+            print(link_str)
+            # copy result to clipboard on macOS
+            if os.uname()[0] == 'Darwin':
+                run(["pbcopy"], input=link_str, encoding='utf-8')
+            break
+        else:
+            if retry < MAX_RETRIES:
+                retry += 1
+            else:
+                break
+            sleep(WAIT)
+            req = requests.get(rurl, headers=headers)
+            aurl, title = parse_response(req.text)
+
+
+if __name__ == '__main__':
+    main()

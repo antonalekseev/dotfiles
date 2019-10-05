@@ -1,0 +1,21 @@
+#!/bin/sh
+
+DIR="$HOME/Dropbox/Personal/wiki"
+WIKI="wiki"
+GIT="/usr/local/bin/git"
+FSW="/usr/local/bin/fswatch"
+HOST=$(hostname -s)
+cd "$DIR" || exit 1
+[ -x "$GIT" ] && [ -x "$FSW" ] || exit 1
+
+"$FSW" "$DIR/$WIKI/" |while IFS= read -r file; do
+    ts=$(date "+%FT%T")
+    if [ ! -f ".pause" ] && [ ! -f ".$HOST.pause" ]; then
+		"$GIT" add -A
+		"$GIT" commit -m "autocommit at $ts"
+		# calculate wiki/index sizes and run gc if needed
+		gs=$(du -sk .git|cut -f1)
+		ws=$(du -sk $WIKI|cut -f1)
+		[ "$gs" -lt $((ws*10)) ] || "$GIT" gc --aggressive
+	fi
+done

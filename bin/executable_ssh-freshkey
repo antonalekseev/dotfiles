@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if [ "$#" -lt 1 ]; then
+	echo 'usage: ssh-freshkey host1.domain [host2.domain]'
+	exit 0
+fi
+
+for h in "$@"; do
+	ip=$(host -4 "$h")
+	if [ $? -ne 0 ]; then
+		ip=$(grep "$h" /etc/hosts|cut -d'	' -f1)
+	else
+		ip="${ip##$h has address }"
+	fi
+	[ "x$ip" != x"" ] && ssh-keygen -R "$ip"
+	ssh-keygen -R "$h"
+	ssh-keyscan "$h" >> "$HOME/.ssh/known_hosts"
+done
