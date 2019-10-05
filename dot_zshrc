@@ -1,0 +1,257 @@
+# -*- mode: shell-script; -*-
+
+[ "$PROFILE_SOURCED" -eq "1" ] || source "$HOME/.zprofile"
+
+bindkey -v
+
+# Persist vi mode between commands
+# https://unix.stackexchange.com/a/110877
+accept-line() { prev_mode=$KEYMAP; zle .accept-line }
+accept-search() { prev_mode=$KEYMAP; zle .accept-search }
+zle-line-init() { zle -K ${prev_mode:-vicmd} }
+
+zle -N accept-line
+zle -N accept-search
+zle -N zle-line-init
+
+# Set cursor shape for vi modes
+# http://lynnard.me/blog/2014/01/05/change-cursor-shape-for-zsh-vi-mode/
+zle-keymap-select () {
+    if [ "$TERM" != "dumb" ]; then
+        if [ $KEYMAP = vicmd ]; then
+            # the command mode for vi
+            echo -ne "\e[2 q"
+        else
+            # the insert mode for vi
+            echo -ne "\e[4 q"
+        fi
+    fi
+}
+
+zle -N zle-keymap-select
+
+# bracket text object
+autoload -U select-bracketed
+zle -N select-bracketed
+for m in visual viopp; do
+	for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+		bindkey -M $m $c select-bracketed
+	done
+done
+
+# quote text object
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+	for c in {a,i}{\',\",\`}; do
+		bindkey -M $m $c select-quoted
+	done
+done
+
+# surround text object
+# https://github.com/zsh-users/zsh/blob/master/Functions/Zle/surround
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N add-surround surround
+zle -N change-surround surround
+bindkey -a cs change-surround
+bindkey -a ds delete-surround
+bindkey -a s add-surround
+bindkey -M visual s add-surround
+
+# edit command line in EDITOR
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+
+export PDSH_SSH_ARGS='-A'
+export LPASS_HOME="$HOME/.config/lpass"
+
+[ -z "$SSH_TTY" ] || export SSH_AUTH_SOCK=$HOME/.ssh/ssh_auth_sock
+
+HISTFILE=$HOME/.zshistory
+HISTSIZE=500000
+SAVEHIST=500000
+
+alias runapg="apg -M SNcl -m 8 -x 12 -s"
+alias mpg123="mpg123 -vC"
+alias tmux="tmux -u"
+alias s="sudo -E"
+
+# virtualenv
+export VIRTUAL_ENV_DISABLE_PROMPT='1'
+export WORKON_HOME=$HOME/.virtualenvs
+export PIPENV_COLORBLIND=true
+export PIPENV_HIDE_EMOJIS=true
+export PIPENV_NOSPIN=true
+if [ -n "$(command -v pipenv)" ]; then
+	henv=$(pipenv --venv)
+	export VIRTUAL_ENV_DEFAULT=$(basename $henv)
+fi
+
+# z.lua
+eval "$(lua $HOME/bin/z.lua --init zsh enhanced fzf)"
+alias j="z"
+alias jh="z ~"
+alias je="z -e"
+alias jc="z -c"
+alias jj="z -I"
+alias jb="z -b"
+
+setopt SHARE_HISTORY
+setopt HIST_REDUCE_BLANKS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_IGNORE_DUPS
+setopt NO_HIST_SAVE_BY_COPY
+setopt INC_APPEND_HISTORY
+setopt EXTENDED_HISTORY
+setopt HIST_IGNORE_SPACE
+setopt PROMPT_SUBST
+
+bindkey -M viins '^H' history-incremental-pattern-search-backward
+bindkey -M viins '^F' history-incremental-pattern-search-forward
+bindkey -M vicmd '/' history-incremental-pattern-search-backward
+bindkey -M vicmd '?' history-incremental-pattern-search-forward
+bindkey -M viins '^P' up-history
+bindkey -M viins '^N' down-history
+bindkey -M isearch '^M' accept-enter
+bindkey -M isearch '^I' accept-search
+
+WHOAMI=`whoami`
+
+if [[ "$ITERM_PROFILE" != "Hotkey Window" ]]; then
+	source $HOME/bin/base16-default-light.sh
+	TMUX_SESSION_NAME="${WHOAMI}-full"
+else
+	TMUX_SESSION_NAME="${WHOAMI}-hotkey"
+fi
+
+if [ "$TERM" != "screen-256color" ]\
+	   && [ "$TERM_PROGRAM" = "iTerm.app" ]\
+	   && [ "$OS" = "Darwin" ]; then
+	tmux has-session -t $TMUX_SESSION_NAME\
+		&& tmux attach-session -t $TMUX_SESSION_NAME\
+		|| tmux new-session -s $TMUX_SESSION_NAME
+fi
+
+eval "$(direnv hook zsh)"
+
+function getprompt() {
+	if [ "${VIRTUAL_ENV##*/}" = "$VIRTUAL_ENV_DEFAULT" -o -z "${VIRTUAL_ENV}" ]; then
+		echo "%m%# "
+	else
+		echo "%m:${VIRTUAL_ENV##*/}%# "
+	fi
+}
+
+export getprompt
+PROMPT='$(getprompt)'
+
+function _tmuxw() {
+	[ -z "$TMUX" ] && $* && return
+	cmd=$1
+	shift
+	cur=$(tmux lsw | grep -m1 "[:] ${cmd##*/} $*"|cut -f1 -d:)
+	if [ -n "$cur" ];then
+		tmux selectw -t :$cur
+	else
+		tmux neww -n "${cmd##*/} $*" "$cmd $*"
+	fi
+}
+
+function ssh() {
+	_tmuxw =ssh $*
+}
+
+function telnet() {
+	_tmuxw =telnet $*
+}
+
+function cu() {
+	_tmuxw =cu $*
+}
+
+# @re
+# run command elsewhere (on all .hosts except this one)
+function re() {
+	if [ "$#" -lt "1" ]; then
+		echo 'ERROR: no command specified'
+		return
+	fi
+	h=$(grep -v "$HOSTNAME" "$HOME/.hosts"|tr '\n' ',')
+	pdsh -w "${h%?}" "$*"
+}
+
+# helpers for go/python q module
+qq() {
+    clear
+
+    logpath="$TMPDIR/q"
+    if [ -z "$TMPDIR" ]; then
+        logpath="/tmp/q"
+    fi
+
+    if [ ! -f "$logpath" ]; then
+        echo 'Q LOG' > "$logpath"
+    fi
+
+    tail -100f -- "$logpath"
+}
+
+rmqq() {
+    logpath="$TMPDIR/q"
+    if [ -z "$TMPDIR" ]; then
+        logpath="/tmp/q"
+    fi
+    if [ -f "$logpath" ]; then
+        rm "$logpath"
+    fi
+    qq
+}
+
+# abbrpwd returns abbreviated $PWD if it's within $HOME and full otherwise
+function abbrpwd() {
+	if [ "${PWD##$HOME}" != "$PWD" ]; then
+		echo "~${PWD##$HOME}"
+	else
+		echo $PWD
+	fi
+}
+
+# jf opens directory in Finder.app: $PWD if called without args, $1 otherwise
+function jf() {
+	if [ -z "$1"]; then
+		open "$PWD"
+	else
+		open "$1"
+	fi
+}
+
+# mkpipenv runs pipenv install and adds pipenv layout to .envrc in $PWD
+function mkpipenv() {
+	if [ ! -f "$PWD/Pipfile" ]; then
+		echo "Pipfile is not present in current directory"
+		return -1
+	fi
+	if grep -q "layout pipenv" .envrc; then
+		echo "pipenv layout is already enabled in .envrc, quitting"
+		return -1
+	fi
+	echo 'layout pipenv' >> "$PWD/.envrc" && direnv allow
+}
+
+# mkpipenv runs pipenv --rm and removes pipenv layout from .envrc
+function rmpipenv() {
+	if [ "$PIPENV_ACTIVE" -ne 1 ] || [ ! -f "$PWD/Pipfile" ]; then
+		echo "Should be run from root of Pipenv managed project"
+		return -1
+	fi
+	pipenv --rm && sed -i '' -e '/layout pipenv/d' .envrc
+}
+
+# cookiecutter-update updates all previously used cookiecutters
+function cookiecutter-update() {
+	ls -1d "$HOME"/.cookiecutters/*|while read -r cc; do
+		( cd "$cc" && git pull )
+	done
+}
