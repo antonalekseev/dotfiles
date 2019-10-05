@@ -1,0 +1,207 @@
+"--------------------
+" functions
+"--------------------
+
+" Override the diff-mode highlights of base16 for the sake of a better
+" readabilty.
+" https://github.com/chriskempson/base16-vim/issues/53
+function! TweakBase16()
+	highlight DiffAdd    term=bold ctermfg=0 ctermbg=2 guifg=#2b2b2b guibg=#a5c261
+	highlight DiffDelete term=bold ctermfg=0 ctermbg=1 gui=bold guifg=#2b2b2b guibg=#da4939
+	highlight DiffChange term=bold ctermfg=0 ctermbg=4 guifg=#2b2b2b guibg=#6d9cbe
+	highlight DiffText   term=reverse cterm=bold ctermfg=0 ctermbg=4 gui=bold guifg=#2b2b2b guibg=#6d9cbe
+endfunction
+
+"--------------------
+" filetype
+"--------------------
+
+set tabstop=4
+set shiftwidth=4
+set visualbell
+set ruler
+set hidden
+set shortmess+=I
+set cursorline
+set colorcolumn=80
+
+" paste
+set pastetoggle=<F10>
+
+" list
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set list
+nmap <leader>l :set list!<CR>
+
+" quickly close the current window
+nnoremap <leader>q :q<CR>
+
+" http://superuser.com/questions/131950/indentation-for-plain-text-bulleted-lists-in-vim
+set comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-,fb:[+],fb:[x],fb:[-]
+
+" http://stackoverflow.com/a/15317146
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
+
+" line numbering
+set number
+function! NumberToggle()
+	if(&relativenumber == 1)
+		set norelativenumber
+		set nonumber
+	elseif(&number == 1)
+		set relativenumber
+	else
+		set number
+	endif
+endfunc
+nnoremap <C-n> :call NumberToggle()<cr>
+
+"--------------------
+" appearance
+"--------------------
+
+syntax on
+if has("gui_running")
+	set macligatures
+	set macthinstrokes
+	set guifont=Fira\ Code\ Retina:h14
+	set guioptions=
+else
+	let base16colorspace=256
+endif
+
+"--------------------
+" filetype
+"--------------------
+
+filetype plugin indent on
+
+autocmd BufRead,BufNewFile */sql/* set filetype=sql
+autocmd BufNewFile,BufRead *.mail setlocal ft=mailtext
+autocmd FileType mailtext setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 textwidth=55 nonu
+autocmd FileType python setlocal expandtab
+autocmd FileType javascript setlocal expandtab shiftwidth=2
+autocmd FileType yaml setlocal expandtab tabstop=2 shiftwidth=2
+autocmd FileType json setlocal expandtab tabstop=2 shiftwidth=2
+autocmd FileType ruby setlocal expandtab tabstop=2 shiftwidth=2
+
+let python_highlight_all = 1
+
+"--------------------
+" plug-ins
+"--------------------
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'chriskempson/base16-vim'
+
+Plug 'vim-airline/vim-airline'
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_theme='base16'
+
+Plug 'w0rp/ale'
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_linters = {
+\   'c': ['clang'],
+\   'python': ['flake8', 'pylint'],
+\}
+let g:ale_fixers = {
+\   'c': ['clang-format'],
+\   'python': ['autopep8'],
+\}
+nmap <silent> <C-h> <Plug>(ale_previous_wrap)
+nmap <silent> <C-l> <Plug>(ale_next_wrap)
+
+Plug 'dyng/ctrlsf.vim'
+nnoremap <leader>f :CtrlSF 
+
+Plug 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger = '<C-J>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-K>'
+let g:UltiSnipsSnippetDirectories = [ 'UltiSnips', $HOME.'/.vim/UltiSnips' ]
+let g:ultisnips_python_style = 'numpy'
+Plug 'honza/vim-snippets'
+
+Plug 'ctrlpvim/ctrlp.vim'
+"the directory of the current file, unless it is a subdirectory of the cwd
+let g:ctrlp_working_path_mode = 'a'
+let g:ctrlp_cmd = 'CtrlPBuffer'
+
+
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-dadbod'
+
+Plug 'sheerun/vim-polyglot'
+Plug 'direnv/direnv.vim'
+
+if has("nvim")
+	Plug 'raghur/vim-ghost'
+	autocmd VimEnter * GhostStart
+endif
+
+call plug#end()
+
+" Less fanciness while running iTerm transparent window
+if match($ITERM_PROFILE, "Hotkey Window") != 0
+	colorscheme base16-default-light
+	call TweakBase16()
+else
+	colorscheme nofrils-dark
+	let g:loaded_airline = 1
+	syntax off
+	set nonu
+	set nolist
+	set nocursorline
+endif
+
+" Set textwidth to 72 for Python docstrings
+" http://archive.li/CCySb
+function! GetPythonTextWidth()
+    if !exists('g:python_normal_text_width')
+        let normal_text_width = 79
+    else
+        let normal_text_width = g:python_normal_text_width
+    endif
+
+    if !exists('g:python_comment_text_width')
+        let comment_text_width = 72
+    else
+        let comment_text_width = g:python_comment_text_width
+    endif
+
+    let cur_syntax = synIDattr(synIDtrans(synID(line("."), col("."), 0)), "name")
+    if cur_syntax == "Comment"
+        return comment_text_width
+    elseif cur_syntax == "String"
+        " Check to see if we're in a docstring
+        let lnum = line(".")
+        while lnum >= 1 && (synIDattr(synIDtrans(synID(lnum, col([lnum, "$"]) - 1, 0)), "name") == "String" || match(getline(lnum), '\v^\s*$') > -1)
+            if match(getline(lnum), "\\('''\\|\"\"\"\\)") > -1
+                " Assume that any longstring is a docstring
+                return comment_text_width
+            endif
+            let lnum -= 1
+        endwhile
+    endif
+
+    return normal_text_width
+endfunction
+
+augroup pep8
+    au!
+    autocmd CursorMoved,CursorMovedI * :if &ft == 'python' | :exe 'setlocal textwidth='.GetPythonTextWidth() | :endif
+augroup END

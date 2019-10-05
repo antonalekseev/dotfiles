@@ -1,0 +1,34 @@
+priority 0
+
+snippet {v "vim-modeline" b
+{# vim: set ft=jinja2: #}
+endsnippet
+
+# Redefiniton of some snippets from vim-snippets/UltiSnips/jinja2.snippets
+# in order to fix some bugs. Should push this changes upstream.
+
+snippet {{ "variable" i
+{{ $1 }}
+endsnippet
+
+snippet ifi "inline if" i
+{{ $2 if ${1:expr} }}
+endsnippet
+
+
+snippet ifi "inline if/else" i
+{{ $2 if ${1:expr} else $3 }}
+endsnippet
+
+
+snippet {# "comment" i
+{# $1 #}
+endsnippet
+
+
+snippet # "comment" i
+{# $1 #}
+endsnippet
+
+
+# vim:ft=snippets:
