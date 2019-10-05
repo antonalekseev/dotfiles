@@ -1,0 +1,45 @@
+# -*- mode: snippet -*-
+# name: HtDW program template
+# key: htdw
+# --
+(require 2htdp/image)
+(require 2htdp/universe)
+
+;; My world program  (make this more specific)
+
+;; =================
+;; Constants:
+
+$0
+
+;; =================
+;; Data definitions:
+
+;; ${1:ws_type} ... (give $1 a better name)
+
+
+
+;; =================
+;; Functions:
+
+;; $1 -> $1
+;; start the world with ...
+;; 
+(define (main ${2:ws_var})
+(big-bang $2                   ; $1
+(on-tick   tock)     ; $1 -> $1
+(to-draw   render)   ; $1 -> Image
+(stop-when ...)      ; $1 -> Boolean
+(on-mouse  ...)      ; $1 Integer Integer MouseEvent -> $1
+(on-key    ...)))    ; $1 KeyEvent -> $1
+
+;; $1 -> $1
+;; produce the next ...
+;; !!!
+(define (tock $2) ...)
+
+
+;; $1 -> Image
+;; render ... 
+;; !!!
+(define (render $2) ...)

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: qd
+# key: qd
+# --
+import q
+@q

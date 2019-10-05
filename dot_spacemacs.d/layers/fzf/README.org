@@ -1,0 +1,36 @@
+#+TITLE: fzf layer
+
+# TOC links should be GitHub style anchors.
+* Table of Contents                                        :TOC_4_gh:noexport:
+- [[#description][Description]]
+- [[#install][Install]]
+- [[#key-bindings][Key bindings]]
+
+* Description
+This layer aims to replace helm with fzf for most of the basic use cases:
+  - find-files
+  - find-recentf
+  - Anything else useful from [[https://github.com/junegunn/fzf.vim#commands][fzf.vim]]
+
+* Install
+
+To use this layer first clone it into your ~/.emacs.d/private directory:
+
+=git clone git@github.com:ashyisme/fzf-spacemacs-layer.git ~/.emacs.d/private/fzf=
+
+Then enable the layer in your =~/.spacemacs=:
+
+=(setq-default dotspacemacs-configuration-layers '(fzf))=
+
+* Key bindings
+
+| Key Binding | Description                   |
+|-------------+-------------------------------|
+| ~SPC o f f~ | Does spacemacs/fzf-find-files |
+| ~SPC o f r~ | Does spacemacs/fzf-recentf    |
+|             |                               |
+# Use GitHub URLs if you wish to link a Spacemacs documentation file or its heading.
+# Examples:
+# [[https://github.com/syl20bnr/spacemacs/blob/master/doc/VIMUSERS.org#sessions]]
+# [[https://github.com/syl20bnr/spacemacs/blob/master/layers/%2Bfun/emoji/README.org][Link to Emoji layer README.org]]
+# If space-doc-mode is enabled, Spacemacs will open a local copy of the linked file.

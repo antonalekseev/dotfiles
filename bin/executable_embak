@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set -e
+set -o pipefail
+
+TS=$(date +%Y%m%dT%H%M%S)
+CFGLN="$HOME/.emacs.d"
+CFGDIR=$(realpath "$CFGLN")
+CFGNAME=${CFGDIR##$HOME/.emacs.d.}
+BAKDIR="$HOME/backup"
+EMVERSTR=$(emacs --version|head -1)
+EMVER="${EMVERSTR##GNU Emacs }"
+
+# TODO: Exclude .git to reduce archive size when emres (restore) script is
+# finished.
+runtar() {
+	tar --exclude '.cache/quelpa' --exclude '.cache/.rollback' -ycf "$@"
+}
+
+if [ -d "$CFGDIR/.git" ]; then
+	CFGREV=$(cd "$CFGDIR" && git rev-parse --short HEAD)
+	BAKNAME="emacs-$EMVER-$CFGNAME-$CFGREV-$TS.tbz2"
+else
+	BAKNAME="emacs-$EMVER-$CFGNAME-$TS.tbz2"
+fi
+
+cd "$CFGDIR" && runtar "$BAKDIR/$BAKNAME" .

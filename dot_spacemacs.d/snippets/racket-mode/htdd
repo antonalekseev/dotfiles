@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: HtDD data template
+# key: htdd
+# --
+;; ${1:type_name} is ${2:type_descr}
+;; interp. ${3:type_interp}
+(define ${4:ex_name} ${5:ex_value})
+#;
+(define (${6:fn_name} ${7:fn_args})
+$0
+)
+
+;; Template rules used:
+;; - $2

@@ -1,0 +1,41 @@
+#!/bin/sh
+
+: "${EMACS_SVCNAME:=d12frosted/emacs-plus/emacs-plus}"
+
+emacs_stop() {
+	pid=$(pgrep Emacs)
+	if [ -n "$pid" ]; then
+		emacsclient -e "(save-buffers-kill-emacs)" || kill -15 "$pid"
+		while [ "$(pgrep Emacs)" = "$pid" ]; do
+			sleep 1
+		done
+	fi
+}
+
+if [ -L "$HOME/.emacs.d" ]; then
+	cur=$(readlink "$HOME/.emacs.d")
+else
+	echo "error: .emacs.d is not symlink"
+	exit 1
+fi
+
+if [ "$cur" = ".emacs.d.spc" ]; then
+	new=".emacs.d.bare"
+else
+	new=".emacs.d.spc"
+fi
+
+if [ -f "$HOME/Library/LaunchAgents/homebrew.mxcl.emacs-plus.plist" ]; then
+	was_enabled=1
+	echo "was enabled"
+	emacs_stop
+	brew services stop "$EMACS_SVCNAME"
+fi
+
+rm "$HOME/.emacs.d"
+cd "$HOME" && ln -s "$new" .emacs.d
+if [ -n "$was_enabled" ]; then
+	echo "was enabled"
+	brew services restart "$EMACS_SVCNAME"
+fi
+echo "$cur -> $new"
