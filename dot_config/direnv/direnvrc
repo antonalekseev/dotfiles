@@ -1,0 +1,61 @@
+NODE_VERSIONS="$HOME/.nvm/versions/node"
+NODE_VERSION_PREFIX="v"
+
+layout_virtualenv() {
+  local venv_path="$1"
+  source ${venv_path}/bin/activate
+}
+  
+layout_virtualenvwrapper() {
+  local venv_path="${WORKON_HOME}/$1"
+  layout_virtualenv $venv_path
+}
+
+log_file() {
+  if [[ -n $DIRENV_LOG_FORMAT ]]; then
+    local msg=$*
+    local logfile="$TMPDIR/direnv.log"
+    # shellcheck disable=SC2059,SC1117
+    printf "${DIRENV_LOG_FORMAT}\n" "$msg" >>"$logfile"
+  fi
+}
+
+# Usage: use ruby <version>
+#
+# Loads the specified ruby version into the environent
+#
+# from: https://direnv.net/#/docs/ruby
+use_ruby() {
+  local ruby_dir=$HOME/.rubies/$1
+  load_prefix $ruby_dir
+  layout ruby
+}
+
+# Usage: layout pipenv
+#
+# Customized version of built-in layout_pipenv that runs `pipenv sync` instead
+# of `pipenv install` in the case of `Pipfile.lock` is being found.
+
+layout_pipenv() {
+  PIPENV_PIPFILE="${PIPENV_PIPFILE:-Pipfile}"
+  PIPENV_LOCK="${PIPENV_PIPFILE}.lock"
+  if [[ ! -f "$PIPENV_PIPFILE" ]]; then
+    log_error "No Pipfile found.  Use \`pipenv\` to create a \`$PIPENV_PIPFILE\` first."
+    exit 2
+  fi
+
+  VIRTUAL_ENV=$(pipenv --venv 2>/dev/null ; true)
+
+  if [[ -z $VIRTUAL_ENV || ! -d $VIRTUAL_ENV ]]; then
+    if [[ ! -f "$PIPENV_LOCK" ]]; then
+      pipenv install --dev
+    else
+      pipenv sync --dev
+    fi
+    VIRTUAL_ENV=$(pipenv --venv)
+  fi
+
+  PATH_add "$VIRTUAL_ENV/bin"
+  export PIPENV_ACTIVE=1
+  export VIRTUAL_ENV
+}
