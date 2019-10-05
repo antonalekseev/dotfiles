@@ -1,0 +1,37 @@
+#!/bin/sh
+
+#
+# usage:
+# htc-dl <url> <module>
+# htc-dl <problem file> <problem id>
+
+CLDIR='$HOME/Devel/ubcx-htc1x/'
+PRDIR="$CLDIR/problems"
+BURL='https://s3.amazonaws.com/edx-course-spdx-kiczales/HTC/'
+
+fetch() {
+	# $1: url
+	# $2: outfile
+	wget -O "$2" "$1"
+}
+
+convert() {
+	# $1: wxme
+	# $2: plain-text rkt
+	racket "$HOME/bin/wxme_converter.rkt" "$1" > "$2"
+}
+
+filename="${1##*/}"
+if [ "${1##http[s:][:/]}" != "$1" ]; then
+	[ -d "$CLDIR/$2/" ] || mkdir "$CLDIR/$2/"
+	fetch "$1" "$CLDIR/$2/${filename%%.rkt}-wxme.rkt"
+	convert "$CLDIR/$2/${filename%%.rkt}-wxme.rkt" "$CLDIR/$2/$filename"
+else
+	prname="$1"
+	prid="$2"
+	[ -d "$PRDIR/$prid/" ] || mkdir "$PRDIR/$prid/"
+	fetch "$BURL${prname}-starter.rkt" "$PRDIR/${prid}/${prname}-starter-wxme.rkt"
+	fetch "$BURL${prname}-solution.rkt" "$PRDIR/${prid}/${prname}-solution-wxme.rkt"
+	convert "$PRDIR/${prid}/${prname}-starter-wxme.rkt" "$PRDIR/${prid}/${prname}-starter.rkt"
+	convert "$PRDIR/${prid}/${prname}-solution-wxme.rkt" "$PRDIR/${prid}/${prname}-solution.rkt"
+fi
