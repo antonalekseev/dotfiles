@@ -255,3 +255,13 @@ function cookiecutter-update() {
 		( cd "$cc" && git pull )
 	done
 }
+
+# htmlenc converts UTF-8 text to HTML characters
+function htmlenc() {
+	recode u8..h
+}
+
+# htmldec converts HTML characters to UTF-8 text
+function htmldec() {
+	recode h..u8
+}
