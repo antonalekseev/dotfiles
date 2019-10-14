@@ -53,7 +53,7 @@ This function should only modify configuration layer settings."
      csv
      dap
      (dash :variables
-           helm-dash-docset-newpath (concat (getenv "HOME")
+           dash-docs-docset-newpath (concat (getenv "HOME")
                                             "/Library/Application Support/Dash/DocSets/"))
      docker
      emacs-lisp
