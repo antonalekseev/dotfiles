@@ -1,7 +1,5 @@
 # -*- mode: shell-script; -*-
 
-[ "$PROFILE_SOURCED" -eq "1" ] || source "$HOME/.zprofile"
-
 bindkey -v
 
 # Persist vi mode between commands
