@@ -64,6 +64,7 @@ bindkey -M vicmd v edit-command-line
 
 export PDSH_SSH_ARGS='-A'
 export LPASS_HOME="$HOME/.config/lpass"
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 [ -z "$SSH_TTY" ] || export SSH_AUTH_SOCK=$HOME/.ssh/ssh_auth_sock
 
