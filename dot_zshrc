@@ -134,6 +134,9 @@ fi
 
 eval "$(direnv hook zsh)"
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
 function getprompt() {
 	if [ "${VIRTUAL_ENV##*/}" = "$VIRTUAL_ENV_DEFAULT" -o -z "${VIRTUAL_ENV}" ]; then
 		echo "%m%# "
