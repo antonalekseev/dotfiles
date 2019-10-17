@@ -64,7 +64,9 @@ This function should only modify configuration layer settings."
      (go :variables
          go-tab-width 4
          godoc-at-point-function 'godoc-gogetdoc
-         go-use-gometalinter t)
+         go-use-golangci-lint t
+         go-format-before-save t
+         gofmt-command "goimports")
      (html :variables web-fmt-tool 'prettier)
      aaa-ipython-notebook
      ivy
