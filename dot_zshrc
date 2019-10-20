@@ -136,6 +136,14 @@ export NVM_DIR="$HOME/.nvm"
 
 eval "$(starship init zsh)"
 
+# zplug
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
+zplug "hlissner/zsh-autopair", defer:2
+
+zplug load
+
 function _tmuxw() {
 	[ -z "$TMUX" ] && $* && return
 	cmd=$1
