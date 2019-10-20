@@ -103,15 +103,6 @@ setopt EXTENDED_HISTORY
 setopt HIST_IGNORE_SPACE
 setopt PROMPT_SUBST
 
-bindkey -M viins '^H' history-incremental-pattern-search-backward
-bindkey -M viins '^F' history-incremental-pattern-search-forward
-bindkey -M vicmd '/' history-incremental-pattern-search-backward
-bindkey -M vicmd '?' history-incremental-pattern-search-forward
-bindkey -M viins '^P' up-history
-bindkey -M viins '^N' down-history
-bindkey -M isearch '^M' accept-enter
-bindkey -M isearch '^I' accept-search
-
 WHOAMI=`whoami`
 
 if [[ "$ITERM_PROFILE" != "Hotkey Window" ]]; then
@@ -142,7 +133,15 @@ source $ZPLUG_HOME/init.zsh
 
 zplug "hlissner/zsh-autopair", defer:2
 
+zplug "zsh-users/zsh-history-substring-search"
+
 zplug load
+
+# zsh-history-substring-search
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+bindkey '^K' history-substring-search-up
+bindkey '^J' history-substring-search-down
 
 function _tmuxw() {
 	[ -z "$TMUX" ] && $* && return
