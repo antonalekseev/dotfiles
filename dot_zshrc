@@ -105,6 +105,8 @@ setopt PROMPT_SUBST
 
 WHOAMI=`whoami`
 
+eval "$(starship init zsh)"
+
 if [[ "$ITERM_PROFILE" != "Hotkey Window" ]]; then
 	source $HOME/bin/base16-default-light.sh
 	TMUX_SESSION_NAME="${WHOAMI}-full"
@@ -124,8 +126,6 @@ eval "$(direnv hook zsh)"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-
-eval "$(starship init zsh)"
 
 # zplug
 export ZPLUG_HOME=/usr/local/opt/zplug
