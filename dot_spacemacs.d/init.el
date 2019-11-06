@@ -1078,11 +1078,12 @@ you should place your code here."
   (setq company-lsp-cache-candidates 'auto) 
 
   ;; Python
-  (add-hook 'python-mode-hook (lambda () 
-                                (progn 
+  (add-hook 'python-mode-hook (lambda ()
+                                (progn
                                   (embrace-add-pair ?3 "\"\"\"" "\"\"\"")
                                   (embrace-build-help "\"\"\"" "\"\"\"")
-                                  )))
+                                  (setq python-shell-interpreter "python")
+                                  (setq python-shell-interpreter-args "-i"))))
 
   ;; Org
   (org-babel-do-load-languages
