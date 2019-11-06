@@ -91,7 +91,9 @@ This function should only modify configuration layer settings."
      (python :variables
              python-backend 'lsp
              python-test-runner 'pytest
-             python-formatter 'black)
+             python-formatter 'black
+             python-auto-set-local-pyenv-version nil
+             python-auto-set-local-pyvenv-virtualenv nil)
      racket
      restclient
      aaa-rmsbolt
