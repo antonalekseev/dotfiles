@@ -1,9 +1,22 @@
 {
   "load_extensions": {
+    "jupytext/index": true,
+    "jupyter-js-widgets/extension": true,
+    "nbextensions_configurator/config_menu/main": true,
+    "contrib_nbextensions_help_item/main": true,
     "runtools/main": true,
-    "code_prettify/code_prettify": true
+    "code_prettify/code_prettify": true,
+    "keyboard_shortcut_editor/main": false
   },
   "code_prettify": {
     "kernel_config_map_json": "{\n  \"python\": {\n    \"library\": \"import json\\ndef black_reformat(cell_text):\\n    import black\\n    import re\\n    cell_text = re.sub('^%', '#%#', cell_text, flags=re.M)\\n    try:\\n        reformated_text = black.format_str(cell_text, 88)\\n    except TypeError:\\n        reformated_text = black.format_str(cell_text, mode=black.FileMode(line_length=88))\\n    return re.sub('^#%#', '%', reformated_text, flags=re.M)\",\n    \"prefix\": \"print(json.dumps(black_reformat(u\",\n    \"postfix\": \")))\"\n  },\n  \"r\": {\n    \"library\": \"library(formatR)\\nlibrary(jsonlite)\",\n    \"prefix\": \"cat(toJSON(paste(tidy_source(text=\",\n    \"postfix\": \", output=FALSE)[['text.tidy']], collapse='\\n')))\"\n  },\n  \"javascript\": {\n    \"library\": \"jsbeautify = require('js-beautify')\",\n    \"prefix\": \"console.log(JSON.stringify(jsbeautify.js_beautify(\",\n    \"postfix\": \")));\"\n  }\n}"
+  },
+  "keys": {
+    "command": {
+      "bind": {
+        "i": "jupyter-notebook:enter-edit-mode",
+        "enter": "jupyter-notebook:enter-edit-mode"
+      }
+    }
   }
 }
