@@ -103,3 +103,6 @@ tags
 
 # Per-project virtualenv directories
 .venv
+
+# Per-project .envrc files
+.envrc
