@@ -68,7 +68,7 @@ This function should only modify configuration layer settings."
          go-format-before-save t
          gofmt-command "goimports")
      (html :variables web-fmt-tool 'prettier)
-     aaa-ipython-notebook
+     ipython-notebook
      ivy
      (json :variables json-fmt-tool 'prettier)
      (lsp :variables
