@@ -1,1 +1,1 @@
-ls --color=never
+ls --color=never --sync=no

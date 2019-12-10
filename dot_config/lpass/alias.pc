@@ -1,1 +1,1 @@
-show --password -c
+show --color=never --sync=no --password -c
