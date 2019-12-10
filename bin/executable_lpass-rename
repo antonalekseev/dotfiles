@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Poor man's lpass rename implementation
+# source: https://github.com/lastpass/lastpass-cli/issues/106#issuecomment-131576239
+
+set -e
+
+base=$(basename "$0")
+
+usage() {
+	echo "usage: $base <old name> <new name>"
+	exit 2
+}
+
+if [ $# -lt 2 ]; then
+	usage
+fi
+
+lpass show -q "$1" >/dev/null 2>&1 || { echo "error: $1 doesn't exist" ; exit 1 ; }
+lpass show -q "$2" >/dev/null 2>&1 && { echo "error: $2 already exists" ; exit 1 ; }
+echo "$2" | lpass edit --sync=now --non-interactive --name "$1"
