@@ -104,5 +104,9 @@ tags
 # Per-project virtualenv directories
 .venv
 
+# Backup/temporary files
+*.bak
+*.tmp
+
 # Per-project .envrc files
 .envrc
