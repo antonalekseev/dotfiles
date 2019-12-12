@@ -36,6 +36,10 @@ nmap <leader>l :set list!<CR>
 " quickly close the current window
 nnoremap <leader>q :q<CR>
 
+" make C-J/C-K work in cmdline
+cnoremap <C-K> <Up>
+cnoremap <C-J> <Down>
+
 " http://superuser.com/questions/131950/indentation-for-plain-text-bulleted-lists-in-vim
 set comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-,fb:[+],fb:[x],fb:[-]
 
