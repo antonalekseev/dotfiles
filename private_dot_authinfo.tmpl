@@ -1,0 +1,1 @@
+machine api.github.com login {{ (index (lastpass "private/github.com/oauth-token") 0).username }}^forge password {{ (index (lastpass "private/github.com/oauth-token") 0).password }}
