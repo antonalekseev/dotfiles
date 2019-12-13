@@ -46,7 +46,8 @@ This function should only modify configuration layer settings."
                       auto-completion-tab-key-behavior 'cycle
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip 'manual
-                      auto-completion-enable-sort-by-usage t)
+                      auto-completion-enable-sort-by-usage t
+                      auto-completion-idle-delay 2.0)
      ;; better-defaults
      bm
      common-lisp
