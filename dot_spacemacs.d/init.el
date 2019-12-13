@@ -1125,6 +1125,10 @@ you should place your code here."
   ;; Add binding for man
   (with-eval-after-load 'counsel (spacemacs/set-leader-keys "hm" 'man))
 
+  ;; Toggle fullscreen on macOS
+  (when (eq system-type 'darwin)
+    (global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen))
+
   ;; ui
   ;; ==
 
