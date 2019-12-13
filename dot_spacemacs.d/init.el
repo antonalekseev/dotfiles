@@ -1063,7 +1063,7 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("\\.adoc\\'" . text-mode))
 
   ;; Counsel
-  (when (eq 'system-type 'darwin)
+  (when (eq system-type 'darwin)
     (setq counsel-locate-cmd 'counsel-locate-cmd-mdfind))
 
   ;; Don't highlight long lines in whitespace mode
