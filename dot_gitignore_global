@@ -103,6 +103,7 @@ tags
 
 # Per-project virtualenv directories
 .venv
+.direnv/python-*
 
 # Backup/temporary files
 *.bak
