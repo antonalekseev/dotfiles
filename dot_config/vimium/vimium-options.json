@@ -9,7 +9,7 @@
   "filterLinkHints": false,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
-  "keyMappings": "# Insert your preferred key mappings here.",
+  "keyMappings": "# Insert your preferred key mappings here.\nmap gn visitPreviousTab",
   "linkHintCharacters": "sadfjlewvmnpgh",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
