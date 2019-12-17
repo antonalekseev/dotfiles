@@ -273,3 +273,17 @@ function bmv() {
 function bcp() {
 	zmv -C "($1)" '$1.$(date +%Y%m%dT%H%M%S).bak'
 }
+
+# copy vimium-options.json to .config dir and chezmoi add it
+function save-vimium-config() {
+	vimiumdir="$HOME/.config/vimium"
+	vimiumcfg="$HOME/Downloads/vimium-options.json"
+	[ -d "$vimiumdir" ] || mkdir "$vimiumdir"
+	if [ -f "$vimiumcfg" ]; then
+		mv "$vimiumcfg" "$vimiumdir"
+		chezmoi add "${vimiumdir}/${vimiumcfg##*/}"
+	else
+		echo "There is no such file $vimiumcfg"
+		return 1
+	fi
+}
