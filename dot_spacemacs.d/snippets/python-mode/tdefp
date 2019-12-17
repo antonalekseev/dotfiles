@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: tdefp
+# key: tdefp
+# --
+@pytest.mark.parametrize(
+    "args, expected",
+    [
+        ([$2], $3),$0
+    ]
+)
+def test_$1(args, expected):
+    assert $1(*args) == expected
