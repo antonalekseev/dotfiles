@@ -4,6 +4,10 @@
     {
       "pattern": "https?://mail.google.com/*",
       "passKeys": ""
+    },
+    {
+      "pattern": "https?://localhost:8888/*",
+      "passKeys": ""
     }
   ],
   "filterLinkHints": false,
