@@ -1,0 +1,5 @@
+{
+  "apibaseurl": "https://api.exercism.io/v1",
+  "token": "{{ (index (lastpass "token/exercism.io") 0).password }}",
+  "workspace": "{{ .chezmoi.homedir }}/p/exercism"
+}
