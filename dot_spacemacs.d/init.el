@@ -73,6 +73,7 @@ This function should only modify configuration layer settings."
      ivy
      (json :variables json-fmt-tool 'prettier)
      (lsp :variables
+          lsp-enable-symbol-highlighting nil
           lsp-ui-sideline-enable nil
           lsp-ui-doc-enable nil
           lsp-ui-flycheck-enable nil
