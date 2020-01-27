@@ -8,6 +8,10 @@
     {
       "pattern": "https?://localhost:8888/*",
       "passKeys": ""
+    },
+    {
+      "pattern": "https?://www.codewars.com/*",
+      "passKeys": ""
     }
   ],
   "filterLinkHints": false,
