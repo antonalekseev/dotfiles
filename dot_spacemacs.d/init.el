@@ -86,7 +86,7 @@ This function should only modify configuration layer settings."
                  javascript-backend 'lsp
                  js2-basic-offset 2
                  js-indent-level 2)
-     ;; markdown
+     markdown
      (org :variables
           org-confirm-babel-evaluate nil
           org-bullets-bullet-list '("■" "◆" "▲" "▶"))
