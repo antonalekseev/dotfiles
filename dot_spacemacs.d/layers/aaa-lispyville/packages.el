@@ -87,7 +87,7 @@ Each entry is either:
                                   slurp/barf-lispy
                                   additional
                                   (escape insert)
-                                  ;; (additional-movement normal visual motion)
+                                  (additional-movement normal)
                                   mark)))))
   
 ;;; packages.el ends here
