@@ -1095,6 +1095,9 @@ you should place your code here."
      (shell  . t)
      ))
 
+  ;; Markdown
+  (with-eval-after-load 'markdown-mode (remove-hook 'markdown-mode-hook 'orgtbl-mode))
+
   ;; keys
   ;; ====
 
