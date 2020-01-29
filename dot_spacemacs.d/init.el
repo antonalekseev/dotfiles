@@ -99,6 +99,7 @@ This function should only modify configuration layer settings."
      racket
      restclient
      aaa-rmsbolt
+     (semantic :packages semantic srefactor)
      (shell :variables
             shell-default-shell 'eshell
             shell-default-term-shell "zsh")
