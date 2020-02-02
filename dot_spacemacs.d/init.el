@@ -621,6 +621,14 @@ you should place your code here."
   ;; Markdown
   (with-eval-after-load 'markdown-mode (remove-hook 'markdown-mode-hook 'orgtbl-mode))
 
+  ;; Enable semantic only for elisp-mode
+  ;; from: https://emacs.stackexchange.com/a/15142
+  (defun my-inhibit-semantic-p ()
+    (not (equal major-mode 'elisp-mode)))
+
+  (with-eval-after-load 'semantic
+    (add-to-list 'semantic-inhibit-functions #'my-inhibit-semantic-p))
+
   ;; keys
   ;; ====
 
