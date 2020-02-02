@@ -619,6 +619,7 @@ you should place your code here."
      ))
 
   ;; Markdown
+  ;; Address syl20bnr/spacemacs#10836
   (with-eval-after-load 'markdown-mode (remove-hook 'markdown-mode-hook 'orgtbl-mode))
 
   ;; Enable semantic only for elisp-mode
