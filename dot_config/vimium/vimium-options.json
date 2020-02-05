@@ -17,7 +17,7 @@
   "filterLinkHints": false,
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
-  "keyMappings": "# Insert your preferred key mappings here.\nmap gn visitPreviousTab",
+  "keyMappings": "# Insert your preferred key mappings here.\nmap gn visitPreviousTab\nunmap x\nmap xx removeTab\nmap xt closeTabsOnRight\nmap xT closeTabsOnLeft",
   "linkHintCharacters": "sadfjlewvmnpgh",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
