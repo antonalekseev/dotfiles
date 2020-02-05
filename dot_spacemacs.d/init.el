@@ -81,6 +81,7 @@ This function should only modify configuration layer settings."
      (multiple-cursors :variables
                        multiple-cursors-backend 'evil-mc)
      neotree
+     nim
      (javascript :variables
                  javascript-fmt-tool 'prettier
                  javascript-backend 'lsp
