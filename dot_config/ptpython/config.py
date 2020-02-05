@@ -4,11 +4,11 @@ Configuration example for ``ptpython``.
 Copy this file to ~/.ptpython/config.py
 """
 from __future__ import unicode_literals
+from prompt_toolkit.filters import ViInsertMode
+from prompt_toolkit.keys import Keys
 import os
 
-__all__ = (
-    'configure',
-)
+__all__ = ("configure",)
 
 
 def configure(repl):
@@ -20,6 +20,8 @@ def configure(repl):
 
     # Vi mode.
     repl.vi_mode = True
+    repl.vi_start_in_nav_mode = True
+    repl.vi_keep_last_used_mode = True
 
     # History Search.
     # When True, going back in history will filter the history on the records
@@ -41,5 +43,14 @@ def configure(repl):
     repl.enable_input_validation = True
 
     # Set colour scheme for hotkey window
-    if os.environ.get('ITERM_PROFILE') == 'Hotkey Window':
-        repl.use_code_colorscheme('paraiso-dark')
+    if os.environ.get("ITERM_PROFILE") == "Hotkey Window":
+        repl.use_code_colorscheme("paraiso-dark")
+
+    # Use C-K, C-J to navigate history in the Insert mode
+    @repl.add_key_binding(Keys.ControlK, filter=ViInsertMode())
+    def _(event):
+        event.current_buffer.auto_up()
+
+    @repl.add_key_binding(Keys.ControlJ, filter=ViInsertMode())
+    def _(event):
+        event.current_buffer.auto_down()
