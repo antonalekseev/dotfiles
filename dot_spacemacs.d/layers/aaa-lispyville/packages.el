@@ -85,9 +85,23 @@ Each entry is either:
       (lispyville-set-key-theme '(operators
                                   s-operators
                                   slurp/barf-lispy
-                                  additional
                                   (escape insert)
-                                  (additional-movement normal)
-                                  mark)))))
-  
+                                  mark)))
+      ;; Like additional-movement for normal mode but cbmpatible with
+      ;; Spacemacs unimpaired bindings
+      (lispyville--define-key 'normal
+        "H" #'lispyville-backward-sexp
+        "L" #'lispyville-forward-sexp
+        (kbd "M-h") #'lispyville-beginning-of-defun
+        (kbd "M-l") #'lispyville-end-of-defun
+        ;; reverse of lispy-flow
+        (kbd "[ [") #'lispyville-previous-opening
+        (kbd "] ]") #'lispyville-next-closing
+        ;; like lispy-flow
+        (kbd "] [") #'lispyville-next-opening
+        (kbd "[ ]") #'lispyville-previous-closing
+        ;; like lispy-left and lispy-right
+        "(" #'lispyville-backward-up-list
+        ")" #'lispyville-up-list)))
+
 ;;; packages.el ends here
