@@ -107,8 +107,6 @@ setopt PROMPT_SUBST
 
 WHOAMI=`whoami`
 
-eval "$(starship init zsh)"
-
 if [[ "$ITERM_PROFILE" != "Hotkey Window" ]]; then
 	source $HOME/bin/base16-default-light.sh
 	TMUX_SESSION_NAME="${WHOAMI}-full"
@@ -132,6 +130,8 @@ export NVM_DIR="$HOME/.nvm"
 # zplug
 export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
+
+zplug romkatv/powerlevel10k, as:theme, depth:1
 
 zplug "hlissner/zsh-autopair", defer:2
 
@@ -287,3 +287,6 @@ function save-vimium-config() {
 		return 1
 	fi
 }
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
