@@ -639,6 +639,10 @@ you should place your code here."
   ;; Set key for hippie-expand
   (global-set-key (kbd "<C-return>") 'hippie-expand)
 
+  ;; Unshadow C-return in emmet-mode
+  (with-eval-after-load 'emmet-mode
+    (unbind-key "<C-return>" emmet-mode-keymap))
+
   ;; Set key for emmet-wrap-with-markup
   (spacemacs/set-leader-keys-for-major-mode 'web-mode
     "rW" 'emmet-wrap-with-markup)
