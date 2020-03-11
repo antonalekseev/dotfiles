@@ -117,9 +117,12 @@ fi
 if [ "$TERM" != "screen-256color" ]\
 	   && [ "$TERM_PROGRAM" = "iTerm.app" ]\
 	   && [ "$OS" = "Darwin" ]; then
-	tmux has-session -t $TMUX_SESSION_NAME\
-		&& tmux attach-session -t $TMUX_SESSION_NAME\
-		|| tmux new-session -s $TMUX_SESSION_NAME
+	tmux list-sessions -F "#{session_name}:#{session_attached}"\
+		|grep -q "${TMUX_SESSION_NAME}"\
+		|| tmux new-session -s "$TMUX_SESSION_NAME"
+	tmux list-sessions -F "#{session_name}:#{session_attached}"\
+		|grep -q "${TMUX_SESSION_NAME}:1"\
+		|| tmux attach-session -t "$TMUX_SESSION_NAME"
 fi
 
 eval "$(direnv hook zsh)"
