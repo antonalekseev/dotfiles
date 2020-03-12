@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# usage:
+# tmux-eveng user@eveng.hostname.net "lab name"
+
+tmux new-session -d -s "eveng"
+ssh "$1" "cat /opt/unetlab/labs/\"$2\".unl" | xmlstarlet sel -T -t -m "/lab/topology/nodes/node" -v "concat(@id, ':', @name,':',@type,':', @console)" -n | while read -r node; do
+	id=$(echo "$node"|cut -d: -f 1)
+	name=$(echo "$node"|cut -d: -f 2)
+	port=$((32768 + id))
+	tmux neww -n "$name" "ssh -f -L $port:localhost:$port $1 sleep 10; telnet localhost $port"
+done
+tmux attach -t "eveng"
