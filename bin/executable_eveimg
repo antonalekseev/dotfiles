@@ -1,0 +1,52 @@
+#!/bin/sh
+
+set -Ceu
+
+TMPIMG=$(mktemp -d)
+TMPOUT=$(mktemp -d)
+OUTDIR="$PWD"
+
+cleanup() {
+	rm -rf "$TMPIMG" "$TMPOUT"
+}
+trap cleanup EXIT
+
+error() {
+	echo "error: $*"
+	exit 1
+}
+
+usage() {
+	cat <<EOT
+Usage:
+
+  eveimg <input files>
+
+Supported file types:
+
+  Juniper Virtual Route Reflector (vRR)	vrr-bundle-kvm-*
+
+EOT
+	exit
+}
+
+[ $# -gt 0 ] || usage
+
+case $1 in
+	vrr-bundle-kvm*)
+		ver=$1
+		ver=${ver##vrr-bundle-kvm-}
+		ver=${ver%%.tgz}
+		tar zxf "$1" -C "$TMPIMG"
+		cd "$TMPIMG" || error "Unable to change directory to $TMPIMG"
+		mkdir "$TMPOUT/junipervrr-$ver"
+		mv "$ver/junos-x86-64-$ver.img" "$TMPOUT/junipervrr-$ver/virtioa.qcow2" 
+		mv "$ver/metadata.img" "$TMPOUT/junipervrr-$ver/virtiob.qcow2" 
+		cd "$TMPOUT" || error "Unable to change directory to $TMPOUT"
+		tar zcf "$OUTDIR/junipervrr-$ver.tar.gz" "junipervrr-$ver"
+		echo "junipervrr-$ver.tar.gz has been created."
+		;;
+	*)
+		error "Unable to make EVE-NG image from the given file."
+		;;
+esac
