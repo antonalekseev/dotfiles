@@ -1,7 +1,28 @@
 #!/bin/sh
 
-# usage:
-# tmux-eveng user@eveng.hostname.net "lab name"
+set -Ceu
+
+error() {
+	echo "error: $*"
+	exit 1
+}
+
+usage() {
+	cat <<EOT
+Usage:
+
+  evetmux [user@]eveng.host "<lab name>"
+
+EOT
+	exit
+}
+
+[ $# -gt 1 ] || usage
+
+command -v xmlstarlet || error "xmlstarlet executable is not found"
+command -v tmux || error "tmux executable is not found"
+
+ssh -T "$1" true || error "Unable to SSH to eveng host ${1##*@}"
 
 tmux new-session -d -s "eveng"
 ssh "$1" "cat /opt/unetlab/labs/\"$2\".unl" | xmlstarlet sel -T -t -m "/lab/topology/nodes/node" -v "concat(@id, ':', @name,':',@type,':', @console)" -n | while read -r node; do
