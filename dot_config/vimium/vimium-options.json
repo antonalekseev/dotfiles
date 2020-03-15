@@ -12,6 +12,10 @@
     {
       "pattern": "https?://www.codewars.com/*",
       "passKeys": ""
+    },
+    {
+      "pattern": "https?://www.typingclub.com/*",
+      "passKeys": ""
     }
   ],
   "filterLinkHints": false,
