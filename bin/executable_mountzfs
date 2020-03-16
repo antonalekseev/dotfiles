@@ -1,0 +1,50 @@
+#!/bin/sh
+
+set -eu
+
+ZPOOLCMD="sudo zpool"
+ZFSCMD="sudo zfs"
+
+cleanup() {
+	[ -f "$KEYFILE" ] && rm "$KEYFILE"
+}
+trap cleanup EXIT
+
+error() {
+	echo "error: $*"
+	exit 1
+}
+
+usage() {
+	cat <<EOT
+Usage:
+
+  mountzfs <pool>/<dataset>
+
+EOT
+	exit
+}
+
+[ $# -gt 0 ] || usage
+
+pool=${1%%/*}
+pool_health=$($ZPOOLCMD list -H|grep "^${pool}"|cut -d'	' -f10)
+
+if [ "${pool_health}" != "ONLINE" ]; then
+	$ZPOOLCMD import "${pool}" || error "Unable to import ${pool}"
+fi
+
+dataset_enc=$($ZFSCMD get -H encryption|cut -d'	' -f2)
+if [ "$dataset_enc" != "off" ]; then
+	KEYFILE=$(mktemp)
+	if lpass ls|grep -q "fs/$1"; then
+		lpass show --color=never --sync=no --password "fs/$1"\
+			  2>/dev/null\
+			  >> "$KEYFILE"\
+			  || error "Unable to fetch key for $1"
+		$ZFSCMD load-key -L "file://$KEYFILE" "$1"\
+			|| error "Unable to load-key for $1"
+	fi
+fi
+
+$ZFSCMD mount "$1" || error "Unable to mount $1"

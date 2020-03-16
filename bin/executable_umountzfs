@@ -1,0 +1,31 @@
+#!/bin/sh
+
+set -eu
+
+ZFSCMD="sudo zfs"
+
+error() {
+	echo "error: $*"
+	exit 1
+}
+
+usage() {
+	cat <<EOT
+Usage:
+
+  umountzfs <pool>/<dataset>
+
+EOT
+	exit
+}
+
+[ $# -gt 0 ] || usage
+
+$ZFSCMD mount|grep -q "^$1" || error "$1 is not currently mounted."
+
+if $ZFSCMD umount "$1"; then
+	$ZFSCMD unload-key "$1" || error "Unable to unload-key for $1"
+else
+	error "Unable to umount $1"
+fi
+
