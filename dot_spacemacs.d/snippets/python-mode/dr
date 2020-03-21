@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: doc returns
+# key: dr
+# --
+${1:type}
+    ${2:description}
+$0

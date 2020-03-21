@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: doc parameters section
+# key: dsp
+# --
+Parameters
+----------
+${1:name}${2: : ${3:type}}
+    ${4:description}
+$0
