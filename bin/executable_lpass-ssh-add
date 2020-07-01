@@ -1,0 +1,15 @@
+#!/bin/sh
+
+[ $# -eq 2 ] || {
+	echo "Usage: $(basename "$0") <name|id> <key name>"
+	exit 1
+}
+
+phrase=$(lpass show --notes "$1/phrase")
+
+expect <<EOF
+	   spawn ssh-add $HOME/.ssh/$2
+	   expect "Enter passphrase"
+	   send "$phrase\r"
+	   expect eof
+EOF

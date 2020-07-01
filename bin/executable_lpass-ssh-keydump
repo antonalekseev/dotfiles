@@ -1,0 +1,9 @@
+#!/bin/sh
+
+[ $# -eq 2 ] || {
+	echo "Usage: $(basename "$0") <name|id> <key name>"
+	exit 1
+}
+
+lpass show --notes "$1/private" >"$HOME/.ssh/$2" && chmod 0400 "$HOME/.ssh/$2"
+lpass show --notes "$1/public" >"$HOME/.ssh/$2.pub"

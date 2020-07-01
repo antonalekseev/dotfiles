@@ -1,0 +1,44 @@
+#!/bin/sh
+
+ROUNDS=100
+ADDCMD="lpass add --non-interactive --sync=now --notes"
+
+usage() {
+	echo "Usage: $(basename "$0") [-e] -- NAME <ssh-keygen options ...>" 1>&2
+	exit 1
+}
+
+# source: https://unix.stackexchange.com/a/476125
+phrase=$(base64 < /dev/urandom | tr -d 'O0Il1+\' | head -c 44)
+
+while getopts "e" opt; do
+	case "$opt" in
+	e)
+		phrase=""
+		;;
+	*)
+		usage
+		;;
+	esac
+done
+shift $((OPTIND - 1))
+
+name="$1"
+shift
+
+lastpwd="$PWD"
+tmpdir=$(mktemp -d)
+cd "$tmpdir" || { echo "error: can't cd to tmpdir"; exit 1; }
+
+# source: https://gist.github.com/kraftb/9918106#gistcomment-2733298
+mkfifo -m 0600 key key.pub &&
+	(
+		$ADDCMD "$name/private" <key
+		$ADDCMD "$name/public" <key.pub
+		[ -n "$phrase" ] && printf %s "$phrase" | $ADDCMD "$name/phrase"
+	) &
+echo "y" | ssh-keygen -a "$ROUNDS" -N "$phrase" -f key "$@"
+
+rm key key.pub
+cd "$lastpwd" || { echo "warn: can't cd back to last dir"; exit 0; }
+rm -r "$tmpdir"
