@@ -1,9 +1,0 @@
-#!/bin/sh
-
-command -v lpass >/dev/null 2>&1 || { echo "error: lastpass-cli should be installed"; exit 1; }
-command -v passh >/dev/null 2>&1 || { echo "error: passh should be installed"; exit 1; }
-
-PASSHWORD=$(lpass show --password "$1")
-export PASSHWORD
-shift
-passh -p env:PASSHWORD ssh "$@"
