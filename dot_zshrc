@@ -93,7 +93,7 @@ alias jh="z ~"
 alias je="z -e"
 alias jc="z -c"
 alias jj="z -I"
-alias jb="z -b"
+alias jb="z -b -I"
 
 setopt SHARE_HISTORY
 setopt HIST_REDUCE_BLANKS
