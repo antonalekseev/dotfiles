@@ -1,9 +1,29 @@
 #!/bin/sh
 
 [ $# -eq 2 ] || {
-	echo "Usage: $(basename "$0") <name|id> <key name>"
+	echo "Usage: $(basename "$0") <lastpass name|id> <key slug>"
 	exit 1
 }
 
-lpass show --notes "$1/private" >"$HOME/.ssh/$2" && chmod 0400 "$HOME/.ssh/$2"
-lpass show --notes "$1/public" >"$HOME/.ssh/$2.pub"
+lpn="$1"
+keyn="$2"
+pub=$(lpass show --notes "$lpn/public")
+
+case "${pub%% *}" in
+ssh-rsa*)
+	type="rsa"
+	;;
+ecdsa*)
+	type="ecdsa"
+	;;
+ssh-ed25519*)
+	type="ed25519"
+	;;
+*)
+	echo "error: unknown key type"
+	exit 1
+	;;
+esac
+
+printf "%s" "$pub" >"$HOME/.ssh/id_${type}_${keyn}.pub"
+lpass show --notes "$1/private" >"$HOME/.ssh/id_${type}_${keyn}" && chmod 0400 "$HOME/.ssh/id_${type}_${keyn}"
