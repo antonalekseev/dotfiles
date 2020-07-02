@@ -1,12 +1,13 @@
 #!/bin/sh
 
-[ $# -eq 2 ] || {
-	echo "Usage: $(basename "$0") <lastpass name|id> <key slug>"
+[ $# -ge 2 ] || {
+	echo "Usage: $(basename "$0") <lastpass name|id> <key slug> [dst dir]"
 	exit 1
 }
 
 lpn="$1"
 keyn="$2"
+dstdir="${3:-$HOME/.ssh}"
 pub=$(lpass show --notes "$lpn/public")
 
 case "${pub%% *}" in
@@ -25,5 +26,5 @@ ssh-ed25519*)
 	;;
 esac
 
-printf "%s" "$pub" >"$HOME/.ssh/id_${type}_${keyn}.pub"
-lpass show --notes "$1/private" >"$HOME/.ssh/id_${type}_${keyn}" && chmod 0400 "$HOME/.ssh/id_${type}_${keyn}"
+printf "%s" "$pub" >"$dstdir/id_${type}_${keyn}.pub"
+lpass show --notes "$1/private" >"$dstdir/id_${type}_${keyn}" && chmod 0400 "$dstdir/id_${type}_${keyn}"
