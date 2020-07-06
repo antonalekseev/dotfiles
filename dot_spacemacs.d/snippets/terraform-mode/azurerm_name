@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: azurerm_name
+# key: azn
+# https://github.com/gsoft-inc/terraform-azurerm-naming
+# --
+module "$1_name" {
+  source   = "gsoft-inc/naming/azurerm//modules/${2:category}/${1:name}"
+  name     = "${3:resource_name}"
+  prefixes = [${4:type}.org, $4.proj, $4.env]
+}
