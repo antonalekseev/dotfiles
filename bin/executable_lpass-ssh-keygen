@@ -25,6 +25,10 @@ shift $((OPTIND - 1))
 
 name="$1"
 shift
+[ -n "$name" ] || usage
+
+pub=$(lpass show --notes "$name/public")
+[ -z "$pub" ] || { echo "error: key $name/public already exists in LastPass."; exit 1; }
 
 lastpwd="$PWD"
 tmpdir=$(mktemp -d)

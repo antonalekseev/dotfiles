@@ -10,6 +10,8 @@ keyn="$2"
 dstdir="${3:-$HOME/.ssh}"
 pub=$(lpass show --notes "$lpn/public")
 
+[ -n "$pub" ] || { echo "error: key $lpn/public is not found in LastPass."; exit 1; }
+
 case "${pub%% *}" in
 ssh-rsa*)
 	type="rsa"
