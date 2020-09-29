@@ -120,8 +120,7 @@ This function should only modify configuration layer settings."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(base16-theme
-                                      test-simple
+   dotspacemacs-additional-packages '(test-simple
                                       evil-embrace
                                       direnv
                                       (dash-at-point :location
@@ -129,8 +128,8 @@ This function should only modify configuration layer settings."
                                                              :repo "antonalekseev/dash-at-point"
                                                              :branch "local"))
                                       keyfreq
-                                      leuven-theme
-                                      org-ref)
+                                      org-ref
+                                      minimal-theme)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -247,9 +246,7 @@ It should only modify the values of Spacemacs settings."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(leuven
-                         base16-grayscale-light
-                         base16-grayscale-dark)
+   dotspacemacs-themes '(minimal-light)
    ;; ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
 
