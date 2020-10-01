@@ -20,7 +20,7 @@ def configure(repl):
 
     # Vi mode.
     repl.vi_mode = True
-    repl.vi_start_in_nav_mode = True
+    repl.vi_start_in_navigation_mode = True
     repl.vi_keep_last_used_mode = True
 
     # History Search.
