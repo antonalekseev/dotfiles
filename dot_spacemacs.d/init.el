@@ -493,7 +493,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . light))
   ;; Set frame dimensions on startup @pat
-  (when (equalp "pat" system-name)
+  (when (cl-equalp "pat" system-name)
     (progn (set-frame-width (selected-frame) 80)
            (set-frame-height (selected-frame) 50)))
 
