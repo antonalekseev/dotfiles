@@ -1,0 +1,81 @@
+#!/bin/sh
+
+PIPX_VENVS="$HOME/.local/pipx/venvs"
+
+usage() {
+	cat <<EOF
+Usage:	$(basename "$0") <-i|-U|-I>
+	-i	install packages
+	-U	uninstall packages
+	-I	re-install packages
+EOF
+	exit 1
+}
+
+checkdep() {
+	command -v "$1" 1>&2 >/dev/null || { echo "$1 is not found, exiting."; exit 2; }
+}
+
+pipx_uninstall() {
+	[ -d "$PIPX_VENVS/$1" ] && pipx uninstall "$1"
+}
+
+install() {
+	# python IDE
+	pipx install "python-language-server[all]==0.35.1"
+	pipx inject python-language-server --include-apps black isort mypy
+	pipx inject python-language-server pyls-black pyls-isort pyls-mypy
+	pipx install pydocstyle
+	pipx install flake8
+	pipx install pylint
+	# python dev
+	pipx install cookiecutter
+	pipx install pip-tools
+	pipx install scalene
+	pipx install pipenv
+	pipx install pre-commit
+	pipx install pipfile-requirements
+	# misc
+	pipx install awscli
+	pipx install speedtest-cli
+	pipx install torf-cli
+}
+
+
+uninstall() {
+	# python IDE
+	pipx_uninstall python-language-server
+	pipx_uninstall pydocstyle
+	pipx_uninstall flake8
+	pipx_uninstall pylint
+	# python dev
+	pipx_uninstall cookiecutter
+	pipx_uninstall pip-tools
+	pipx_uninstall scalene
+	pipx_uninstall pipenv
+	pipx_uninstall pre-commit
+	pipx_uninstall pipfile-requirements
+	# misc
+	pipx_uninstall awscli
+	pipx_uninstall speedtest-cli
+	pipx_uninstall torf-cli
+}
+
+reinstall() {
+	uninstall
+	install
+}
+
+checkdep "pipx"
+[ $# -lt 1 ] && usage
+
+while getopts "iUIh" opt; do
+	case "$opt" in
+	"i") install ;;
+	"U") uninstall ;;
+	"I") reinstall ;;
+	"h"|*) usage ;;
+	esac
+done
+shift $((OPTIND - 1))
+
