@@ -91,7 +91,6 @@ eval "$(lua $HOME/bin/z.lua --init zsh enhanced fzf)"
 alias j="z"
 alias jh="z ~"
 alias je="z -e"
-alias jc="z -c"
 alias jj="z -I"
 alias jb="z -b -I"
 
