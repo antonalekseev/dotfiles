@@ -1,8 +1,9 @@
 # -*- mode: snippet -*-
 # name: case
 # key: case
+# expand-env: ((yas-indent-line nil))
 # --
 case $1 in
-$2) $3;;
-*) $4;;
+	$2) $3;;
+	*) $4;;
 esac
