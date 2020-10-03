@@ -29,6 +29,7 @@ install() {
 	pipx install flake8
 	pipx install pylint
 	# python dev
+	pipx install autoflake
 	pipx install cookiecutter
 	pipx install pip-tools
 	pipx install scalene
@@ -49,6 +50,7 @@ uninstall() {
 	pipx_uninstall flake8
 	pipx_uninstall pylint
 	# python dev
+	pipx_uninstall autoflake
 	pipx_uninstall cookiecutter
 	pipx_uninstall pip-tools
 	pipx_uninstall scalene
