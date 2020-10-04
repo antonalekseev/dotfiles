@@ -80,7 +80,6 @@ This function should only modify configuration layer settings."
           lsp-auto-guess-root t)
      (multiple-cursors :variables
                        multiple-cursors-backend 'evil-mc)
-     neotree
      aaa-nim
      (javascript :variables
                  javascript-fmt-tool 'prettier
