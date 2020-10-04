@@ -665,10 +665,6 @@ you should place your code here."
   (when (eq system-type 'darwin)
     (global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen))
 
-  ;; Enable Evil in minibuffer
-  ;; https://github.com/emacs-evil/evil/pull/1059/commits/936407aaff0e8c3028d1fd063f65e6840cdefb46
-  (setq evil-want-minibuffer t)
-
   ;; ui
   ;; ==
 
