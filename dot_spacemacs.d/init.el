@@ -111,6 +111,8 @@ This function should only modify configuration layer settings."
      (terraform :variables
                 terraform-auto-format-on-save t)
      theming
+     (treemacs :variables
+               treemacs-no-png-images t)
      (version-control :variables
                       version-control-diff-tool 'diff-hl)
      yaml)
