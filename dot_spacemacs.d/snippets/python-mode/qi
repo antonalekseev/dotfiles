@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: qi
+# key: qi
+# --
+import q; q.d()  # DEBUG
