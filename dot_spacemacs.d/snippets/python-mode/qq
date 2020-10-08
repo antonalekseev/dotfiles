@@ -2,4 +2,4 @@
 # name: qq
 # key: qq
 # --
-import q; q.q(${1:...})  # DEBUG
+__import__("q").q(${1:...})  # DEBUG

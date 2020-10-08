@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: qr
+# key: qr
+# --
+__import__("q").d()  # DEBUG
