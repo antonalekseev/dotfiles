@@ -36,7 +36,9 @@ This function should only modify configuration layer settings."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ansible
+     (ansible :variables
+              ansible-auto-encrypt-decrypt nil
+              ansible-vault-password-file nil)
      (auto-completion :variables
                       spacemacs-default-company-backends '(company-yasnippet
                                                            (company-gtags company-etags company-keywords)
