@@ -139,6 +139,8 @@ zplug "hlissner/zsh-autopair", defer:2
 
 zplug "zsh-users/zsh-history-substring-search"
 
+zplug "plugins/sudo", from:oh-my-zsh
+
 zplug load
 
 # zsh-history-substring-search
@@ -146,6 +148,15 @@ bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 bindkey '^K' history-substring-search-up
 bindkey '^J' history-substring-search-down
+
+# sudo
+
+# reclaim ^S, thanks https://superuser.com/a/385290
+stty start undef
+stty stop undef
+bindkey -r '^[^['
+bindkey -M vicmd '^S' sudo-command-line
+bindkey -M viins '^S' sudo-command-line
 
 function _tmuxw() {
 	[ -z "$TMUX" ] && $* && return
