@@ -141,6 +141,8 @@ zplug "zsh-users/zsh-history-substring-search"
 
 zplug "plugins/sudo", from:oh-my-zsh
 
+zplug "kovetskiy/zsh-add-params"
+
 zplug load
 
 # zsh-history-substring-search
@@ -157,6 +159,10 @@ stty stop undef
 bindkey -r '^[^['
 bindkey -M vicmd '^S' sudo-command-line
 bindkey -M viins '^S' sudo-command-line
+
+# zsh-add-params
+bindkey -v '^P' add-params
+bindkey -a '^P' add-params
 
 function _tmuxw() {
 	[ -z "$TMUX" ] && $* && return
