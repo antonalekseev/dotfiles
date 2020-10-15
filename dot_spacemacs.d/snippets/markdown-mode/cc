@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: Collapsible content
+# key: cc
+# expand-env: ((yas-indent-line nil))
+# --
+<details>
+<summary>$1</summary>
+<p>
+$2
+</p>
+</details>
