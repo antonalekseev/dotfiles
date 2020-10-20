@@ -25,13 +25,18 @@ set shortmess+=I
 set cursorline
 set colorcolumn=80
 
-" paste
-set pastetoggle=<F10>
+" use SPC as a leader key
+nnoremap <SPACE> <Nop>
+let mapleader=" "
 
 " list
+map <leader>tw :set list!<CR>
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set list
-nmap <leader>l :set list!<CR>
+
+" paste mode
+map <leader>tP :set paste!<CR>
+" set pastetoggle=<leader>
 
 " quickly close the current window
 nnoremap <leader>q :q<CR>
@@ -49,7 +54,6 @@ set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
 
 " line numbering
-set number
 function! NumberToggle()
 	if(&relativenumber == 1)
 		set norelativenumber
@@ -60,7 +64,7 @@ function! NumberToggle()
 		set number
 	endif
 endfunc
-nnoremap <C-n> :call NumberToggle()<cr>
+nnoremap <leader>tn :call NumberToggle()<cr>
 
 "--------------------
 " appearance
