@@ -1,7 +1,7 @@
 export PYENV_ROOT="$HOME/.pyenv"
 PREPEND_PATH=.:${HOME}/bin:${HOME}/.local/bin:$HOME/.pyenv:${HOME}/go/bin:/usr/local/sbin
 {{- if eq .chezmoi.os "darwin" }}
-PREPEND_PATH=${PREPEND_PATH}:/usr/local/opt/python@3.8/bin
+PREPEND_PATH=${PREPEND_PATH}:/usr/local/opt/python@3.9/bin
 {{- end }}
 PATH=${PREPEND_PATH}:${PATH}
 export PATH
