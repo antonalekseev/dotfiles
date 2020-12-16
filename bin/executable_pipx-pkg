@@ -40,6 +40,7 @@ install() {
 	pipx install awscli
 	pipx install speedtest-cli
 	pipx install torf-cli
+	pipx install datasette
 }
 
 
@@ -61,6 +62,7 @@ uninstall() {
 	pipx_uninstall awscli
 	pipx_uninstall speedtest-cli
 	pipx_uninstall torf-cli
+	pipx_uninstall datasette
 }
 
 reinstall() {
