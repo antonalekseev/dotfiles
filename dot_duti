@@ -1,3 +1,8 @@
 org.videolan.vlc .mkv all
 org.videolan.vlc .mp4 all
 org.videolan.vlc .avi all
+org.libreoffice.script .doc all
+org.libreoffice.script .docx all
+org.libreoffice.script .rtf all
+org.libreoffice.script .xls all
+org.libreoffice.script .xlsx all
