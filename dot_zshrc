@@ -115,7 +115,7 @@ fi
 
 if [ "$TERM" != "screen-256color" ]\
 	   && [ "$TERM_PROGRAM" = "iTerm.app" ]\
-	   && [ "$OS" = "Darwin" ]; then
+	   && [ "$(uname)" = "Darwin" ]; then
 	tmux list-sessions -F "#{session_name}:#{session_attached}"\
 		|grep -q "${TMUX_SESSION_NAME}"\
 		|| tmux new-session -s "$TMUX_SESSION_NAME"
