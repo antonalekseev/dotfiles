@@ -539,6 +539,8 @@ you should place your code here."
     ((prog-mode) . direnv-update-environment))
 
   (use-package evil-embrace
+    :init
+    (add-hook 'after-change-major-mode-hook (lambda () (embrace-add-pair ?e "`" "'")))
     :config
     (evil-embrace-enable-evil-surround-integration))
 
