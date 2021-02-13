@@ -131,7 +131,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
 
 # zplug
-export ZPLUG_HOME=/usr/local/opt/zplug
+[ "$(uname)" = "Darwin" ] && export ZPLUG_HOME=/usr/local/opt/zplug
+[ "$(uname)" = "Linux" ] && export ZPLUG_HOME=/usr/share/zsh/scripts/zplug
 source $ZPLUG_HOME/init.zsh
 
 zplug romkatv/powerlevel10k, as:theme, depth:1
