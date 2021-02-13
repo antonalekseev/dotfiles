@@ -131,22 +131,23 @@ eval "$(direnv hook zsh)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
 
-# zplug
-[ "$(uname)" = "Darwin" ] && export ZPLUG_HOME=/usr/local/opt/zplug
-[ "$(uname)" = "Linux" ] && export ZPLUG_HOME=/usr/share/zsh/scripts/zplug
-source $ZPLUG_HOME/init.zsh
+# zplug on macOS
+if [ "$(uname)" = "Darwin" ]; then
+	export ZPLUG_HOME=/usr/local/opt/zplug
+	source $ZPLUG_HOME/init.zsh
+	zplug romkatv/powerlevel10k, as:theme, depth:1
+	zplug "hlissner/zsh-autopair", defer:2
+	zplug "zsh-users/zsh-history-substring-search"
+	zplug "plugins/sudo", from:oh-my-zsh
+	zplug "kovetskiy/zsh-add-params"
+	zplug load
+fi
 
-zplug romkatv/powerlevel10k, as:theme, depth:1
-
-zplug "hlissner/zsh-autopair", defer:2
-
-zplug "zsh-users/zsh-history-substring-search"
-
-zplug "plugins/sudo", from:oh-my-zsh
-
-zplug "kovetskiy/zsh-add-params"
-
-zplug load
+# zinit on Linux
+if [ "$(uname)" = "Linux" ]; then
+	source "$HOME/zinit/bin/zinit.zsh"
+	zinit ice depth=1; zinit light romkatv/powerlevel10k
+fi
 
 # zsh-history-substring-search
 bindkey -M vicmd 'k' history-substring-search-up
