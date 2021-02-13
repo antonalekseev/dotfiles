@@ -69,6 +69,7 @@ export LPASS_HOME="$HOME/.config/lpass"
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 [ -z "$SSH_TTY" ] || export SSH_AUTH_SOCK=$HOME/.ssh/ssh_auth_sock
+[ "$(uname)" = "Linux" ] && export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/ssh-agent.socket
 
 HISTFILE=$HOME/.zshistory
 HISTSIZE=500000
