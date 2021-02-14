@@ -2,8 +2,7 @@
 Library
 .duti
 .iterm2
-{{- end }}
-{{- if ne .chezmoi.os "linux" }}
-dot_config/mimeapps.list
-dot_config/zathura
+{{- else if ne .chezmoi.os "linux" }}
+.config/mimeapps.list
+.config/zathura
 {{- end }}
