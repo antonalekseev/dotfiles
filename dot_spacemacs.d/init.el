@@ -499,6 +499,11 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  ;; Exclude troublesome packages from native compilation process
+  (with-eval-after-load 'comp
+    (add-to-list 'comp-bootstrap-deny-list ".*/with-editor\\.el\\'")
+    (add-to-list 'comp-deferred-compilation-deny-list ".*/with-editor\\.el\\'"))
+
   ;; Prettify titlebar on macOS
   (add-to-list 'default-frame-alist '(ns-transparent-titlebar . t))
   (add-to-list 'default-frame-alist '(ns-appearance . light))
