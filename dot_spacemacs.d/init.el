@@ -499,6 +499,8 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  ;; Disable byte-compiler warnings
+  (setq byte-compile-warnings nil)
   ;; Exclude troublesome packages from native compilation process
   (with-eval-after-load 'comp
     (add-to-list 'comp-bootstrap-deny-list ".*/with-editor\\.el\\'")
