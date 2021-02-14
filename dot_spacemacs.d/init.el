@@ -264,9 +264,9 @@ It should only modify the values of Spacemacs settings."
                                                                :weight normal
                                                                :width normal))
                                    (t '("Iosevka"
-                                        :size 10
-                                        :weight normal
-                                        :width normal)))
+                                        :size 14
+                                        :weight Light
+                                        :width Normal)))
 
    ;; The leader key (default "SPC")
    dotspacemacs-leader-key "SPC"
