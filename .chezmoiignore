@@ -3,6 +3,9 @@ Library
 .duti
 .iterm2
 {{- else if ne .chezmoi.os "linux" }}
+.config/i3
+.Xmodmap
+.Xresources
 .config/mimeapps.list
 .config/zathura
 {{- end }}
