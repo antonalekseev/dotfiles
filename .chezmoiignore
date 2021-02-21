@@ -6,6 +6,7 @@ Library
 .config/i3
 .Xmodmap
 .Xresources
+.config/redshift
 .config/mimeapps.list
 .config/zathura
 {{- end }}
