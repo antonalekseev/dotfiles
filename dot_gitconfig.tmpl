@@ -23,8 +23,6 @@
 	prompt = true
 [commit]
 	gpgsign = true
-[gpg]
-	program = /usr/local/bin/gpg
 [github]
 	oauth-token = "{{ (index (lastpass "private/github.com/oauth-token") 0).password }}"
 	user = "{{ (index (lastpass "private/github.com/oauth-token") 0).username }}"
