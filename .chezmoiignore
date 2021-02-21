@@ -9,4 +9,5 @@ Library
 .config/redshift
 .config/mimeapps.list
 .config/zathura
+.gnupg/pinentry-dmenu.conf
 {{- end }}
