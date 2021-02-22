@@ -79,6 +79,7 @@ alias runapg="apg -M SNcl -m 8 -x 12 -s"
 alias mpg123="mpg123 -vC"
 alias tmux="tmux -u"
 alias s="sudo -E"
+alias dog='dog --colour=never'
 [ "$(uname)" = "Darwin" ] && alias sudoedit="sudo -e"
 
 # virtualenv
