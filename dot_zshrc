@@ -145,7 +145,7 @@ if [ "$(uname)" = "Darwin" ]; then
 fi
 
 # zinit on Linux
-if [ "$(uname)" = "Linux" ]; then
+if [ "$(uname)" = "Linux" ] || [ "$(uname)" = "FreeBSD" ]; then
 	source "$HOME/.zinit/bin/zinit.zsh"
 	zinit ice depth=1; zinit light romkatv/powerlevel10k
 	zinit ice wait lucid; zinit load hlissner/zsh-autopair
