@@ -1,0 +1,66 @@
+#!/usr/bin/env zsh
+
+# TODO:
+# The following prerequisites should be present on the remote system:
+# - zsh
+# - git
+# - chezmoi
+# - lastpass-cli
+# - lua54
+# - direnv
+# - vim
+
+set -e
+
+mkcdtmpdir() {
+	tmpdir=$(mktemp -d)
+	cd "$tmpdir" || { echo "error: can't cd to tmpdir"; exit 1; }
+}
+
+pwdma() {
+	pwdm="$PWD"
+}
+
+pwdmr() {
+	printf "%s" "$pwdm"
+}
+
+PATH="$HOME/bin:$PATH"
+CMVER="1.8.11"
+ZINITREPO="https://github.com/zdharma/zinit.git"
+ZINITBIN="$HOME/.zinit/bin"
+repo="git@github.com:antonalekseev/dotfiles.git"
+
+lpassuser="$1"
+os=$(uname|tr "[:upper:]" "[:lower:]")
+arch=$(uname -m|tr "[:upper:]" "[:lower:]")
+[ "$arch" = "x86_64" ] && arch="amd64"
+
+cmrel="https://github.com/twpayne/chezmoi/releases/download/v${CMVER}/chezmoi_${CMVER}_${os}_${arch}.tar.gz"
+
+#
+# chezmoi
+#
+
+pwdma
+mkcdtmpdir
+
+curl -Lq -o chezmoi.tar.gz "$cmrel"
+tar zxf chezmoi.tar.gz
+[ -d "$HOME/bin" ] || mkdir "$HOME/bin/"
+chmod +x chezmoi
+mv chezmoi "$HOME/bin/chezmoi"
+
+cd "$(pwdmr)"
+rm -r "$tmpdir"
+
+[ -d "$HOME/.local/share/chezmoi" ] || mkdir -p "$HOME/.local/share/chezmoi"
+[ -d "$HOME/.local/share/chezmoi/.git" ] || chezmoi init "$repo"
+lpass login "$lpassuser"
+chezmoi apply
+
+#
+# zinit
+#
+
+[ -d "$ZINITBIN" ] || git clone "$ZINITREPO" "$ZINITBIN"
