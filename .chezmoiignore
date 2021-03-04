@@ -11,4 +11,5 @@ Library
 .config/mimeapps.list
 .config/zathura
 .gnupg/pinentry-dmenu.conf
+.gnupg/gpg-agent.conf
 {{- end }}
