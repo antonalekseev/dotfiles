@@ -31,7 +31,6 @@ install() {
 	# python dev
 	pipx install autoflake
 	pipx install cookiecutter
-	pipx install pip-tools
 	pipx install scalene
 	pipx install pipenv
 	pipx install pre-commit
@@ -56,7 +55,6 @@ uninstall() {
 	# python dev
 	pipx_uninstall autoflake
 	pipx_uninstall cookiecutter
-	pipx_uninstall pip-tools
 	pipx_uninstall scalene
 	pipx_uninstall pipenv
 	pipx_uninstall pre-commit
