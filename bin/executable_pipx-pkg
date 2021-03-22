@@ -40,6 +40,7 @@ install() {
 	pipx install speedtest-cli
 	pipx install torf-cli
 	pipx install datasette
+	pipx install diceware
 	if [ "$(uname)" = "Linux" ]; then
 		pipx install i3-swap-focus
 	fi
@@ -64,6 +65,7 @@ uninstall() {
 	pipx_uninstall speedtest-cli
 	pipx_uninstall torf-cli
 	pipx_uninstall datasette
+	pipx_uninstall diceware
 	if [ "$(uname)" = "Linux" ]; then
 		pipx uninstall i3-swap-focus
 	fi
