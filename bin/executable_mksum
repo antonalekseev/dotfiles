@@ -1,0 +1,33 @@
+#!/bin/sh
+
+usage() {
+	cat <<EOF
+Usage:	$(basename "$0") <cheksum type> <file>
+
+Supports checksum types supported by coreutiles *sum utilities.
+EOF
+	exit 1
+}
+
+checkdep() {
+	command -v "$1" 1>&2 >/dev/null || { echo "$1 is not found, exiting."; exit 2; }
+}
+
+checkalgo() {
+	command -v "$1sum" 1>&2 >/dev/null || { echo "Checksum type $1 is not supported, exiting."; exit 2; }
+}
+
+checkdep "md5sum"
+
+[ $# -lt 2 ] && usage
+
+sum=$1
+file=$2
+sumfile="${file%}.${sum}sum"
+sumcmd="${sum}sum"
+
+if [ -f "$sumfile" ]; then
+	echo "Checksum file $sumfile already exists, doing nothing."; exit 2; 
+else
+	$sumcmd "$file"|cut -f1 -d ' ' > "$sumfile"
+fi
