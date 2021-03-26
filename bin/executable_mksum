@@ -1,5 +1,20 @@
 #!/bin/sh
 
+chkdep() {
+	missing=""
+	for bin in "$@"; do
+		command -v "$bin" 1>&2 >/dev/null || missing="${missing}$bin, "
+	done
+	die "this program needs '${missing%%, }' to run, exiting." 2
+}
+
+die() {
+	msg=$1
+	status=${2:-1}
+	printf "error: %s\n" "$msg"
+	exit "$status"
+}
+
 usage() {
 	cat <<EOF
 Usage:	$(basename "$0") <cheksum type> <file>
@@ -9,15 +24,10 @@ EOF
 	exit 1
 }
 
-checkdep() {
-	command -v "$1" 1>&2 >/dev/null || { echo "$1 is not found, exiting."; exit 2; }
+chkalgo() {
+	command -v "$1sum" 1>&2 >/dev/null || \
+		die "Checksum type $1 is not supported, exiting." 2
 }
-
-checkalgo() {
-	command -v "$1sum" 1>&2 >/dev/null || { echo "Checksum type $1 is not supported, exiting."; exit 2; }
-}
-
-checkdep "md5sum"
 
 [ $# -lt 2 ] && usage
 
@@ -25,6 +35,9 @@ sum=$1
 file=$2
 sumfile="${file%}.${sum}sum"
 sumcmd="${sum}sum"
+
+chkdep "md5sum"
+chkalgo "$sum"
 
 if [ -f "$sumfile" ]; then
 	echo "Checksum file $sumfile already exists, doing nothing."; exit 2; 
