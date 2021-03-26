@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: pprint
+# key: pprint
+# expand-env: ((yas-indent-line nil))
+# --
+
+pprint() {
+	for name in \$*; do
+		printf "DEBUG: %s=%s\n" \$name \$(eval echo \\\$\$name) 1>&2
+	done
+}

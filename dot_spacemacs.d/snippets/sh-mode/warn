@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: warn
+# key: warn
+# expand-env: ((yas-indent-line nil))
+# --
+
+warn() {
+	msg=\$1
+	printf "warning: %s\n" \$msg 1>&2
+}

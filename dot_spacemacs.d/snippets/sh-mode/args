@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: args
+# key: args
+# expand-env: ((yas-indent-line nil))
+# --
+
+usage() {
+	cat <<EOF
+Usage:	$(basename "\$0") [-h]
+-h	show help
+EOF
+	exit 1
+}
+
+[ \$# -lt 1 ] && usage
+
+while getopts "h$1" opt; do
+	case "\$opt" in
+	$2) $3;;
+	"h"|*) usage ;;
+	esac
+done
+shift \$((OPTIND - 1))
