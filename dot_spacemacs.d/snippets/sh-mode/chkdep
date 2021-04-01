@@ -9,5 +9,6 @@ chkdep() {
 	for bin in "\$@"; do
 		command -v "\$bin" 1>&2 >/dev/null || missing="\${missing}\$bin, "
 	done
-	die "this program needs '\${missing%%, }' to run, exiting." 2
+	[ -z "$missing" ] || \
+		die "this program needs '${missing%%, }' to run, exiting." 2
 }
