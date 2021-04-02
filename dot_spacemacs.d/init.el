@@ -74,7 +74,9 @@ This function should only modify configuration layer settings."
      ipython-notebook
      ivy
      (json :variables json-fmt-tool 'prettier)
+     ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
      (lsp :variables
+          lsp-headerline-breadcrumb-enable nil
           lsp-enable-symbol-highlighting nil
           lsp-ui-sideline-enable nil
           lsp-ui-doc-enable nil
