@@ -1,0 +1,29 @@
+#!/bin/sh
+
+hr() {
+	printf "%80s\n" |tr " " "="
+
+}
+
+usage() {
+	cat <<EOF
+Usage:	$(basename "$0") <curl arguments ...>
+
+cURL wrapper to run requests against all hosts if A query returns multiple
+records. It simply appends relevant --resolve statements and doesn't handle
+other corner cases like --output, etc.
+
+EOF
+	exit 1
+}
+
+[ $# -lt 1 ] && usage
+
+for url in "$@"; do :; done
+hostname=$(echo "$url"|grep -Eo "[/@][^:/]+"|head -1)
+scheme=${url%%://*}
+portproto=$(grep -E "^${scheme}\ + [0-9]+/tcp" /etc/services|tr -s " "|cut -d" " -f2)
+dig +short -ta "${hostname#/}"| grep -E "^[0-9]+\." |while read -r addr; do
+	hr
+	curl --resolve "${hostname#/}:${portproto%/*}:${addr}" $@
+done
