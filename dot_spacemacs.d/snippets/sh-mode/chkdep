@@ -10,5 +10,5 @@ chkdep() {
 		command -v "\$bin" 1>&2 >/dev/null || missing="\${missing}\$bin, "
 	done
 	[ -z "$missing" ] || \
-		die "this program needs '${missing%%, }' to run, exiting." 2
+		die "this program needs '\${missing%%, }' to run, exiting." 2
 }
