@@ -1,5 +1,21 @@
 #!/bin/sh
 
+chkdep() {
+	missing=""
+	for bin in "$@"; do
+		command -v "$bin" 1>&2 >/dev/null || missing="${missing}$bin, "
+	done
+	[ -z "$missing" ] || \
+		die "this program needs '${missing%%, }' to run, exiting." 2
+}
+
+die() {
+	msg=$1
+	status=${2:-1}
+	printf "error: %s\n" "$msg"
+	exit "$status"
+}
+
 hr() {
 	printf "%80s\n" |tr " " "="
 
@@ -16,6 +32,8 @@ other corner cases like --output, etc.
 EOF
 	exit 1
 }
+
+chkdep "curl"
 
 [ $# -lt 1 ] && usage
 
