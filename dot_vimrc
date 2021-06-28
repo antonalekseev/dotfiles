@@ -38,8 +38,10 @@ set list
 map <leader>tP :set paste!<CR>
 " set pastetoggle=<leader>
 
-" quickly close the current window
-nnoremap <leader>q :q<CR>
+" close the current window
+nnoremap <leader>wd :close<CR>
+nnoremap <leader>ws :split<CR>
+nnoremap <leader>wv :vsplit<CR>
 
 " make C-J/C-K work in cmdline
 cnoremap <C-K> <Up>
