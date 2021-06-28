@@ -12,6 +12,19 @@ function! TweakBase16()
 	highlight DiffText   term=reverse cterm=bold ctermfg=0 ctermbg=4 gui=bold guifg=#2b2b2b guibg=#6d9cbe
 endfunction
 
+
+" Toggle line numbering
+function! NumberToggle()
+	if(&relativenumber == 1)
+		set norelativenumber
+		set nonumber
+	elseif(&number == 1)
+		set relativenumber
+	else
+		set number
+	endif
+endfunc
+
 "--------------------
 " filetype
 "--------------------
@@ -30,18 +43,28 @@ nnoremap <SPACE> <Nop>
 let mapleader=" "
 
 " list
-map <leader>tw :set list!<CR>
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 set list
 
-" paste mode
+" toggles
 map <leader>tP :set paste!<CR>
 " set pastetoggle=<leader>
+map <leader>ths :if exists("g:syntax_on") <Bar>
+  \   syntax off <Bar>
+  \ else <Bar>
+  \   syntax enable <Bar>
+  \ endif <CR>
+map <leader>tw :set list!<CR>
+nnoremap <leader>tn :call NumberToggle()<cr>
 
-" close the current window
+" window
 nnoremap <leader>wd :close<CR>
 nnoremap <leader>ws :split<CR>
 nnoremap <leader>wv :vsplit<CR>
+nnoremap <leader>wj <C-W>j
+nnoremap <leader>wk <C-W>k
+nnoremap <leader>wh <C-W>h
+nnoremap <leader>wl <C-W>l
 
 " make C-J/C-K work in cmdline
 cnoremap <C-K> <Up>
@@ -55,24 +78,10 @@ set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
 set undodir=~/.vim/undo//
 
-" line numbering
-function! NumberToggle()
-	if(&relativenumber == 1)
-		set norelativenumber
-		set nonumber
-	elseif(&number == 1)
-		set relativenumber
-	else
-		set number
-	endif
-endfunc
-nnoremap <leader>tn :call NumberToggle()<cr>
-
 "--------------------
 " appearance
 "--------------------
 
-syntax on
 if has("gui_running")
 	set macligatures
 	set macthinstrokes
