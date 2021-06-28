@@ -25,6 +25,9 @@ Usage:
 Supported file types:
 
   Juniper Virtual Route Reflector (vRR)	vrr-bundle-kvm-*
+  Fortinet FortiGate VM FGT-*
+  Fortinet FortiManager VM FMG-*
+  Fortinet FortiAnalyzer VM FAZ-*
 
 EOT
 	exit
@@ -40,11 +43,58 @@ case $1 in
 		tar zxf "$1" -C "$TMPIMG"
 		cd "$TMPIMG" || error "Unable to change directory to $TMPIMG"
 		mkdir "$TMPOUT/junipervrr-$ver"
-		mv "$ver/junos-x86-64-$ver.img" "$TMPOUT/junipervrr-$ver/virtioa.qcow2" 
-		mv "$ver/metadata.img" "$TMPOUT/junipervrr-$ver/virtiob.qcow2" 
+		mv "$ver/junos-x86-64-$ver.img" "$TMPOUT/junipervrr-$ver/virtioa.qcow2"
+		mv "$ver/metadata.img" "$TMPOUT/junipervrr-$ver/virtiob.qcow2"
 		cd "$TMPOUT" || error "Unable to change directory to $TMPOUT"
 		tar zcf "$OUTDIR/junipervrr-$ver.tar.gz" "junipervrr-$ver"
 		echo "junipervrr-$ver.tar.gz has been created."
+		;;
+	FGT*)
+		ver=$1
+		imgtype=${ver%%_*}
+		ver=${ver##FGT_VM64_KVM-}
+		ver=${ver%%-FORTINET.out.kvm.zip}
+		destdir="$TMPOUT/fortinet-$imgtype-$ver"
+		echo $imgtype $ver $destdir
+		unzip "$1" -d "$TMPIMG"
+		cd "$TMPIMG" || error "Unable to change directory to $TMPIMG"
+		mkdir -p "$destdir"
+		mv fortios.qcow2 "$destdir/virtioa.qcow2"
+		cd "$TMPOUT" || error "Unable to change directory to $TMPOUT"
+		tar zcf "$OUTDIR/fortinet-$imgtype-$ver.tar.gz" "fortinet-$imgtype-$ver"
+		echo "fortinet-$imgtype-$ver.tar.gz has been created."
+		;;
+	FMG*)
+		ver=$1
+		imgtype=${ver%%_*}
+		ver=${ver##FMG_VM64_KVM-}
+		ver=${ver%%-FORTINET.out.kvm.zip}
+		destdir="$TMPOUT/fortinet-$imgtype-$ver"
+		echo $imgtype $ver $destdir
+		unzip "$1" -d "$TMPIMG"
+		cd "$TMPIMG" || error "Unable to change directory to $TMPIMG"
+		mkdir -p "$destdir"
+		mv fmg.qcow2 "$destdir/virtioa.qcow2"
+		qemu-img create -f qcow2 "$destdir/virtiob.qcow2" 100G
+		cd "$TMPOUT" || error "Unable to change directory to $TMPOUT"
+		tar zcf "$OUTDIR/fortinet-$imgtype-$ver.tar.gz" "fortinet-$imgtype-$ver"
+		echo "fortinet-$imgtype-$ver.tar.gz has been created."
+		;;
+	FAZ*)
+		ver=$1
+		imgtype=${ver%%_*}
+		ver=${ver##FAZ_VM64_KVM-}
+		ver=${ver%%-FORTINET.out.kvm.zip}
+		destdir="$TMPOUT/fortinet-$imgtype-$ver"
+		echo $imgtype $ver $destdir
+		unzip "$1" -d "$TMPIMG"
+		cd "$TMPIMG" || error "Unable to change directory to $TMPIMG"
+		mkdir -p "$destdir"
+		mv faz.qcow2 "$destdir/virtioa.qcow2"
+		qemu-img create -f qcow2 "$destdir/virtiob.qcow2" 100G
+		cd "$TMPOUT" || error "Unable to change directory to $TMPOUT"
+		tar zcf "$OUTDIR/fortinet-$imgtype-$ver.tar.gz" "fortinet-$imgtype-$ver"
+		echo "fortinet-$imgtype-$ver.tar.gz has been created."
 		;;
 	*)
 		error "Unable to make EVE-NG image from the given file."
