@@ -133,6 +133,7 @@ This function should only modify configuration layer settings."
                                                              :branch "local"))
                                       keyfreq
                                       org-ref
+                                      just-mode
                                       minimal-theme
                                       modus-themes)
    ;; A list of packages that cannot be updated.
