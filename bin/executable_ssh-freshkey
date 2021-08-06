@@ -6,13 +6,12 @@ if [ "$#" -lt 1 ]; then
 fi
 
 for h in "$@"; do
-	ip=$(host -4 "$h")
-	if [ $? -ne 0 ]; then
+	if ! ip=$(host -4 "$h"); then
 		ip=$(grep "$h" /etc/hosts|cut -d'	' -f1)
 	else
-		ip="${ip##$h has address }"
+		ip="${ip##* has address }"
 	fi
-	[ "x$ip" != x"" ] && ssh-keygen -R "$ip"
+	[ -n "$ip" ] && ssh-keygen -R "$ip"
 	ssh-keygen -R "$h"
 	ssh-keyscan "$h" >> "$HOME/.ssh/known_hosts"
 done
