@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: ppl
+# key: ppl
+# expand-env: ((yas-indent-line nil))
+# --
+- name: DEBUG list $1
+  ansible.builtin.debug:
+    msg: '{{ item }}'
+  loop: '{{ $1 }}'
+  tags: always

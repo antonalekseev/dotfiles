@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: ppj
+# key: ppj
+# expand-env: ((yas-indent-line nil))
+# --
+- name: DEBUG var $1
+  ansible.builtin.debug:
+    msg: '{{ $1 | to_nice_json }}'
+  tags: always

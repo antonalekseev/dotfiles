@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: ppd
+# key: ppd
+# expand-env: ((yas-indent-line nil))
+# --
+- name: DEBUG dict $1
+  ansible.builtin.debug:
+    msg: '{{ item.key }} - {{ item.value$2 }}'
+  with_dict: '{{ $1 }}'
+  tags: always

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: pp
+# key: pp
+# expand-env: ((yas-indent-line nil))
+# --
+- name: DEBUG var $1
+  ansible.builtin.debug:
+    msg: '{{ $1 }}'
+  tags: always

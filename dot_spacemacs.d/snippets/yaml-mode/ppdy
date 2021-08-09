@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: ppdy
+# key: ppdy
+# expand-env: ((yas-indent-line nil))
+# --
+- name: DEBUG dict $1
+  ansible.builtin.debug:
+    msg: |
+      {{ item.key }}
+      {{ '=' * item.key | length }}
+      {{ item.value$2 | to_nice_yaml }}
+  with_dict: '{{ $1 }}'
+  loop_control:
+    label: '{{ item.key }}'
+  tags: always

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: metaep
+# key: metaep
+# expand-env: ((yas-indent-line nil))
+# --
+- name: DEBUG end play
+  ansible.builtin.meta: end_play
+  tags: always
