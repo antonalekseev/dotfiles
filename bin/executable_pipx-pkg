@@ -41,6 +41,7 @@ install() {
 	pipx install torf-cli
 	pipx install datasette
 	pipx install diceware
+	pipx install git+https://github.com/RIPE-NCC/ripe-atlas-tools.git@master#egg=ripe.atlas.tools
 	if [ "$(uname)" = "Linux" ]; then
 		pipx install i3-swap-focus
 	fi
@@ -66,6 +67,7 @@ uninstall() {
 	pipx_uninstall torf-cli
 	pipx_uninstall datasette
 	pipx_uninstall diceware
+	pipx_uninstall ripe.atlas.tools
 	if [ "$(uname)" = "Linux" ]; then
 		pipx uninstall i3-swap-focus
 	fi
