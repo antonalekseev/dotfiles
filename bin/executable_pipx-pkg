@@ -22,9 +22,9 @@ pipx_uninstall() {
 
 install() {
 	# python IDE
-	pipx install "python-language-server[all]==0.35.1"
-	pipx inject python-language-server --include-apps black isort mypy
-	pipx inject python-language-server pyls-black pyls-isort pyls-mypy
+	pipx install python-lsp-server
+	pipx inject python-lsp-server --include-apps black isort mypy
+	pipx inject python-lsp-server python-lsp-black pyls-isort mypy-ls
 	pipx install pydocstyle
 	pipx install flake8
 	pipx install pylint
@@ -50,7 +50,7 @@ install() {
 
 uninstall() {
 	# python IDE
-	pipx_uninstall python-language-server
+	pipx_uninstall python-lsp-server
 	pipx_uninstall pydocstyle
 	pipx_uninstall flake8
 	pipx_uninstall pylint
