@@ -558,6 +558,11 @@ you should place your code here."
     :config
     (evil-embrace-enable-evil-surround-integration))
 
+  (use-package evil-string-inflection
+    :ensure t
+    :config
+    (define-key evil-normal-state-map "gR" 'evil-operator-string-inflection))
+
   ;; Spaceline
   (setq spaceline-hud-p nil
         spaceline-minor-modes-p nil)
