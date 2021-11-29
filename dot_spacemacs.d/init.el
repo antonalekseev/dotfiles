@@ -113,7 +113,8 @@ This function should only modify configuration layer settings."
      (syntax-checking :variables
                       syntax-checking-enable-tooltips nil)
      (terraform :variables
-                terraform-auto-format-on-save t)
+                terraform-auto-format-on-save t
+                terraform-backend 'lsp)
      theming
      (treemacs :variables
                treemacs-no-png-images t)
@@ -557,11 +558,6 @@ you should place your code here."
     (add-hook 'after-change-major-mode-hook (lambda () (embrace-add-pair ?e "`" "'")))
     :config
     (evil-embrace-enable-evil-surround-integration))
-
-  (use-package evil-string-inflection
-    :ensure t
-    :config
-    (define-key evil-normal-state-map "gR" 'evil-operator-string-inflection))
 
   ;; Spaceline
   (setq spaceline-hud-p nil
