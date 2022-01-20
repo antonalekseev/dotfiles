@@ -136,7 +136,8 @@ This function should only modify configuration layer settings."
                                       org-ref
                                       just-mode
                                       minimal-theme
-                                      modus-themes)
+                                      modus-themes
+                                      redacted)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -658,6 +659,10 @@ you should place your code here."
   (with-eval-after-load 'semantic
     (add-to-list 'semantic-inhibit-functions #'my-inhibit-semantic-p))
 
+  ;; redacted
+  ;; Enable `read-only-mode' to ensure that we don't change what we can't read.
+  (add-hook 'redacted-mode-hook (lambda () (read-only-mode (if redacted-mode 1 -1))))
+
   ;; keys
   ;; ====
 
@@ -694,6 +699,9 @@ you should place your code here."
   ;; Toggle fullscreen on macOS
   (when (eq system-type 'darwin)
     (global-set-key (kbd "s-<return>") 'toggle-frame-fullscreen))
+
+  ;; Toggle redacted-mode
+  (spacemacs/set-leader-keys "tr" 'redacted-mode)
 
   ;; ui
   ;; ==
