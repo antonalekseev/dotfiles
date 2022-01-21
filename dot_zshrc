@@ -140,6 +140,8 @@ if [ "$(uname)" = "Darwin" ]; then
 	zplug "hlissner/zsh-autopair", defer:2
 	zplug "zsh-users/zsh-history-substring-search"
 	zplug "plugins/sudo", from:oh-my-zsh
+	zplug "plugins/kubectl", from:oh-my-zsh
+	zplug "plugins/terraform", from:oh-my-zsh
 	zplug "kovetskiy/zsh-add-params"
 	zplug load
 fi
@@ -151,6 +153,8 @@ if [ "$(uname)" = "Linux" ] || [ "$(uname)" = "FreeBSD" ]; then
 	zinit ice wait lucid; zinit load hlissner/zsh-autopair
 	zinit ice wait"1"; zinit load zsh-users/zsh-history-substring-search
 	zinit ice wait"0"; zinit snippet OMZ::plugins/sudo
+	zinit ice wait"0"; zinit snippet OMZ::plugins/kubectl
+	zinit ice wait"0"; zinit snippet OMZ::plugins/terraform
 	zinit ice wait lucid; zinit load kovetskiy/zsh-add-params
 fi
 
