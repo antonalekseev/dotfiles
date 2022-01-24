@@ -30,6 +30,7 @@ install() {
 	pipx install pylint
 	# python dev
 	pipx install autoflake
+	pipx install bumpver
 	pipx install cookiecutter
 	pipx install scalene
 	pipx install pipenv
@@ -58,6 +59,7 @@ uninstall() {
 	pipx_uninstall pylint
 	# python dev
 	pipx_uninstall autoflake
+	pipx_uninstall bumpver
 	pipx_uninstall cookiecutter
 	pipx_uninstall scalene
 	pipx_uninstall pipenv
