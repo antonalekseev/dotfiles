@@ -11,9 +11,7 @@
 	lp = log --pretty=oneline -p
 	diffstat = diff --stat
 [user]
-	email = {{ .email }}
-	name = {{ .fullname }}
-	signingkey = {{ .gpg_keyid }}
+	path = ~/.gitconfig.user
 [diff]
 	submodule = log
 	tool = vimdiff
