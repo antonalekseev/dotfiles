@@ -1,10 +1,2 @@
-{{- $email := promptString "email" -}}
-{{- $fullname := promptString "fullname" -}}
-{{- $keyid := promptString "keyid" -}}
-[data]
-email="{{ $email }}"
-fullname="{{ $fullname }}"
-gpg_keyid="{{ $keyid }}"
-
 [gpg]
 symmetric=true
