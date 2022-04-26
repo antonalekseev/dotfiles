@@ -180,6 +180,10 @@ bindkey -M viins '^S' sudo-command-line
 bindkey -v '^P' add-params
 bindkey -a '^P' add-params
 
+# create Terraform plugin cache dir if doesn't exist
+# https://www.terraform.io/cli/config/config-file#provider-plugin-cache
+[ -d "$HOME/.terraform.d/plugin-cache" ] || mkdir -p "$HOME/.terraform.d/plugin-cache"
+
 function _tmuxw() {
 	[ -z "$TMUX" ] && $* && return
 	cmd=$1
