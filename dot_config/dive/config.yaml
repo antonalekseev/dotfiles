@@ -1,0 +1,31 @@
+keybinding:
+  # Global bindings
+  quit: ctrl+q
+  toggle-view: ctrl+v
+  filter-files: ctrl+slash
+
+  # Layer view specific bindings
+  # compare-all: ctrl+a
+  # compare-layer: ctrl+l
+
+  # File view specific bindings
+  # toggle-collapse-dir: space
+  # toggle-collapse-all-dir: ctrl+space
+  # toggle-added-files: ctrl+a
+  # toggle-removed-files: ctrl+r
+  # toggle-modified-files: ctrl+m
+  toggle-unmodified-files: ctrl+i
+  # toggle-filetree-attributes: ctrl+b
+  page-up: ctrl+u
+  page-down: ctrl+d
+
+
+filetree:
+  # The default directory-collapse state
+  collapse-dir: false
+
+ # The percentage of screen width the filetree should take on the screen (must be >0 and <1)
+  pane-width: 0.5
+
+  # Show the file attributes next to the filetree
+  show-attributes: false
