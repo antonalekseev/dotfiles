@@ -84,6 +84,11 @@ alias tmux="tmux -u"
 alias s="sudo -E"
 alias dog='dog --colour=never'
 [ "$(uname)" = "Darwin" ] && alias sudoedit="sudo -e"
+if [ "$(uname)" != "Linux" ]; then
+	alias mls="stat -f '%A %N'"
+else
+	alias mls="stat -c '%a %n'"
+fi
 
 # virtualenv
 export VIRTUAL_ENV_DISABLE_PROMPT='1'
