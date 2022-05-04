@@ -150,6 +150,7 @@ if [ "$(uname)" = "Darwin" ]; then
 	zplug "plugins/sudo", from:oh-my-zsh
 	zplug "plugins/kubectl", from:oh-my-zsh
 	zplug "plugins/terraform", from:oh-my-zsh
+	zplug "johanhaleby/kubetail"
 	zplug "kovetskiy/zsh-add-params"
 	zplug load
 fi
@@ -164,6 +165,7 @@ if [ "$(uname)" = "Linux" ] || [ "$(uname)" = "FreeBSD" ]; then
 	zinit ice wait"0"; zinit snippet OMZ::plugins/kubectl
 	zinit ice wait"0"; zinit snippet OMZ::plugins/terraform
 	zinit ice wait lucid; zinit load kovetskiy/zsh-add-params
+	zinit ice wait lucid; zinit load johanhaleby/kubetail
 fi
 
 # zsh-history-substring-search
