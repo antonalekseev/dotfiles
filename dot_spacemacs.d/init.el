@@ -78,6 +78,7 @@ This function should only modify configuration layer settings."
      (lsp :variables
           lsp-headerline-breadcrumb-enable nil
           lsp-enable-symbol-highlighting nil
+          lsp-modeline-code-actions-enable nil
           lsp-ui-sideline-enable nil
           lsp-ui-doc-enable nil
           lsp-ui-flycheck-enable nil
@@ -94,6 +95,8 @@ This function should only modify configuration layer settings."
      (org :variables
           org-confirm-babel-evaluate nil
           org-bullets-bullet-list '("■" "◆" "▲" "▶"))
+     (php :variables
+          php-backend 'lsp)
      (python :variables
              python-backend 'lsp
              python-test-runner 'pytest
