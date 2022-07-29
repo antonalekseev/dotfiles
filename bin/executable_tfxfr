@@ -1,0 +1,101 @@
+#!/bin/sh
+
+set -eu
+
+chkdep() {
+	missing=""
+	for bin in "$@"; do
+		command -v "$bin" 1>&2 >/dev/null || missing="${missing}$bin, "
+	done
+	[ -z "$missing" ] || \
+		die "this program needs '${missing%%, }' to run, exiting." 2
+}
+
+die() {
+	msg=$1
+	status=${2:-1}
+	printf "error: %s\n" "$msg"
+	exit "$status"
+}
+
+usage() {
+	cat <<EOT
+Usage:
+
+  tfxfr <src module dir> <dest module dir> <resource>
+
+EOT
+	exit
+}
+
+chkresource() {
+	module=$1
+	resource=$2
+	_oldpwd=$PWD
+	cd "$module"
+	if terraform state list| grep -q "^${resource}$"; then
+		cd "$_oldpwd" && return 0
+	else
+		cd "$_oldpwd" && return 1
+	fi
+}
+
+pullstate() {
+	module=$1
+	curdate=$2
+	_oldpwd=$PWD
+	cd "$module"
+	terraform state pull > "../${module}.${curdate}.tfstate" && cd "$_oldpwd"
+}
+
+pushstate() {
+	module=$1
+	curdate=$2
+	_oldpwd=$PWD
+	cd "$module"
+	terraform state push "../${module}.${curdate}.tfstate" && cd "$_oldpwd"
+}
+
+[ $# -ge 3 ] || usage
+
+chkdep "terraform"
+
+src=$1
+dest=$2
+# TODO: accept the 4th argument to enable movement of the resource with the
+# different name e.g. `tfxfr foo bar local_file.ham local.file_spam`
+resource=$3
+curdate=$(date '+%Y%m%d')
+
+[ -d "$src/.terraform" ] || die "Source module $src doesn't exist or hasn't been intialized."
+[ -d "$dest/.terraform" ] || die "Destination module $dest doesn't exist or hasn't been intialized."
+if [ -f "$src.${curdate}.tfstate" ] || [ -f "$dest.${curdate}.tfstate" ]; then
+	die "The state of either module has been already dumped today, I'd better stop here."
+fi
+
+if ! chkresource "$src" "$resource"; then
+	die "Resource $resource is absent in the source module $src"
+fi
+
+if chkresource "$dest" "$resource"; then
+	die "Resource $resource *already* exists in the destination module $dest"
+fi
+
+pullstate "$src" "$curdate"
+pullstate "$dest" "$curdate"
+
+# TODO: use `.backup` files created by `terraform state mv` to rollback later in
+# the case of an error
+terraform state mv -state="./${src}.${curdate}.tfstate" -state-out="./${dest}.${curdate}.tfstate" "$resource" "$resource"
+
+pushstate "$dest" "$curdate"
+if ! chkresource "$dest" "$resource"; then
+	die "Resource $resource just've been moved to $dest and pushed, but still absent in $dest. Something definitely went wrong."
+fi
+pushstate "$src" "$curdate"
+if chkresource "$src" "$resource"; then
+	die "Resource $resource just've been moved from $src, but still present in $src. Something definitely went wrong."
+fi
+
+echo "$resource has been successfully moved from $src to $dest"
+rm "./${src}.${curdate}.tfstate" "./${dest}.${curdate}.tfstate"
