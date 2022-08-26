@@ -142,7 +142,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # zplug on macOS
 if [ "$(uname)" = "Darwin" ]; then
-	export ZPLUG_HOME=/usr/local/opt/zplug
+	export ZPLUG_HOME=$HOMEBREW_PREFIX/opt/zplug
 	source $ZPLUG_HOME/init.zsh
 	zplug romkatv/powerlevel10k, as:theme, depth:1
 	zplug "hlissner/zsh-autopair", defer:2
