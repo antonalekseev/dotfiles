@@ -24,8 +24,8 @@
 [commit]
 	gpgsign = true
 [github]
-	oauth-token = "{{ onepasswordRead "op://Private/gh-oauth-token/password" }}"
-	user = "{{ onepasswordRead "op://Private/gh-oauth-token/username" }}"
+	oauth-token = "{{- onepasswordRead "op://Private/gh-oauth-token/password" -}}"
+	user = "{{- onepasswordRead "op://Private/gh-oauth-token/username" -}}"
 [magithub]
 	online = false
 [magithub "status"]
