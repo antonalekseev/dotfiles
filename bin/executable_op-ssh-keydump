@@ -1,0 +1,15 @@
+#!/bin/sh
+
+[ $# -ge 2 ] || {
+	echo "Usage: $(basename "$0") <key name> [dst dir]"
+	exit 1
+}
+
+name="$1"
+dstdir="${2:-$HOME/.ssh}"
+pub=$(op document get "ssh/$name/public")
+
+[ -n "$pub" ] || { echo "error: document ssh/$name/public is not found in 1Password."; exit 1; }
+
+printf "%s" "$pub" >"$dstdir/id_${name##*-}_${name%%-*}.pub"
+op document get "ssh/$name/private" --output="$dstdir/id_${name##*-}_${name%%-*}" && chmod 0400 "$dstdir/id_${name##*-}_${name%%-*}"

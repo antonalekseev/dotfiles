@@ -1,0 +1,28 @@
+#!/bin/sh
+
+[ $# -eq 2 ] || {
+	echo "Usage: $(basename "$0") <key name> <key file>"
+	exit 1
+}
+
+if [ -f "$(realpath "$2")" ]; then
+	keyfile="$(realpath "$2")"
+elif [ -z "$keyfile" ] && [ -f "$(realpath "$HOME/.ssh/$2")" ]; then
+	keyfile="$(realpath "$HOME/.ssh/$2")"
+else
+	echo "Key file $2 is not found, exiting."
+	exit 1
+fi
+
+phrase=$(op item get "ssh/$1/phrase" --fields password)
+
+if [ -z "$phrase" ]; then
+	ssh-add "$keyfile"
+else
+	expect <<-EOF
+	   spawn ssh-add $keyfile
+	   expect "Enter passphrase"
+	   send "$phrase\r"
+	   expect eof
+	EOF
+fi
