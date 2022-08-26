@@ -1,13 +1,17 @@
 export PYENV_ROOT="$HOME/.pyenv"
-PREPEND_PATH=.:${HOME}/bin:${HOME}/.local/bin:$HOME/.pyenv:${HOME}/go/bin:/usr/local/sbin
+PREPEND_PATH=.:${HOME}/bin:${HOME}/.local/bin:$HOME/.pyenv:${HOME}/go/bin:/usr/local/bin
 {{- if eq .chezmoi.os "darwin" }}
 [ -x /usr/local/bin/brew ] && export HOMEBREW_PREFIX=$(/usr/local/bin/brew --prefix)
 [ -x /opt/homebrew/bin/brew ] && export HOMEBREW_PREFIX=$(/opt/homebrew/bin/brew --prefix)
 if [ -n "$HOMEBREW_PREFIX" ]; then
+  PREPEND_PATH=${PREPEND_PATH}:${HOMEBREW_PREFIX}/bin
+  PREPEND_PATH=${PREPEND_PATH}:${HOMEBREW_PREFIX}/sbin
   PREPEND_PATH=${PREPEND_PATH}:${HOMEBREW_PREFIX}/python@3.10/bin
   PREPEND_PATH=${PREPEND_PATH}:${HOMEBREW_PREFIX}/net-snmp/bin
   PREPEND_PATH=${PREPEND_PATH}:${HOMEBREW_PREFIX}/net-snmp/sbin
 fi
+{{- else }}
+  PREPEND_PATH=${PREPEND_PATH}:/usr/local/sbin
 {{- end }}
 PATH=${PREPEND_PATH}:${PATH}
 export PATH
