@@ -1,1 +1,1 @@
-machine api.github.com login {{- onepasswordRead "op://Private/gh-oauth-token/username" -}}^forge password {{- onepasswordRead "op://Private/gh-oauth-token/password" -}}
+machine api.github.com login {{ onepasswordRead "op://Private/gh-oauth-token/username" | trim }}^forge password {{ onepasswordRead "op://Private/gh-oauth-token/password" | trim }}
