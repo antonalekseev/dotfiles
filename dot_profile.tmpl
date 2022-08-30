@@ -19,6 +19,8 @@ HOSTNAME=$(hostname)
 export HOSTNAME
 export EDITOR='vim'
 export PAGER='less'
-export MANPATH=/opt/local/man:/usr/local/share/man:/usr/man:/usr/share/man
+MANPATH=/opt/local/man:/usr/local/share/man:/usr/man:/usr/share/man
+[ -n "$HOMEBREW_PREFIX" ] && MANPATH=${MANPATH}:${HOMEBREW_PREFIX}/manpages:${HOMEBREW_PREFIX}/share/man
+export MANPATH
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
