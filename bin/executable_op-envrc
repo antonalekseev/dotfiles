@@ -1,0 +1,58 @@
+#!/bin/sh
+
+chkdep() {
+	missing=""
+	for bin in "$@"; do
+		command -v "$bin" 1>&2 >/dev/null || missing="${missing}$bin, "
+	done
+	[ -z "$missing" ] || \
+		die "this program needs '${missing%%, }' to run, exiting." 2
+}
+
+die() {
+	msg=$1
+	status=${2:-1}
+	printf "error: %s\n" "$msg"
+	exit "$status"
+}
+
+usage() {
+	cat <<EOF
+Usage:	$(basename "$0") [-h] <-i|-d> <root>
+-h	show help
+-i	inject secrets in .envrcs
+-d	delete .envrcs
+EOF
+	exit 1
+}
+
+[ $# -lt 2 ] && usage
+
+while getopts "hid" opt; do
+	case "$opt" in
+	i) action="inject"
+	   ;;
+	d) action="delete"
+	   ;;
+	"h"|*) usage ;;
+	esac
+done
+shift $((OPTIND - 1))
+
+chkdep "op"
+
+op whoami >/dev/null 2>&1 || die "active 1Password session is required, please 'op signin'"
+
+_pwd=$PWD
+
+find "$1" -name ".envrc.op"|while read -r env; do
+	cd "${env%/*}"
+	if [ "$action" = "inject" ]; then
+		op inject -f -i .envrc.op -o .envrc
+		chmod 0600 .envrc
+		direnv allow
+	fi
+	if [ "$action" = "delete" ] && [ -f ".envrc" ]; then
+		rm .envrc
+	fi
+done
