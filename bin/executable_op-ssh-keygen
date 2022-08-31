@@ -3,17 +3,20 @@
 ROUNDS=100
 
 usage() {
-	echo "Usage: $(basename "$0") [-e] -- NAME <ssh-keygen options ...>" 1>&2
+	echo "Usage: $(basename "$0") [-e] -V <vault> -- NAME <ssh-keygen options ...>" 1>&2
 	exit 1
 }
 
 # source: https://unix.stackexchange.com/a/476125
 phrase=$(base64 < /dev/urandom | tr -d 'O0Il1+\' | head -c 44)
 
-while getopts "e" opt; do
+while getopts "eV:" opt; do
 	case "$opt" in
 	e)
 		phrase=""
+		;;
+	V)
+		vault="$OPTARG"
 		;;
 	*)
 		usage
@@ -36,9 +39,9 @@ cd "$tmpdir" || { echo "error: can't cd to tmpdir"; exit 1; }
 # source: https://gist.github.com/kraftb/9918106#gistcomment-2733298
 mkfifo -m 0600 key key.pub &&
 	(
-		op document create key --title "ssh_${name}_private" --file-name "private"
-		op document create key.pub --title "ssh_${name}_public" --file-name "public"
-		[ -n "$phrase" ] &&  op item create --category password --title "ssh_${name}_phrase" "password=$phrase"
+		op document create key --title "ssh_${name}_private" --file-name "private" --vault "$vault"
+		op document create key.pub --title "ssh_${name}_public" --file-name "public" --vault "$vault"
+		[ -n "$phrase" ] &&  op item create --category password --vault "$vault" --title "ssh_${name}_phrase" "password=$phrase"
 	) &
 echo "y" | ssh-keygen -a "$ROUNDS" -N "$phrase" -C "${name}-$(date "+%Y%m%d%H%M%S")" -f key "$@"
 
