@@ -14,7 +14,7 @@ else
 	exit 1
 fi
 
-phrase=$(op item get "ssh/$1/phrase" --fields password)
+phrase=$(op item get "ssh_${1}_phrase" --fields password)
 
 if [ -z "$phrase" ]; then
 	ssh-add "$keyfile"

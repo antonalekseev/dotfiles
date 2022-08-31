@@ -7,9 +7,9 @@
 
 name="$1"
 dstdir="${2:-$HOME/.ssh}"
-pub=$(op document get "ssh/$name/public")
+pub=$(op document get "ssh_${name}_public")
 
-[ -n "$pub" ] || { echo "error: document ssh/$name/public is not found in 1Password."; exit 1; }
+[ -n "$pub" ] || { echo "error: document ssh_${name}_public is not found in 1Password."; exit 1; }
 
 printf "%s" "$pub" >"$dstdir/id_${name##*-}_${name%%-*}.pub"
-op document get "ssh/$name/private" --output="$dstdir/id_${name##*-}_${name%%-*}" && chmod 0400 "$dstdir/id_${name##*-}_${name%%-*}"
+op document get "ssh_${name}_private" --output="$dstdir/id_${name##*-}_${name%%-*}" && chmod 0400 "$dstdir/id_${name##*-}_${name%%-*}"
