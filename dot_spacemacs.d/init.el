@@ -614,7 +614,10 @@ you should place your code here."
   (with-eval-after-load 'magit (setq git-commit-summary-max-length 50))
 
   ;; Projectile
-  (setq projectile-project-search-path '("~/p/"))
+  (setq projectile-project-search-path '(
+                                         "~/p/"
+                                         ("~/workspace/antonalekseev" . 2)
+                                         ("~/workspace/" . 4)))
 
   ;; AsciiDoc
   (add-to-list 'auto-mode-alist '("\\.adoc\\'" . text-mode))
