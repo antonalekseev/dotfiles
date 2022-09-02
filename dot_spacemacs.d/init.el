@@ -70,6 +70,7 @@ This function should only modify configuration layer settings."
          go-use-golangci-lint t
          go-format-before-save t
          gofmt-command "goimports")
+     (groovy :variables groovy-backend 'company-groovy)
      (html :variables web-fmt-tool 'prettier)
      ipython-notebook
      ivy
