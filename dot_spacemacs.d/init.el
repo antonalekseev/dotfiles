@@ -600,10 +600,6 @@ you should place your code here."
   (add-hook 'racket-mode-hook
             (lambda() (setq-local adaptive-fill-mode t)))
 
-  ;; Prog mode
-  (add-hook 'prog-mode-hook
-            (lambda () (spacemacs/toggle-fill-column-indicator-on)))
-
   ;; Enable Go Guru identifier highlighting
   (add-hook 'go-mode-hook 'go-guru-hl-identifier-mode)
 
