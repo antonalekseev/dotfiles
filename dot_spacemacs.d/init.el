@@ -603,9 +603,6 @@ you should place your code here."
   ;; Enable Go Guru identifier highlighting
   (add-hook 'go-mode-hook 'go-guru-hl-identifier-mode)
 
-  ;; Highlight changes on fly
-  (diff-hl-flydiff-mode '(:global t))
-
   ;; Magit
   (with-eval-after-load 'magit (setq git-commit-summary-max-length 50))
 
