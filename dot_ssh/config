@@ -1,3 +1,5 @@
+Include config.d/november
+
 Host *
 	IdentityFile ~/.ssh/id_rsa
 	AddKeysToAgent yes
