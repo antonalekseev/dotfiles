@@ -45,7 +45,7 @@ install() {
 	pipx install git+https://github.com/RIPE-NCC/ripe-atlas-tools.git@master#egg=ripe.atlas.tools
 	pipx install ssh-audit
 	pipx install youtube-dl
-	pipx install copier
+	pipx install copier==6.2.0
 	if [ "$(uname)" = "Linux" ]; then
 		pipx install i3-swap-focus
 	fi
