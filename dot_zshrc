@@ -140,6 +140,55 @@ eval "$(direnv hook zsh)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
 
+omz_kubectl_post_load() {
+	# extra kubectl aliases missing for the stock OMZ::plugins/kubectl
+	unalias kl1h
+	unalias kl1m
+	unalias kl1s
+	unalias klf
+	unalias klf1h
+	unalias klf1m
+	unalias klf1s
+
+	#  Seconds
+	alias kl1s='k logs --since 1s'
+	alias kl5s='k logs --since 5s'
+	alias kl10s='k logs --since 10s'
+	alias kl30s='k logs --since 10s'
+	#  Seconds + follow
+	alias kl1sf='k logs --since 1s -f'
+	alias kl5sf='k logs --since 5s -f'
+	alias kl10sf='k logs --since 10s -f'
+	alias kl30sf='k logs --since 10s -f'
+	#  Minutes
+	alias kl1m='k logs --since 1m'
+	alias kl5m='k logs --since 5m'
+	alias kl10m='k logs --since 10m'
+	alias kl30m='k logs --since 10m'
+	#  Minutes + follow
+	alias kl1mf='k logs --since 1m -f'
+	alias kl5mf='k logs --since 5m -f'
+	alias kl10mf='k logs --since 10m -f'
+	alias kl30mf='k logs --since 10m -f'
+	#  Hours
+	alias kl1h='k logs --since 1h'
+	alias kl5h='k logs --since 5h'
+	alias kl10h='k logs --since 10h'
+	#  Hours + follow
+	alias kl1hf='k logs --since 1h -f'
+	alias kl5hf='k logs --since 5h -f'
+	alias kl10hf='k logs --since 10h -f'
+
+	# PersistentVolumes
+	alias kgpv='k get pv'
+	alias kgpva='kgpv --all-namespaces'
+	alias kgpvw='kgpv --watch'
+	alias kgpvwa='kgpv --watch --all-namespaces'
+	alias kgpvwide='kgpv -o wide'
+	alias kdespv='k describe pv'
+	alias kdelpv='k delete pv'
+}
+
 # zplug on macOS
 if [ "$(uname)" = "Darwin" ]; then
 	export ZPLUG_HOME=$HOMEBREW_PREFIX/opt/zplug
@@ -148,7 +197,7 @@ if [ "$(uname)" = "Darwin" ]; then
 	zplug "hlissner/zsh-autopair", defer:2
 	zplug "zsh-users/zsh-history-substring-search"
 	zplug "plugins/sudo", from:oh-my-zsh
-	zplug "plugins/kubectl", from:oh-my-zsh
+	zplug "plugins/kubectl", from:oh-my-zsh, hook-load:"omz_kubectl_post_load"
 	zplug "plugins/terraform", from:oh-my-zsh
 	zplug "johanhaleby/kubetail"
 	zplug "kovetskiy/zsh-add-params"
@@ -162,7 +211,7 @@ if [ "$(uname)" = "Linux" ] || [ "$(uname)" = "FreeBSD" ]; then
 	zinit ice wait lucid; zinit load hlissner/zsh-autopair
 	zinit ice wait"1"; zinit load zsh-users/zsh-history-substring-search
 	zinit ice wait"0"; zinit snippet OMZ::plugins/sudo
-	zinit ice wait"0"; zinit snippet OMZ::plugins/kubectl
+	zinit ice wait"0"; zinit snippet OMZ::plugins/kubectl atload"omz_kubectl_post_load"
 	zinit ice wait"0"; zinit snippet OMZ::plugins/terraform
 	zinit ice wait lucid; zinit load kovetskiy/zsh-add-params
 	zinit ice wait lucid; zinit load johanhaleby/kubetail
