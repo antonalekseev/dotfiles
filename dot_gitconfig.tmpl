@@ -39,3 +39,7 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+{{- if (eq .chezmoi.os "darwin" ) }}
+[gpg]
+	program = {{ (printf "\"%s/%s\"" (env "HOMEBREW_PREFIX") "bin/gpg") }}
+{{- end }}
