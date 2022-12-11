@@ -24,7 +24,7 @@
 ;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
 ;;      doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
 (setq doom-font (font-spec :family "PragmataPro Liga" :size 13 :weight 'normal)
-     doom-variable-pitch-font (font-spec :family "PragmataPro Liga" :size 13))
+      doom-variable-pitch-font (font-spec :family "PragmataPro Liga" :size 13))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -77,17 +77,14 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; Don't create per-project workspaces
+(setq +workspaces-on-switch-project-behavior nil)
 
-;; Modeline
-
-;; Adjust modeline height, from https://github.com/seagle0128/doom-modeline/issues/187#issuecomment-507201556
-;;;###autoload
-(defun +my-doom-modeline--font-height ()
-  "Calculate the actual char height of the mode-line."
-  (+ (frame-char-height) 2))
-
-(after! doom-modeline
-  (advice-add #'doom-modeline--font-height :override #'my-doom-modeline--font-height))
+;; Disable modeline icons as advised here
+;; https://github.com/seagle0128/doom-modeline/issues/558#issuecomment-1220565602
+(setq doom-modeline-height 1
+      doom-modeline-bar-width 0
+      doom-modeline-icon nil)
 
 ;; Projectile
 (after! projectile
