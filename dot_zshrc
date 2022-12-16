@@ -4,6 +4,7 @@ bindkey -v
 
 export PAGER="less"
 export LESS="-FXR"
+export DFT_SYNTAX_HIGHLIGHT="off"
 
 # Persist vi mode between commands
 # https://unix.stackexchange.com/a/110877
