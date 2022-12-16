@@ -36,6 +36,7 @@ install() {
 	pipx install pipenv
 	pipx install pre-commit
 	pipx install pipfile-requirements
+	pipx install pdm
 	# misc
 	pipx install awscli
 	pipx install speedtest-cli
@@ -66,6 +67,7 @@ uninstall() {
 	pipx_uninstall pipenv
 	pipx_uninstall pre-commit
 	pipx_uninstall pipfile-requirements
+	pipx uninstall pdm
 	# misc
 	pipx_uninstall awscli
 	pipx_uninstall speedtest-cli
