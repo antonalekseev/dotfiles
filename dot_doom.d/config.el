@@ -96,9 +96,14 @@
 (after! evil-multiedit
   (evil-multiedit-default-keybinds))
 
-;; Key bindings
+;; Trigger company-mode completion manually
+(after! company
+  (setq company-idle-delay nil))
 
-(map!
- :leader
- "b f" #'+format/buffer
- )
+;; Key bindings
+(map! "C-SPC" 'company-complete
+      :leader "b f" #'+format/buffer)
+
+;; Suppress annoying "Warning: docstring has wrong usage of unescaped single quotes (use \= or different quoting)"
+;; https://yhetil.org/emacs-devel/87pmjl2br2.fsf@posteo.net/
+(setq byte-compile-warnings (not 'docstrings))
