@@ -102,7 +102,9 @@
 
 ;; Key bindings
 (map! "C-SPC" 'company-complete
-      :leader "b f" #'+format/buffer)
+      :leader
+      "b f" #'+format/buffer
+      "t s" #'whitespace-mode)
 
 ;; Suppress annoying "Warning: docstring has wrong usage of unescaped single quotes (use \= or different quoting)"
 ;; https://yhetil.org/emacs-devel/87pmjl2br2.fsf@posteo.net/
