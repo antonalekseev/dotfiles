@@ -95,3 +95,10 @@
 ;; Multiple cursors
 (after! evil-multiedit
   (evil-multiedit-default-keybinds))
+
+;; Key bindings
+
+(map!
+ :leader
+ "b f" #'+format/buffer
+ )
