@@ -104,7 +104,6 @@
 (map! "C-SPC" 'company-complete
       :leader
       :desc "Run RMSbolt" "c g" #'rmsbolt-compile
-      "b f" #'+format/buffer
       "t s" #'whitespace-mode)
 
 ;; Suppress annoying "Warning: docstring has wrong usage of unescaped single quotes (use \= or different quoting)"
