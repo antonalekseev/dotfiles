@@ -50,3 +50,5 @@
 ;(unpin! t)
 
 (package! modus-themes)
+
+(package! rmsbolt)

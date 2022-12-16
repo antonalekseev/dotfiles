@@ -103,6 +103,7 @@
 ;; Key bindings
 (map! "C-SPC" 'company-complete
       :leader
+      :desc "Run RMSbolt" "c g" #'rmsbolt-compile
       "b f" #'+format/buffer
       "t s" #'whitespace-mode)
 
