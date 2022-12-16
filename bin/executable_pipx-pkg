@@ -13,7 +13,10 @@ EOF
 }
 
 checkdep() {
-	command -v "$1" 1>&2 >/dev/null || { echo "$1 is not found, exiting."; exit 2; }
+	command -v "$1" 1>&2 >/dev/null || {
+		echo "$1 is not found, exiting."
+		exit 2
+	}
 }
 
 pipx_uninstall() {
@@ -51,7 +54,6 @@ install() {
 		pipx install i3-swap-focus
 	fi
 }
-
 
 uninstall() {
 	# python IDE
@@ -93,11 +95,10 @@ checkdep "pipx"
 
 while getopts "iUIh" opt; do
 	case "$opt" in
-	"i") install ;;
-	"U") uninstall ;;
-	"I") reinstall ;;
-	"h"|*) usage ;;
+		"i") install ;;
+		"U") uninstall ;;
+		"I") reinstall ;;
+		"h" | *) usage ;;
 	esac
 done
 shift $((OPTIND - 1))
-
