@@ -103,6 +103,7 @@
 ;; Key bindings
 (map! "C-SPC" 'company-complete
       :leader
+      :desc "Set input method" "\\" #'set-input-method
       :desc "Run RMSbolt" "c g" #'rmsbolt-compile
       :desc "Show non-printable chars" "t s" #'whitespace-mode)
 
