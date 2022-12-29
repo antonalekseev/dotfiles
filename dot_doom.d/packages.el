@@ -52,3 +52,9 @@
 (package! modus-themes)
 
 (package! rmsbolt)
+
+(package! whitespace4r
+  :recipe (:type git
+           :host github
+           :protocol ssh
+           :repo "twlz0ne/whitespace4r.el"))
