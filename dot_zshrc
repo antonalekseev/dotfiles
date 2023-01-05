@@ -98,13 +98,11 @@ export PIPENV_HIDE_EMOJIS=true
 export PIPENV_NOSPIN=true
 export PIPENV_VENV_IN_PROJECT=true
 
-# z.lua
-eval "$(lua $HOME/bin/z.lua --init zsh enhanced fzf)"
-alias j="z"
-alias jh="z ~"
-alias je="z -e"
-alias jj="z -I"
-alias jb="z -b -I"
+# zoxide
+eval "$(zoxide init zsh --cmd j)"
+alias jj="ji"
+alias jb="j -"
+alias ju="j .."
 
 setopt SHARE_HISTORY
 setopt HIST_REDUCE_BLANKS
