@@ -97,6 +97,8 @@ export PIPENV_COLORBLIND=true
 export PIPENV_HIDE_EMOJIS=true
 export PIPENV_NOSPIN=true
 export PIPENV_VENV_IN_PROJECT=true
+export USE_EMOJI="false"
+[ "$(uname)" = "Darwin" ] && export PIPX_DEFAULT_PYTHON="python3.11"
 
 # zoxide
 eval "$(zoxide init zsh --cmd j)"
