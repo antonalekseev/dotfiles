@@ -181,15 +181,13 @@ layout_pdm() {
         pdm init --non-interactive --python "$(python3 --version 2>/dev/null | cut -d' ' -f2 | cut -d. -f1-2)"
     fi
 
-    VIRTUAL_ENV=$(pdm venv list | grep "^\*"  | awk -F" " '{print $3}')
-
-
-    if [ -z "$VIRTUAL_ENV" ] || [ ! -d "$VIRTUAL_ENV" ]; then
-        log_status "No virtual environment exists. Executing \`pdm info\` to create one."
-	pdm info
-        VIRTUAL_ENV=$(pdm venv list | grep "^\*"  | awk -F" " '{print $3}')
+    if ! pdm info --python; then
+        log_status "No virtual environment exists. Executing \`pdm venv create\` to create one."
+        pdm venv create
     fi
 
+    PDM_INFO_PYTHON=$(pdm info --python)
+    VIRTUAL_ENV=${PDM_INFO_PYTHON%*/bin/python}
     PATH_add "$VIRTUAL_ENV/bin"
     export PDM_ACTIVE=1
     export VIRTUAL_ENV
