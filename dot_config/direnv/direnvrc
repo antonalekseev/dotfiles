@@ -178,17 +178,28 @@ layout_pdm() {
     PYPROJECT_TOML="${PYPROJECT_TOML:-pyproject.toml}"
     if [ ! -f "$PYPROJECT_TOML" ]; then
         log_status "No pyproject.toml found. Executing \`pmd init\` to create a \`$PYPROJECT_TOML\` first."
+        # XXX: The following should be replaced with a Python version from
+        # pyproject.toml either for PDM_PYTHON_VERSION direnv variable
         pdm init --non-interactive --python "$(python3 --version 2>/dev/null | cut -d' ' -f2 | cut -d. -f1-2)"
     fi
 
-    if ! pdm info --python; then
+    if ! pdm venv list|grep -Eq '^[*-][^:]+:'; then
         log_status "No virtual environment exists. Executing \`pdm venv create\` to create one."
-        pdm venv create
+        pdm venv create -n pdm
+        NEW_VENV=1
     fi
 
-    PDM_INFO_PYTHON=$(pdm info --python)
-    VIRTUAL_ENV=${PDM_INFO_PYTHON%*/bin/python}
+    PDM_VENV=$(pdm venv list|grep -E '^[*-]\ +pdm:')
+    VIRTUAL_ENV="${PDM_VENV##*\ pdm: }"
     PATH_add "$VIRTUAL_ENV/bin"
     export PDM_ACTIVE=1
     export VIRTUAL_ENV
+    if [ -n "$NEW_VENV" ]; then
+        python -m ensurepip --upgrade
+        if [ -f "pdm.lock" ]; then
+            pdm sync
+        else
+            pdm install
+        fi
+    fi
 }
