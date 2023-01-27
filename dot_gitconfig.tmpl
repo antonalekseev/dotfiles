@@ -12,16 +12,20 @@
 	co = checkout
 	br = branch
 	lo = log --pretty=oneline
-	lp = log --pretty=oneline -p
-	diffstat = diff --stat
-	difft = difftool -y -x difft
+	lp = log --pretty=oneline -p --ext-diff
+	di = diff
+	dii = diff --no-ext-diff
+	ds = diff --stat
+	sh = show --ext-diff
 [diff]
 	submodule = log
 	tool = vimdiff
+	external = difft
 [push]
 	default = current
 [difftool]
 	prompt = true
+	external = difft
 [commit]
 	gpgsign = true
 [github]
