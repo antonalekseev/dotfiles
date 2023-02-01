@@ -1,0 +1,23 @@
+#!/bin/sh
+
+checkdep() {
+	command -v "$1" 1>&2 >/dev/null || {
+		echo "$1 is not found, exiting."
+		exit 2
+	}
+}
+
+checkdep "go"
+
+# development tools
+# thanks https://www.evanlouie.com/gists/go/docs/doom-emacs-setup
+go install github.com/x-motemen/gore/cmd/gore@latest
+go install github.com/stamblerre/gocode@latest
+go install golang.org/x/tools/cmd/godoc@latest
+go install golang.org/x/tools/cmd/goimports@latest
+go install golang.org/x/tools/cmd/gorename@latest
+go install golang.org/x/tools/cmd/guru@latest
+go install github.com/cweill/gotests/...@latest
+go install github.com/fatih/gomodifytags@latest
+go install golang.org/x/tools/gopls@latest
+go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
