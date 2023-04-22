@@ -176,16 +176,18 @@ layout_pyenv() {
 
 layout_pdm() {
     PYPROJECT_TOML="${PYPROJECT_TOML:-pyproject.toml}"
+    [ -x "$(pyenv root)/versions/${PDM_PYENV_PYTHON_VERSION}/bin/python" ] && PYTHON="$(pyenv root)/versions/${PDM_PYENV_PYTHON_VERSION}/bin/python"
     if [ ! -f "$PYPROJECT_TOML" ]; then
         log_status "No pyproject.toml found. Executing \`pmd init\` to create a \`$PYPROJECT_TOML\` first."
-        # XXX: The following should be replaced with a Python version from
-        # pyproject.toml either for PDM_PYTHON_VERSION direnv variable
-        pdm init --non-interactive --python "$(python3 --version 2>/dev/null | cut -d' ' -f2 | cut -d. -f1-2)"
+        echo "DEBUG $PYTHON"
+        pdm init --non-interactive --python "${PYTHON:-python3}" --backend "${PDM_BACKEND:-pdm-backend}"
+        pdm config check_update false
+        pdm config venv.with_pip true
     fi
 
     if ! pdm venv list|grep -Eq '^[*-][^:]+:'; then
         log_status "No virtual environment exists. Executing \`pdm venv create\` to create one."
-        pdm venv create -n pdm
+        pdm venv create -n pdm "$PYTHON"
         NEW_VENV=1
     fi
 
