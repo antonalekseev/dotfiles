@@ -118,3 +118,8 @@
 ;; Suppress annoying "Warning: docstring has wrong usage of unescaped single quotes (use \= or different quoting)"
 ;; https://yhetil.org/emacs-devel/87pmjl2br2.fsf@posteo.net/
 (setq byte-compile-warnings (not 'docstrings))
+
+;; Set remote type to `gitlab` for URLs starting with `gitlab.`
+(after! browse-at-remote
+  (add-to-list 'browse-at-remote-remote-type-regexps
+               '("^gitlab\\..*" . "gitlab")))
