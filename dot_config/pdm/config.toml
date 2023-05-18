@@ -1,2 +1,5 @@
+check_update = false
+
 [venv]
 in_project = false
+with_pip = true
