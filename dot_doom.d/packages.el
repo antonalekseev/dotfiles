@@ -65,3 +65,7 @@
   :pin "0df5c4815d7be01ab52e9f957c56e6318c871217"
   :recipe (:host github :repo "emacs-evil/evil-collection")
   )
+
+;; Disable solaire-mode to make scrolling and cursor movement less painful on macOS
+;; see https://github.com/doomemacs/doomemacs/issues/2217 for the details
+(package! solaire-mode :disable t)
