@@ -133,3 +133,8 @@
     (add-to-list 'evil-collection-mode-list 'smerge-mode)
     (+evil-collection-init 'smerge-mode)
     ) )
+
+;; Use GNU grep on macOS for faster `consult-grep`
+;; `doom doctor` is still complaining, because of hard-coded `grep` command
+(after! consult
+  (when IS-MAC (setq consult-grep-args (append '("ggrep") (cdr consult-grep-args) ))))
