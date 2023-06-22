@@ -1,0 +1,7 @@
+#!/bin/sh
+
+TZS="UTC Asia/Bangkok Asia/Saigon Asia/Makassar Europe/Moscow Europe/London"
+
+for tz in $TZS; do
+    printf "%s\t" "$tz" && TZ="$tz" gdate "$@"
+done
