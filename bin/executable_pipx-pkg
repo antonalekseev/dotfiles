@@ -50,6 +50,7 @@ install() {
 	pipx install ssh-audit
 	pipx install youtube-dl
 	pipx install copier==6.2.0
+	pipx install cambridge
 	if [ "$(uname)" = "Linux" ]; then
 		pipx install i3-swap-focus
 	fi
@@ -80,6 +81,7 @@ uninstall() {
 	pipx uninstall ssh-audit
 	pipx uninstall youtube-dl
 	pipx uninstall copier
+	pipx uninstall cambridge
 	if [ "$(uname)" = "Linux" ]; then
 		pipx uninstall i3-swap-focus
 	fi
