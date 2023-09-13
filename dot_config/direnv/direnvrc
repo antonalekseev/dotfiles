@@ -179,7 +179,6 @@ layout_pdm() {
     [ -x "$(pyenv root)/versions/${PDM_PYENV_PYTHON_VERSION}/bin/python" ] && PYTHON="$(pyenv root)/versions/${PDM_PYENV_PYTHON_VERSION}/bin/python"
     if [ ! -f "$PYPROJECT_TOML" ]; then
         log_status "No pyproject.toml found. Executing \`pmd init\` to create a \`$PYPROJECT_TOML\` first."
-        echo "DEBUG $PYTHON"
         pdm init --non-interactive --python "${PYTHON:-python3}" --backend "${PDM_BACKEND:-pdm-backend}"
         pdm config check_update false
         pdm config venv.with_pip true
