@@ -41,7 +41,6 @@ install() {
 	pipx install pipfile-requirements
 	pipx install pdm
 	# misc
-	pipx install awscli
 	pipx install speedtest-cli
 	pipx install torf-cli
 	pipx install datasette
@@ -72,7 +71,6 @@ uninstall() {
 	pipx_uninstall pipfile-requirements
 	pipx uninstall pdm
 	# misc
-	pipx_uninstall awscli
 	pipx_uninstall speedtest-cli
 	pipx_uninstall torf-cli
 	pipx_uninstall datasette
