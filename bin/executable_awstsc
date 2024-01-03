@@ -1,0 +1,59 @@
+#!/bin/sh
+
+set -eu
+
+chkdep() {
+	missing=""
+	for bin in "$@"; do
+		command -v "$bin" 1>&2 >/dev/null || missing="${missing}$bin, "
+	done
+	[ -z "$missing" ] ||
+		die "this program needs '${missing%%, }' to run, exiting." 2
+}
+
+die() {
+	msg=$1
+	status=${2:-1}
+	printf "error: %s\n" "$msg"
+	exit "$status"
+}
+
+cleanup() {
+	[ -e "token.json" ] && rm token.json
+}
+
+usage() {
+	cat <<EOT
+
+Update the temporary security credentials for an AWS CLI configuration profile
+from session token data passed to stdin.
+
+Usage:
+
+  awstsc <profile>
+
+EOT
+	exit
+}
+
+trap cleanup EXIT
+
+chkdep "aws" "grep" "jq"
+
+[ $# -lt 1 ] && usage
+
+profile="$1"
+profile_re="^${profile}\$"
+
+aws configure list-profiles | grep -Eq "$profile_re" || die "AWS profile $profile doesn't exist."
+
+mkfifo -m 0600 token.json &&
+	(
+		json=$(cat)
+		access=$(echo "$json" | jq -r '.Credentials.AccessKeyId')
+		secret=$(echo "$json" | jq -r '.Credentials.SecretAccessKey')
+		token=$(echo "$json" | jq -r '.Credentials.SessionToken')
+		aws configure set aws_access_key_id "$access" --profile "$profile"
+		aws configure set aws_secret_access_key "$secret" --profile "$profile"
+		aws configure set aws_session_token "$token" --profile "$profile"
+	)
