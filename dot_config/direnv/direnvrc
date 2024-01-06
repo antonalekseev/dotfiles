@@ -190,6 +190,13 @@ layout_pdm() {
         NEW_VENV=1
     fi
 
+    # FIXME: The following two lines don't work as expected. A virtualenv named
+    # `pdm` is created only when the `pdmproject.toml` already exists and `pdm
+    # venv create` is being called explicitly. When `pdm init` happens, there is
+    # no way to specify a name for the virualenv. Also, the code above doesn't
+    # cover the case when multiple virtualenvs based on different Python
+    # versions are used.
+
     PDM_VENV=$(pdm venv list|grep -E '^[*-]\ +pdm:')
     VIRTUAL_ENV="${PDM_VENV##*\ pdm: }"
     PATH_add "$VIRTUAL_ENV/bin"
