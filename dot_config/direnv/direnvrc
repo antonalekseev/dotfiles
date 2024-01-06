@@ -184,7 +184,7 @@ layout_pdm() {
         pdm config venv.with_pip true
     fi
 
-    if ! pdm venv list|grep -Eq '^[*-][^:]+:'; then
+    if ! pdm venv list|grep -E '^[*-][^:]+:' >/dev/null 2>&1; then
         log_status "No virtual environment exists. Executing \`pdm venv create\` to create one."
         pdm venv create -n pdm "${PYTHON:-python3}"
         NEW_VENV=1
