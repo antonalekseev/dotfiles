@@ -147,4 +147,5 @@
         '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src" nil nil)
           (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src" nil nil)
           (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile" "main" "src" nil nil)
-          (zig "https://github.com/maxxnino/tree-sitter-zig/" "main" "src" nil nil))))
+          (zig "https://github.com/maxxnino/tree-sitter-zig/" "main" "src" nil nil)
+          (hcl "https://github.com/MichaHoffmann/tree-sitter-hcl/" "main" "src" nil nil))))
