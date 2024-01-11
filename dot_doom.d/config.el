@@ -139,3 +139,12 @@
 ;; `doom doctor` is still complaining, because of hard-coded `grep` command
 (after! consult
   (when IS-MAC (setq consult-grep-args (append '("ggrep") (cdr consult-grep-args) ))))
+
+;; Tree-sitter
+;; The list of the repositories for other languages https://github.com/casouri/tree-sitter-module/blob/master/build.sh
+(after! treesit
+  (setq treesit-language-source-alist
+        '((typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src" nil nil)
+          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src" nil nil)
+          (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile" "main" "src" nil nil)
+          (zig "https://github.com/maxxnino/tree-sitter-zig/" "main" "src" nil nil))))
