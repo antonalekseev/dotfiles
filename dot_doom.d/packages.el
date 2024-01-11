@@ -69,3 +69,7 @@
 ;; Disable solaire-mode to make scrolling and cursor movement less painful on macOS
 ;; see https://github.com/doomemacs/doomemacs/issues/2217 for the details
 (package! solaire-mode :disable t)
+
+;; Fix broken ts-ls
+;; https://github.com/doomemacs/doomemacs/issues/7540
+(unpin! lsp-mode)
