@@ -1,0 +1,2 @@
+{:logseq-vim-shortcuts {:version "v0.1.20", :repo "vipzhicheng/logseq-plugin-vim-shortcuts", :effect true, :theme false}
+ :logseq-paste-more {:version "v1.5.9", :repo "usoonees/logseq-plugin-paste-more", :effect true, :theme false}}
