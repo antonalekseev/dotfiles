@@ -59,5 +59,6 @@ scheme=${url%%://*}
 portproto=$(grep -E "^${scheme}[ 	]+[0-9]+/tcp" /etc/services|tr '\t' ' '|tr -s ' '|cut -d" " -f2)
 { host -ta "${hostname#/}" & host -taaaa "${hostname#/}"; }|grep -Eo "($RE_IPV4|$RE_IPV6)" |while read -r addr; do
 	hr
+	printf "Requesting %s\n\n" "$addr"
 	curl --resolve "${hostname#/}:${portproto%/*}:${addr}" $@
 done
