@@ -149,3 +149,7 @@
           (dockerfile "https://github.com/camdencheek/tree-sitter-dockerfile" "main" "src" nil nil)
           (zig "https://github.com/maxxnino/tree-sitter-zig/" "main" "src" nil nil)
           (hcl "https://github.com/MichaHoffmann/tree-sitter-hcl/" "main" "src" nil nil))))
+
+;; LSP
+(after! lsp-mode
+  (setq lsp-go-use-gofumpt t))
