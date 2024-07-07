@@ -20,10 +20,6 @@ set ideajoin=true
 set idearefactormode=visual
 set ideavimsupport=
 
-
-" evil-escape
-imap jk <Esc>
-
 " Insert newline above
 nnoremap [<Space> O<Esc>j
 vnoremap [<Space> <Esc>O<Esc>j
