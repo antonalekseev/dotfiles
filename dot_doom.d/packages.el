@@ -73,3 +73,7 @@
 ;; Fix broken ts-ls
 ;; https://github.com/doomemacs/doomemacs/issues/7540
 (unpin! lsp-mode)
+
+(package! annotate.el
+  :recipe (:host github
+           :repo "bastibe/annotate.el"))
