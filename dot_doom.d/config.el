@@ -162,11 +162,11 @@
   :commands (annotate-load-annotation-data))
 
 (add-hook! find-file
-           (let ((file-name (buffer-file-name))
-                 (annotation-files (mapcar #'car (annotate-load-annotation-data t))))
-             (when (and file-name
-                        (member file-name annotation-files))
-               (annotate-mode +1))))
+  (let ((file-name (buffer-file-name))
+        (annotation-files (mapcar #'car (annotate-load-annotation-data t))))
+    (when (and file-name
+               (member file-name annotation-files))
+      (annotate-mode +1))))
 
 ;; The current database for annotations is contained in the file indicated by the variable annotate-file.
 (after! annotate
