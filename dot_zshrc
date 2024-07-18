@@ -36,18 +36,18 @@ zle -N zle-keymap-select
 autoload -U select-bracketed
 zle -N select-bracketed
 for m in visual viopp; do
-	for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
-		bindkey -M $m $c select-bracketed
-	done
+    for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+        bindkey -M $m $c select-bracketed
+    done
 done
 
 # quote text object
 autoload -U select-quoted
 zle -N select-quoted
 for m in visual viopp; do
-	for c in {a,i}{\',\",\`}; do
-		bindkey -M $m $c select-quoted
-	done
+    for c in {a,i}{\',\",\`}; do
+        bindkey -M $m $c select-quoted
+    done
 done
 
 # surround text object
@@ -87,9 +87,9 @@ alias dog='dog --colour=never'
 alias tsz="date -u '+%Y-%m-%dT%H:%M:%SZ'"
 [ "$(uname)" = "Darwin" ] && alias sudoedit="sudo -e"
 if [ "$(uname)" != "Linux" ]; then
-	alias mls="stat -f '%A %N'"
+    alias mls="stat -f '%A %N'"
 else
-	alias mls="stat -c '%a %n'"
+    alias mls="stat -c '%a %n'"
 fi
 
 # virtualenv
@@ -120,21 +120,21 @@ setopt PROMPT_SUBST
 WHOAMI=`whoami`
 
 if [[ "$ITERM_PROFILE" != "Hotkey Window" ]]; then
-	source $HOME/bin/base16-default-light.sh
-	TMUX_SESSION_NAME="${WHOAMI}-full"
+    source $HOME/bin/base16-default-light.sh
+    TMUX_SESSION_NAME="${WHOAMI}-full"
 else
-	TMUX_SESSION_NAME="${WHOAMI}-hotkey"
+    TMUX_SESSION_NAME="${WHOAMI}-hotkey"
 fi
 
 if [ "$TERM" != "screen-256color" ]\
-	   && [ "$TERM_PROGRAM" = "iTerm.app" ]\
-	   && [ "$(uname)" = "Darwin" ]; then
-	tmux list-sessions -F "#{session_name}:#{session_attached}"\
-		|grep -q "${TMUX_SESSION_NAME}"\
-		|| tmux new-session -s "$TMUX_SESSION_NAME"
-	tmux list-sessions -F "#{session_name}:#{session_attached}"\
-		|grep -q "${TMUX_SESSION_NAME}:1"\
-		|| tmux attach-session -t "$TMUX_SESSION_NAME"
+       && [ "$TERM_PROGRAM" = "iTerm.app" ]\
+       && [ "$(uname)" = "Darwin" ]; then
+    tmux list-sessions -F "#{session_name}:#{session_attached}"\
+        |grep -q "${TMUX_SESSION_NAME}"\
+        || tmux new-session -s "$TMUX_SESSION_NAME"
+    tmux list-sessions -F "#{session_name}:#{session_attached}"\
+        |grep -q "${TMUX_SESSION_NAME}:1"\
+        || tmux attach-session -t "$TMUX_SESSION_NAME"
 fi
 
 eval "$(direnv hook zsh)"
@@ -143,80 +143,80 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
 
 omz_kubectl_post_load() {
-	# extra kubectl aliases missing for the stock OMZ::plugins/kubectl
-	unalias kl1h
-	unalias kl1m
-	unalias kl1s
-	unalias klf
-	unalias klf1h
-	unalias klf1m
-	unalias klf1s
+    # extra kubectl aliases missing for the stock OMZ::plugins/kubectl
+    unalias kl1h
+    unalias kl1m
+    unalias kl1s
+    unalias klf
+    unalias klf1h
+    unalias klf1m
+    unalias klf1s
 
-	#  Seconds
-	alias kl1s='k logs --since 1s'
-	alias kl5s='k logs --since 5s'
-	alias kl10s='k logs --since 10s'
-	alias kl30s='k logs --since 10s'
-	#  Seconds + follow
-	alias kl1sf='k logs --since 1s -f'
-	alias kl5sf='k logs --since 5s -f'
-	alias kl10sf='k logs --since 10s -f'
-	alias kl30sf='k logs --since 10s -f'
-	#  Minutes
-	alias kl1m='k logs --since 1m'
-	alias kl5m='k logs --since 5m'
-	alias kl10m='k logs --since 10m'
-	alias kl30m='k logs --since 10m'
-	#  Minutes + follow
-	alias kl1mf='k logs --since 1m -f'
-	alias kl5mf='k logs --since 5m -f'
-	alias kl10mf='k logs --since 10m -f'
-	alias kl30mf='k logs --since 10m -f'
-	#  Hours
-	alias kl1h='k logs --since 1h'
-	alias kl5h='k logs --since 5h'
-	alias kl10h='k logs --since 10h'
-	#  Hours + follow
-	alias kl1hf='k logs --since 1h -f'
-	alias kl5hf='k logs --since 5h -f'
-	alias kl10hf='k logs --since 10h -f'
+    #  Seconds
+    alias kl1s='k logs --since 1s'
+    alias kl5s='k logs --since 5s'
+    alias kl10s='k logs --since 10s'
+    alias kl30s='k logs --since 10s'
+    #  Seconds + follow
+    alias kl1sf='k logs --since 1s -f'
+    alias kl5sf='k logs --since 5s -f'
+    alias kl10sf='k logs --since 10s -f'
+    alias kl30sf='k logs --since 10s -f'
+    #  Minutes
+    alias kl1m='k logs --since 1m'
+    alias kl5m='k logs --since 5m'
+    alias kl10m='k logs --since 10m'
+    alias kl30m='k logs --since 10m'
+    #  Minutes + follow
+    alias kl1mf='k logs --since 1m -f'
+    alias kl5mf='k logs --since 5m -f'
+    alias kl10mf='k logs --since 10m -f'
+    alias kl30mf='k logs --since 10m -f'
+    #  Hours
+    alias kl1h='k logs --since 1h'
+    alias kl5h='k logs --since 5h'
+    alias kl10h='k logs --since 10h'
+    #  Hours + follow
+    alias kl1hf='k logs --since 1h -f'
+    alias kl5hf='k logs --since 5h -f'
+    alias kl10hf='k logs --since 10h -f'
 
-	# PersistentVolumes
-	alias kgpv='k get pv'
-	alias kgpva='kgpv --all-namespaces'
-	alias kgpvw='kgpv --watch'
-	alias kgpvwa='kgpv --watch --all-namespaces'
-	alias kgpvwide='kgpv -o wide'
-	alias kdespv='k describe pv'
-	alias kdelpv='k delete pv'
+    # PersistentVolumes
+    alias kgpv='k get pv'
+    alias kgpva='kgpv --all-namespaces'
+    alias kgpvw='kgpv --watch'
+    alias kgpvwa='kgpv --watch --all-namespaces'
+    alias kgpvwide='kgpv -o wide'
+    alias kdespv='k describe pv'
+    alias kdelpv='k delete pv'
 }
 
 # zplug on macOS
 if [ "$(uname)" = "Darwin" ]; then
-	export ZPLUG_HOME=$HOMEBREW_PREFIX/opt/zplug
-	source $ZPLUG_HOME/init.zsh
-	zplug romkatv/powerlevel10k, as:theme, depth:1
-	zplug "hlissner/zsh-autopair", defer:2
-	zplug "zsh-users/zsh-history-substring-search"
-	zplug "plugins/sudo", from:oh-my-zsh
-	zplug "plugins/kubectl", from:oh-my-zsh, hook-load:"omz_kubectl_post_load"
-	zplug "plugins/terraform", from:oh-my-zsh
-	zplug "johanhaleby/kubetail"
-	zplug "kovetskiy/zsh-add-params"
-	zplug load
+    export ZPLUG_HOME=$HOMEBREW_PREFIX/opt/zplug
+    source $ZPLUG_HOME/init.zsh
+    zplug romkatv/powerlevel10k, as:theme, depth:1
+    zplug "hlissner/zsh-autopair", defer:2
+    zplug "zsh-users/zsh-history-substring-search"
+    zplug "plugins/sudo", from:oh-my-zsh
+    zplug "plugins/kubectl", from:oh-my-zsh, hook-load:"omz_kubectl_post_load"
+    zplug "plugins/terraform", from:oh-my-zsh
+    zplug "johanhaleby/kubetail"
+    zplug "kovetskiy/zsh-add-params"
+    zplug load
 fi
 
 # zinit on Linux
 if [ "$(uname)" = "Linux" ] || [ "$(uname)" = "FreeBSD" ]; then
-	source "$HOME/.zinit/bin/zinit.zsh"
-	zinit ice depth=1; zinit light romkatv/powerlevel10k
-	zinit ice wait lucid; zinit load hlissner/zsh-autopair
-	zinit ice wait"1"; zinit load zsh-users/zsh-history-substring-search
-	zinit ice wait"0"; zinit snippet OMZ::plugins/sudo
-	zinit ice wait"0"; zinit snippet OMZ::plugins/kubectl atload"omz_kubectl_post_load"
-	zinit ice wait"0"; zinit snippet OMZ::plugins/terraform
-	zinit ice wait lucid; zinit load kovetskiy/zsh-add-params
-	zinit ice wait lucid; zinit load johanhaleby/kubetail
+    source "$HOME/.zinit/bin/zinit.zsh"
+    zinit ice depth=1; zinit light romkatv/powerlevel10k
+    zinit ice wait lucid; zinit load hlissner/zsh-autopair
+    zinit ice wait"1"; zinit load zsh-users/zsh-history-substring-search
+    zinit ice wait"0"; zinit snippet OMZ::plugins/sudo
+    zinit ice wait"0"; zinit snippet OMZ::plugins/kubectl atload"omz_kubectl_post_load"
+    zinit ice wait"0"; zinit snippet OMZ::plugins/terraform
+    zinit ice wait lucid; zinit load kovetskiy/zsh-add-params
+    zinit ice wait lucid; zinit load johanhaleby/kubetail
 fi
 
 # zsh-history-substring-search
@@ -243,38 +243,38 @@ bindkey -a '^P' add-params
 [ -d "$HOME/.terraform.d/plugin-cache" ] || mkdir -p "$HOME/.terraform.d/plugin-cache"
 
 function _tmuxw() {
-	[ -z "$TMUX" ] && $* && return
-	cmd=$1
-	shift
-	cur=$(tmux lsw | grep -m1 "[:] ${cmd##*/} $*"|cut -f1 -d:)
-	if [ -n "$cur" ];then
-		tmux selectw -t :$cur
-	else
-		tmux neww -n "${cmd##*/} $*" "$cmd $*"
-	fi
+    [ -z "$TMUX" ] && $* && return
+    cmd=$1
+    shift
+    cur=$(tmux lsw | grep -m1 "[:] ${cmd##*/} $*"|cut -f1 -d:)
+    if [ -n "$cur" ];then
+        tmux selectw -t :$cur
+    else
+        tmux neww -n "${cmd##*/} $*" "$cmd $*"
+    fi
 }
 
 function ssh() {
-	_tmuxw =ssh $*
+    _tmuxw =ssh $*
 }
 
 function telnet() {
-	_tmuxw =telnet $*
+    _tmuxw =telnet $*
 }
 
 function cu() {
-	_tmuxw =cu $*
+    _tmuxw =cu $*
 }
 
 # @re
 # run command elsewhere (on all .hosts except this one)
 function re() {
-	if [ "$#" -lt "1" ]; then
-		echo 'ERROR: no command specified'
-		return
-	fi
-	h=$(grep -v "$HOSTNAME" "$HOME/.hosts"|tr '\n' ',')
-	pdsh -w "${h%?}" "$*"
+    if [ "$#" -lt "1" ]; then
+        echo 'ERROR: no command specified'
+        return
+    fi
+    h=$(grep -v "$HOSTNAME" "$HOME/.hosts"|tr '\n' ',')
+    pdsh -w "${h%?}" "$*"
 }
 
 # helpers for go/python q module
@@ -306,91 +306,91 @@ rmqq() {
 
 # abbrpwd returns abbreviated $PWD if it's within $HOME and full otherwise
 function abbrpwd() {
-	if [ "${PWD##$HOME}" != "$PWD" ]; then
-		echo "~${PWD##$HOME}"
-	else
-		echo $PWD
-	fi
+    if [ "${PWD##$HOME}" != "$PWD" ]; then
+        echo "~${PWD##$HOME}"
+    else
+        echo $PWD
+    fi
 }
 
 # jf opens directory in Finder.app: $PWD if called without args, $1 otherwise
 function jf() {
-	if [ -z "$1"]; then
-		open "$PWD"
-	else
-		open "$1"
-	fi
+    if [ -z "$1"]; then
+        open "$PWD"
+    else
+        open "$1"
+    fi
 }
 
 # mkpipenv runs pipenv install and adds pipenv layout to .envrc in $PWD
 function mkpipenv() {
-	if [ ! -f "$PWD/Pipfile" ]; then
-		echo "Pipfile is not present in current directory"
-		return -1
-	fi
-	if grep -q "layout pipenv" .envrc; then
-		echo "pipenv layout is already enabled in .envrc, quitting"
-		return -1
-	fi
-	echo 'layout pipenv' >> "$PWD/.envrc" && direnv allow
+    if [ ! -f "$PWD/Pipfile" ]; then
+        echo "Pipfile is not present in current directory"
+        return -1
+    fi
+    if grep -q "layout pipenv" .envrc; then
+        echo "pipenv layout is already enabled in .envrc, quitting"
+        return -1
+    fi
+    echo 'layout pipenv' >> "$PWD/.envrc" && direnv allow
 }
 
 # mkpipenv runs pipenv --rm and removes pipenv layout from .envrc
 function rmpipenv() {
-	if [ "$PIPENV_ACTIVE" -ne 1 ] || [ ! -f "$PWD/Pipfile" ]; then
-		echo "Should be run from root of Pipenv managed project"
-		return -1
-	fi
-	pipenv --rm && sed -i '' -e '/layout pipenv/d' .envrc
+    if [ "$PIPENV_ACTIVE" -ne 1 ] || [ ! -f "$PWD/Pipfile" ]; then
+        echo "Should be run from root of Pipenv managed project"
+        return -1
+    fi
+    pipenv --rm && sed -i '' -e '/layout pipenv/d' .envrc
 }
 
 # cookiecutter-update updates all previously used cookiecutters
 function cookiecutter-update() {
-	ls -1d "$HOME"/.cookiecutters/*|while read -r cc; do
-		( cd "$cc" && git pull )
-	done
+    ls -1d "$HOME"/.cookiecutters/*|while read -r cc; do
+        ( cd "$cc" && git pull )
+    done
 }
 
 # htmlenc converts UTF-8 text to HTML characters
 function htmlenc() {
-	recode u8..h
+    recode u8..h
 }
 
 # htmldec converts HTML characters to UTF-8 text
 function htmldec() {
-	recode h..u8
+    recode h..u8
 }
 
 # rename specified <filenames> to <filename>.YYYYMMDDTHHMMSS.bak
 function bmv() {
-	zmv "($1)" '$1.$(date +%Y%m%dT%H%M%S).bak'
+    zmv "($1)" '$1.$(date +%Y%m%dT%H%M%S).bak'
 }
 
 # copy specified <filenames> to <filename>.YYYYMMDDTHHMMSS.bak
 function bcp() {
-	zmv -C "($1)" '$1.$(date +%Y%m%dT%H%M%S).bak'
+    zmv -C "($1)" '$1.$(date +%Y%m%dT%H%M%S).bak'
 }
 
 # pipe the last command through the pager
 function pagerlast() {
-	eval "${history[@]:0:1}|$PAGER"
-	accept-line
+    eval "${history[@]:0:1}|$PAGER"
+    accept-line
 }
 zle -N pagerlast{,}
 bindkey -v '^R' pagerlast
 
 # copy vimium-options.json to .config dir and chezmoi add it
 function save-vimium-config() {
-	vimiumdir="$HOME/.config/vimium"
-	vimiumcfg="$HOME/Downloads/vimium-options.json"
-	[ -d "$vimiumdir" ] || mkdir "$vimiumdir"
-	if [ -f "$vimiumcfg" ]; then
-		mv "$vimiumcfg" "$vimiumdir"
-		chezmoi add "${vimiumdir}/${vimiumcfg##*/}"
-	else
-		echo "There is no such file $vimiumcfg"
-		return 1
-	fi
+    vimiumdir="$HOME/.config/vimium"
+    vimiumcfg="$HOME/Downloads/vimium-options.json"
+    [ -d "$vimiumdir" ] || mkdir "$vimiumdir"
+    if [ -f "$vimiumcfg" ]; then
+        mv "$vimiumcfg" "$vimiumdir"
+        chezmoi add "${vimiumdir}/${vimiumcfg##*/}"
+    else
+        echo "There is no such file $vimiumcfg"
+        return 1
+    fi
 }
 
 # shows current versions of installed zplug plugins
