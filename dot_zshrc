@@ -393,6 +393,18 @@ function save-vimium-config() {
 	fi
 }
 
+# shows current versions of installed zplug plugins
+function zplug-versions() {
+    find $ZPLUG_HOME/repos -type d -name ".git"|while read -r plug; do
+        dir="${plug%%/.git}"
+        name="${dir#$ZPLUG_HOME/repos/}"
+        pushd -q $dir
+        version=$(git rev-parse --short head)
+        popd -q
+        printf "$name\t$version\n"
+    done
+}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
