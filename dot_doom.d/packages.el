@@ -77,3 +77,5 @@
 (package! annotate.el
   :recipe (:host github
            :repo "bastibe/annotate.el"))
+
+(package! symex)
