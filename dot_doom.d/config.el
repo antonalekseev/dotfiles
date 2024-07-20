@@ -189,3 +189,6 @@
   :config
   (symex-initialize)
   (global-set-key (kbd "C-;") 'symex-mode-interface))
+
+;; LaTeX
+(setq +latex-viewers '(pdf-tools))
