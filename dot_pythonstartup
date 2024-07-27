@@ -1,0 +1,24 @@
+import collections, datetime, dis, itertools, json, math, os, pprint, re, sys, time
+
+
+# source https://github.com/nedbat/dot/blob/268104f7fc3a1beda9497c4bef7c228f8c559690/.config/startup.py#L20C1-L22C55
+def paste():
+    import textwrap
+    exec(textwrap.dedent(sys.stdin.read()), globals())
+
+def pprinter(value):
+    if value != None:
+        __builtins__._ = value
+        pprint.pprint(value)
+
+
+# pprint values by default
+# based on https://stackoverflow.com/a/17248483
+orig_displayhook = sys.displayhook
+
+__builtins__.pp = (
+    lambda: setattr(sys, "displayhook", pprinter)
+    if orig_displayhook == sys.displayhook
+    else setattr(sys, "displayhook", orig_displayhook)
+)
+pp()
