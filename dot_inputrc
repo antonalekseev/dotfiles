@@ -1,11 +1,11 @@
 set editing-mode vi
 
 set keymap vi-command
-k: history-search-backward
-j: history-search-forward
+k: history-substring-search-backward
+j: history-substring-search-forward
 Control-l: clear-screen
 
 set keymap vi-insert
-Control-k: history-search-backward
-Control-j: history-search-forward
+Control-k: history-substring-search-backward
+Control-j: history-substring-search-forward
 Control-l: clear-screen
