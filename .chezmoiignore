@@ -3,6 +3,7 @@ Library
 .duti
 .iterm2
 .config/karabiner
+.editrc
 {{- else if ne .chezmoi.os "linux" }}
 .config/i3
 .Xmodmap
