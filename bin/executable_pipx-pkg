@@ -51,6 +51,7 @@ install() {
 	pipx install cambridge
 	pipx install spotify-dl
 	pipx install git+https://github.com/antonalekseev/transferwee.git@local
+	pipx install llm
 	if [ "$(uname)" = "Linux" ]; then
 		pipx install i3-swap-focus
 	fi
@@ -82,6 +83,7 @@ uninstall() {
 	pipx uninstall cambridge
 	pipx uninstall spotify-dl
 	pipx uninstall transferwee
+	pipx uninstall llm
 	if [ "$(uname)" = "Linux" ]; then
 		pipx uninstall i3-swap-focus
 	fi
