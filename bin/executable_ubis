@@ -26,7 +26,7 @@ uninstall_bin() {
 }
 
 install() {
-	install_bin https://github.com/astral-sh/uv/ -t 0.6.2
+	install_bin https://github.com/astral-sh/uv
 	install_bin https://github.com/tingerrr/tytanic --exe tt
 	install_bin https://github.com/restic/restic
 }
