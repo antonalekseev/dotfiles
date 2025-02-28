@@ -1,0 +1,61 @@
+#!/bin/sh
+
+usage() {
+	cat <<EOF
+Usage:	$(basename "$0") <-i|-U|-I>
+	-i	install executables
+	-V	show versions
+	-U	uninstall executables
+EOF
+	exit 1
+}
+
+checkdep() {
+	command -v "$1" 1>&2 >/dev/null || {
+		echo "$1 is not found, exiting."
+		exit 2
+	}
+}
+
+install_bin() {
+	ubi --verbose --in "$HOME/bin" --project "$@"
+}
+
+uninstall_bin() {
+	[ -x "$HOME/bin/$1" ] && rm -v "$HOME/bin/$1"
+}
+
+install() {
+	install_bin https://github.com/astral-sh/uv/ -t 0.6.2
+	install_bin https://github.com/tingerrr/tytanic --exe tt
+	install_bin https://github.com/restic/restic
+}
+
+uninstall() {
+	uninstall_bin uv
+	uninstall_bin tt
+	uninstall_bin restic
+}
+
+versions() {
+	ubi --version
+	printf "\n"
+	(
+		uv --version
+		tt --version
+		restic version
+	) | sort
+}
+
+checkdep "ubi"
+[ $# -lt 1 ] && usage
+
+while getopts "iUVh" opt; do
+	case "$opt" in
+		"i") install ;;
+		"U") uninstall ;;
+		"V") versions ;;
+		"h" | *) usage ;;
+	esac
+done
+shift $((OPTIND - 1))
