@@ -30,6 +30,7 @@ install() {
 	install_bin https://github.com/tingerrr/tytanic --exe tt
 	install_bin https://github.com/restic/restic
 	install_bin https://github.com/sharkdp/hyperfine
+	unstall_bin https://github.com/charmbracelet/glow
 }
 
 uninstall() {
@@ -37,6 +38,7 @@ uninstall() {
 	uninstall_bin tt
 	uninstall_bin restic
 	uninstall_bin hyperfine
+	uninstall_bin glow
 }
 
 versions() {
@@ -47,6 +49,7 @@ versions() {
 		tt --version
 		restic version
 		hyperfine --version
+		glow --version
 	) | sort
 }
 
