@@ -406,6 +406,54 @@ function zplug-versions() {
     done
 }
 
+# reduces the output to <= `n` lines of original output adding a delimiter `dn`
+# between head and tail similar to `pee 'head -n4' 'tail -1'` for `n=5`, but
+# handles the cases where inputs length is `<= n` properly
+function headtail() {
+    n=$1
+    dn=$((n-1))
+    d=${2:-'[...]'}
+
+    sed -ne '
+    1,'"$dn"' H
+    '"$dn"' {
+        x
+        s/^\n//
+        p
+        x
+    }
+    '"$n"' {
+        $ {
+        p
+        b
+        }
+        a\
+'"$d"'
+        s/.*//
+        h
+    }
+    '"$n"',$ {
+        H
+        h
+    }
+    $ {
+        '"$dn"' ! {
+        x
+        s/^\n//
+        p
+        }
+        '"$dn"' {
+        '"$n"' ! q
+        }
+        '"$n"' {
+        x
+        s/.*\n//
+        p
+        }
+    }
+    '
+}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
