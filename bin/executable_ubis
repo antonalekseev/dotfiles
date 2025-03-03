@@ -29,12 +29,14 @@ install() {
 	install_bin https://github.com/astral-sh/uv
 	install_bin https://github.com/tingerrr/tytanic --exe tt
 	install_bin https://github.com/restic/restic
+	install_bin https://github.com/sharkdp/hyperfine
 }
 
 uninstall() {
 	uninstall_bin uv
 	uninstall_bin tt
 	uninstall_bin restic
+	uninstall_bin hyperfine
 }
 
 versions() {
@@ -44,6 +46,7 @@ versions() {
 		uv --version
 		tt --version
 		restic version
+		hyperfine --version
 	) | sort
 }
 
