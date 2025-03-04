@@ -461,6 +461,15 @@ function gi() {
     curl -sLw \"\\\n\" https://www.toptal.com/developers/gitignore/api/$@
 }
 
+# displays tidied up version of an output of `dig +trace -t <rtype> <query>`
+function nstr() {
+    only='"NS","SOA","A","AAAA","CNAME","MX","TXT", "SRV","PTR"'
+    printf -v q '.[].answer[] | select([.type] | inside([%s])) |  [.name, .class, .type, .data, .ttl] | @tsv' "$only"
+    dig +all +trace -t "$1" "$2" | \
+        jc --dig -m| \
+        jq -r "$q"
+}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
