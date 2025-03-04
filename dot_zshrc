@@ -470,6 +470,15 @@ function nstr() {
         jq -r "$q"
 }
 
+# nstld <domain>
+# executes a nonrecursive query of the specified type against all authoritative nameservers
+# for the TLD of the domain
+function nstld() {
+    for ns in $(dig -t ns "${1##*.}."|jc --dig -m|jq -r '.[].answer[] | select(.type == "NS") |  .data | @text'); do
+        dig +norecurse +authority -t ns "$1" "@$ns"
+    done
+}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
