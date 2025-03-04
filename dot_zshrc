@@ -79,7 +79,6 @@ HISTFILE=$HOME/.zshistory
 HISTSIZE=500000
 SAVEHIST=500000
 
-alias runapg="apg -M SNcl -m 8 -x 12 -s"
 alias mpg123="mpg123 -vC"
 alias tmux="tmux -u"
 alias s="sudo -E"
