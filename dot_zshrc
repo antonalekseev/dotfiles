@@ -94,10 +94,6 @@ fi
 
 # Python
 export VIRTUAL_ENV_DISABLE_PROMPT='1'
-export PIPENV_COLORBLIND=true
-export PIPENV_HIDE_EMOJIS=true
-export PIPENV_NOSPIN=true
-export PIPENV_VENV_IN_PROJECT=true
 export USE_EMOJI="false"
 export PYTHONSTARTUP="$HOME/.pythonstartup"
 [ "$(uname)" = "Darwin" ] && export PIPX_DEFAULT_PYTHON="python3.11"
@@ -321,28 +317,6 @@ function jf() {
     else
         open "$1"
     fi
-}
-
-# mkpipenv runs pipenv install and adds pipenv layout to .envrc in $PWD
-function mkpipenv() {
-    if [ ! -f "$PWD/Pipfile" ]; then
-        echo "Pipfile is not present in current directory"
-        return -1
-    fi
-    if grep -q "layout pipenv" .envrc; then
-        echo "pipenv layout is already enabled in .envrc, quitting"
-        return -1
-    fi
-    echo 'layout pipenv' >> "$PWD/.envrc" && direnv allow
-}
-
-# mkpipenv runs pipenv --rm and removes pipenv layout from .envrc
-function rmpipenv() {
-    if [ "$PIPENV_ACTIVE" -ne 1 ] || [ ! -f "$PWD/Pipfile" ]; then
-        echo "Should be run from root of Pipenv managed project"
-        return -1
-    fi
-    pipenv --rm && sed -i '' -e '/layout pipenv/d' .envrc
 }
 
 # cookiecutter-update updates all previously used cookiecutters

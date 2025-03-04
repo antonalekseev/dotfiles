@@ -46,36 +46,6 @@ use_nvm() {
   fi
 }
 
-
-# Usage: layout pipenv
-#
-# Customized version of built-in layout_pipenv that runs `pipenv sync` instead
-# of `pipenv install` in the case of `Pipfile.lock` is being found.
-
-layout_pipenv() {
-  PIPENV_PIPFILE="${PIPENV_PIPFILE:-Pipfile}"
-  PIPENV_LOCK="${PIPENV_PIPFILE}.lock"
-  if [[ ! -f "$PIPENV_PIPFILE" ]]; then
-    log_error "No Pipfile found.  Use \`pipenv\` to create a \`$PIPENV_PIPFILE\` first."
-    exit 2
-  fi
-
-  VIRTUAL_ENV=$(pipenv --venv 2>/dev/null ; true)
-
-  if [[ -z $VIRTUAL_ENV || ! -d $VIRTUAL_ENV ]]; then
-    if [[ ! -f "$PIPENV_LOCK" ]]; then
-      pipenv install --dev
-    else
-      pipenv sync --dev
-    fi
-    VIRTUAL_ENV=$(pipenv --venv)
-  fi
-
-  PATH_add "$VIRTUAL_ENV/bin"
-  export PIPENV_ACTIVE=1
-  export VIRTUAL_ENV
-}
-
 # Usage: layout python <python_exe>
 #
 # Creates and loads a virtual environment under

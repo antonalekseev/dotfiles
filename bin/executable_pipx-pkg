@@ -36,7 +36,6 @@ install() {
 	pipx install bumpver
 	pipx install cookiecutter
 	pipx install scalene
-	pipx install pipenv
 	pipx install pre-commit
 	pipx install pipfile-requirements
 	pipx install pdm
@@ -68,7 +67,6 @@ uninstall() {
 	pipx_uninstall bumpver
 	pipx_uninstall cookiecutter
 	pipx_uninstall scalene
-	pipx_uninstall pipenv
 	pipx_uninstall pre-commit
 	pipx_uninstall pipfile-requirements
 	pipx uninstall pdm
