@@ -317,13 +317,6 @@ function jf() {
     fi
 }
 
-# cookiecutter-update updates all previously used cookiecutters
-function cookiecutter-update() {
-    ls -1d "$HOME"/.cookiecutters/*|while read -r cc; do
-        ( cd "$cc" && git pull )
-    done
-}
-
 # htmlenc converts UTF-8 text to HTML characters
 function htmlenc() {
     recode u8..h
