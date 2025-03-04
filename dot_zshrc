@@ -92,7 +92,7 @@ fi
 export VIRTUAL_ENV_DISABLE_PROMPT='1'
 export USE_EMOJI="false"
 export PYTHONSTARTUP="$HOME/.pythonstartup"
-[ "$(uname)" = "Darwin" ] && export PIPX_DEFAULT_PYTHON="python3.11"
+[ "$(uname)" = "Darwin" ] && export PIPX_DEFAULT_PYTHON="python3.13"
 
 # zoxide
 eval "$(zoxide init zsh --cmd j)"
