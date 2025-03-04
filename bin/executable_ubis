@@ -30,7 +30,7 @@ install() {
 	install_bin https://github.com/tingerrr/tytanic --exe tt
 	install_bin https://github.com/restic/restic
 	install_bin https://github.com/sharkdp/hyperfine
-	unstall_bin https://github.com/charmbracelet/glow
+	install_bin https://github.com/charmbracelet/glow
 }
 
 uninstall() {
