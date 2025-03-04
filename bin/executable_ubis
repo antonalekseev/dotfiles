@@ -32,6 +32,7 @@ install() {
 	install_bin https://github.com/sharkdp/hyperfine
 	install_bin https://github.com/charmbracelet/glow
 	install_bin https://github.com/itchyny/gojq
+	install_bin https://github.com/aereal/jsondiff
 }
 
 uninstall() {
@@ -41,6 +42,7 @@ uninstall() {
 	uninstall_bin hyperfine
 	uninstall_bin glow
 	uninstall_bin gojq
+	uninstall_bin jsondiff
 }
 
 versions() {
@@ -53,6 +55,10 @@ versions() {
 		hyperfine --version
 		glow --version
 		gojq --version
+		printf "jsondiff %s (%s %s)" \
+			$(strings "$HOME/bin/jsondiff"|grep -Eo 'main.version=[^ ]+'|head -1|cut -d= -f2) \
+			$(strings "$HOME/bin/jsondiff"|grep -Eo 'main.commit=[^ ]+'|head -1|cut -d= -f2|head -c7) \
+			$(strings "$HOME/bin/jsondiff"|grep -Eo 'main.date=[^ ]+'|head -1|cut -d= -f2|cut -d"T" -f1)
 	) | sort
 }
 
