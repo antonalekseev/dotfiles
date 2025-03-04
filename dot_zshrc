@@ -454,6 +454,13 @@ function headtail() {
     '
 }
 
+# runs a request to gitignore.io API
+# https://docs.gitignore.io/install/command-line
+# the repository with the templates https://github.com/toptal/gitignore was archived on 20250124
+function gi() {
+    curl -sLw \"\\\n\" https://www.toptal.com/developers/gitignore/api/$@
+}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
