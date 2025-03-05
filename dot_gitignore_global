@@ -1,6 +1,9 @@
+# Created by https://www.gitignore.io/api/vim,macos,emacs,direnv
+# Edit at https://www.gitignore.io/?templates=vim,macos,emacs,direnv
 
-# Created by https://www.gitignore.io/api/vim,macos,emacs
-# Edit at https://www.gitignore.io/?templates=vim,macos,emacs
+### direnv ###
+.direnv
+.envrc
 
 ### Emacs ###
 # -*- mode: gitignore; -*-
