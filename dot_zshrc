@@ -81,6 +81,8 @@ alias mpg123="mpg123 -vC"
 alias tmux="tmux -u"
 alias s="sudo -E"
 alias tsz="date -u '+%Y-%m-%dT%H:%M:%SZ'"
+alias di="date -u '+%Y%m%d'"
+alias did="date -u '+%Y-%m-%d'"
 [ "$(uname)" = "Darwin" ] && alias sudoedit="sudo -e"
 if [ "$(uname)" != "Linux" ]; then
     alias mls="stat -f '%A %N'"
