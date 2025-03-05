@@ -50,6 +50,7 @@ install() {
 	pipx install spotify-dl
 	pipx install git+https://github.com/antonalekseev/transferwee.git@local
 	pipx install llm
+	pipx inject llm llm-openrouter
 	if [ "$(uname)" = "Linux" ]; then
 		pipx install i3-swap-focus
 	fi
