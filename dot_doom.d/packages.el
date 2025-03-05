@@ -79,3 +79,5 @@
            :repo "bastibe/annotate.el"))
 
 (package! symex)
+
+(package! adoc-mode)
