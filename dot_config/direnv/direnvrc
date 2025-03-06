@@ -181,3 +181,26 @@ layout_pdm() {
         fi
     fi
 }
+
+layout_uv() {
+    # at the moment the location of the virtualenv isn't configurable in uv
+    # https://github.com/astral-sh/uv/issues/1495#issuecomment-1950442191
+    if [[ -d ".venv" ]]; then
+        VIRTUAL_ENV="$(pwd)/.venv"
+    fi
+
+    if [[ -z $VIRTUAL_ENV || ! -d $VIRTUAL_ENV ]]; then
+        if [[ ! -f "pyproject.toml" ]]; then
+          log_status "No uv project exists. Executing \`uv init\` to create one."
+          uv init --no-readme
+          rm main.py
+        fi
+        log_status "No uv venv exists. Executing \`uv sync\` to create one."
+        uv sync
+        VIRTUAL_ENV="$(pwd)/.venv"
+    fi
+
+    PATH_add "$VIRTUAL_ENV/bin"
+    export UV_ACTIVE=1  # or VENV_ACTIVE=1
+    export VIRTUAL_ENV
+}
