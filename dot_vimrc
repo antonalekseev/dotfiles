@@ -1,3 +1,4 @@
+set nocompatible
 set tabstop=4
 set shiftwidth=4
 set visualbell
@@ -6,18 +7,24 @@ set showmode
 set ruler
 set hidden
 set shortmess+=I
-set list
+set nolist
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
+set wildoptions=""
+
+syntax off
 
 " pretend we're doomed
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
+nnoremap <leader>b :b 
+nnoremap <leader>bb :buffers<cr>
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>bn :bn<cr>
 nnoremap <leader>bp :bp<cr>
 nnoremap <leader>bl :b#<cr>
 
+nnoremap <leader>ff :Ex<cr>
 nnoremap <leader>fs :w<cr>
 nnoremap <leader>fS :w 
 nnoremap <leader>fp :e $MYVIMRC<cr>
