@@ -34,6 +34,7 @@ install() {
 	install_bin https://github.com/itchyny/gojq
 	install_bin https://github.com/aereal/jsondiff
 	install_bin https://github.com/ouch-org/ouch
+	install_bin https://github.com/ameshkov/gocurl
 }
 
 uninstall() {
@@ -45,6 +46,7 @@ uninstall() {
 	uninstall_bin gojq
 	uninstall_bin jsondiff
 	uninstall_bin ouch
+	uninstall_bin gocurl
 }
 
 versions() {
@@ -62,6 +64,7 @@ versions() {
 			$(strings "$HOME/bin/jsondiff"|grep -Eo 'main.commit=[^ ]+'|head -1|cut -d= -f2|head -c7) \
 			$(strings "$HOME/bin/jsondiff"|grep -Eo 'main.date=[^ ]+'|head -1|cut -d= -f2|cut -d"T" -f1)
 		ouch --version
+		gocurl --version
 	) | sort
 }
 
