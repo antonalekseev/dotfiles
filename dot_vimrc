@@ -17,8 +17,8 @@ syntax off
 nnoremap <SPACE> <Nop>
 let mapleader=" "
 
-nnoremap <leader>b :b 
-nnoremap <leader>bb :buffers<cr>
+nnoremap <leader>bb :ls<Cr>:b<Space>
+nnoremap <leader>bB :buffers<cr>
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>bn :bn<cr>
 nnoremap <leader>bp :bp<cr>
