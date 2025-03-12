@@ -16,4 +16,28 @@ return {
     }
   },
   { "justinmk/vim-sneak" },
+  -- See also https://github.com/stevearc/conform.nvim/blob/master/doc/recipes.md#lazy-loading-with-lazynvim
+  {
+    'stevearc/conform.nvim',
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    keys = {
+        {
+            "<leader>cf",
+            function()
+                require("conform").format({ async = true })
+            end,
+            mode = "",
+            desc = "Format buffer",
+        },
+    },
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        python = { "isort", "black" },
+        go = { "gofmt" },
+        sh = { "shfmt" },
+      },
+    },
+  }
 }
