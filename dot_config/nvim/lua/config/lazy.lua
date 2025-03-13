@@ -34,7 +34,7 @@ require("lazy").setup({
     -- import your plugins
     { import = "plugins" },
   },
-  install = { colorscheme = { "base16-default-light" } },
+  install = { colorscheme = { "base16-default" } },
   -- automatically check for plugin updates
   checker = { enabled = false },
   ui = {
