@@ -35,5 +35,23 @@ require("lazy").setup({
     { import = "plugins" },
   },
   install = { colorscheme = { "base16-default-light" } },
-  checker = { enabled = true },
+  -- automatically check for plugin updates
+  checker = { enabled = false },
+  ui = {
+    icons = {
+      cmd = "⌘",
+      config = "🛠",
+      event = "📅",
+      ft = "📂",
+      init = "⚙",
+      keys = "🗝",
+      plugin = "🔌",
+      runtime = "💻",
+      require = "🌙",
+      source = "📄",
+      start = "🚀",
+      task = "📌",
+      lazy = "💤 ",
+    },
+  },
 })
