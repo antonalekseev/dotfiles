@@ -40,4 +40,26 @@ return {
       },
     },
   },
+  {
+    "smoka7/hop.nvim",
+    version = "*",
+    config = function()
+      require("hop").setup()
+      vim.keymap.set(
+        { "n", "o" },
+        "gsj",
+        "<cmd>HopLineAC<CR>",
+        { noremap = true }
+      )
+      vim.keymap.set(
+        { "n", "o" },
+        "gsk",
+        "<cmd>HopLineBC<CR>",
+        { noremap = true }
+      )
+    end,
+    opts = {
+      keys = "etovxqpdygfblzhckisuran",
+    },
+  },
 }
