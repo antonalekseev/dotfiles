@@ -15,7 +15,13 @@ return {
       -- add any options here
     },
   },
-  { "justinmk/vim-sneak" },
+  {
+    "justinmk/vim-sneak",
+    keys = {
+      { "gs", "<Plug>Sneak_s", desc = "Sneak forwards" },
+      { "gS", "<Plug>Sneak_S", desc = "Sneak backwards" },
+    },
+  },
   -- See also https://github.com/stevearc/conform.nvim/blob/master/doc/recipes.md#lazy-loading-with-lazynvim
   {
     "stevearc/conform.nvim",
