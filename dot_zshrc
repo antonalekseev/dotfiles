@@ -444,6 +444,12 @@ function nstld() {
     done
 }
 
+# 4cw
+# returns a random 4-character word from the dictionary
+function 4cw() {
+    grep -Eo '^[a-z]{4}$' /usr/share/dict/words|sort -r|shuf|head -1
+}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
