@@ -2,5 +2,6 @@
 python3:edit off
 
 bind -v
+bind \\t rl_complete
 bind "^K" em-inc-search-prev
 bind "^L" ed-clear-screen
