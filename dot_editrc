@@ -1,1 +1,6 @@
+# use readline instead of editline for python
 python3:edit off
+
+bind -v
+bind "^K" em-inc-search-prev
+bind "^L" ed-clear-screen
