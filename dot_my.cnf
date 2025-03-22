@@ -1,3 +1,4 @@
 [client]
   auto-rehash
   auto-vertical-output
+  init-command = 'set autocommit=0'
