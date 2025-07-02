@@ -115,15 +115,15 @@ setopt PROMPT_SUBST
 
 WHOAMI=`whoami`
 
-if [[ "$ITERM_PROFILE" != "Hotkey Window" ]]; then
+if [[ "$ITERM_PROFILE" == "Hotkey Window" ]]; then
+    TMUX_SESSION_NAME="${WHOAMI}-hotkey"
+elif [[ "$ITERM_PROFILE" == "Fullscreen" ]]; then
     TMUX_SESSION_NAME="${WHOAMI}-full"
 else
-    TMUX_SESSION_NAME="${WHOAMI}-hotkey"
+    TMUX_SESSION_NAME="${WHOAMI}-default"
 fi
 
-if [ "$TERM" != "screen-256color" ]\
-       && [ "$TERM_PROGRAM" = "iTerm.app" ]\
-       && [ "$(uname)" = "Darwin" ]; then
+if [ "$TERM" != "screen-256color" ]; then
     tmux list-sessions -F "#{session_name}:#{session_attached}"\
         |grep -q "${TMUX_SESSION_NAME}"\
         || tmux new-session -s "$TMUX_SESSION_NAME"
