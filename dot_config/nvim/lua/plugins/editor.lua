@@ -50,11 +50,12 @@ return {
     "smoka7/hop.nvim",
     version = "*",
     keys = {
-      -- XXX: Doesn't work as expected
-      -- see https://github.com/smoka7/hop.nvim/issues/31 for possible solutions
-      { "gsj", "<cmd>HopLineAC<CR>", mode = { "n", "o" } },
-      { "gsk", "<cmd>HopLineBC<CR>", mode = { "n", "o" } },
-      { "gs/", "<cmd>HopPattern<CR>", mode = { "n", "o" } },
+      -- XXX: Partially fixed the issue, but the range is still not inclusive
+      -- probably there is an unmerged PR that addresses this problem
+      -- https://github.com/smoka7/hop.nvim/pull/98
+      { "gsj", "<cmd>HopLineAC<CR>", mode = { "o", "x" } },
+      { "gsk", "<cmd>HopLineBC<CR>", mode = { "o", "x" } },
+      { "gs/", "<cmd>HopPattern<CR>", mode = { "o", "x" } },
     },
     opts = {
       keys = "etovxqpdygfblzhckisuran",
