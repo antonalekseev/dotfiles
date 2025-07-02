@@ -1,10 +1,10 @@
 return {
   {
-    "joshporter3/nvim-base16",
+    "miikanissi/modus-themes.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd("colorscheme base16-default-light")
+      vim.cmd("colorscheme modus_operandi")
     end,
     version = "*",
   },
