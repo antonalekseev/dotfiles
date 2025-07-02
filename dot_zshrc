@@ -76,7 +76,7 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 HISTFILE=$HOME/.zshistory
 HISTSIZE=500000
 SAVEHIST=500000
-HISTORY_IGNORE="(j *|jb|jf|jj|ju|just *|chezmoi *|fc -l|cd|ls|ll|pwd|exit|date|man *|tldr *|* -h|* --help)"
+HISTORY_IGNORE="(j *|jb|jf|jj|ju|just *|chezmoi *|fc -l|cd|ls|ll|pwd|exit|date|man *|tldr *|* -h|* --help|top|btop)"
 
 alias mpg123="mpg123 -vC"
 alias tmux="tmux -u"
