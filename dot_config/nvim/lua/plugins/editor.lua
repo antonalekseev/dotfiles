@@ -50,6 +50,8 @@ return {
     "smoka7/hop.nvim",
     version = "*",
     keys = {
+	  -- XXX: Doesn't work as expected
+	  -- see https://github.com/smoka7/hop.nvim/issues/31 for possible solutions
       { "gsj", "<cmd>HopLineAC<CR>", mode = { "n", "o" } },
       { "gsk", "<cmd>HopLineBC<CR>", mode = { "n", "o" } },
       { "gs/", "<cmd>HopPattern<CR>", mode = { "n", "o" } },
