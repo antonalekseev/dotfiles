@@ -77,6 +77,13 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; Prefer vertical splits
+(setq split-width-threshold nil
+      split-height-threshold 1)
+
+(after! magit
+  (setq-default +magit-open-windows-in-direction 'down))
+
 ;; Use M-less alt-leader keys
 ( setq doom-leader-alt-key "C-SPC"
        doom-localleader-alt-key "C-SPC m")
