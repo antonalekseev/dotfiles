@@ -96,7 +96,8 @@
 (after! doom-modeline
   (setq doom-modeline-height 1
         doom-modeline-bar-width 0
-        doom-modeline-icon nil))
+        doom-modeline-icon nil
+        doom-modeline-lsp-icon nil))
 
 ;; Projectile
 (after! projectile
@@ -153,7 +154,10 @@
 
 ;; LSP
 (after! lsp-mode
-  (setq lsp-go-use-gofumpt t))
+  (setq lsp-go-use-gofumpt t
+        lsp-headerline-breadcrumb-icons-enable nil
+        lsp-modeline-code-action-icons-enable nil
+        lsp-modeline-code-actions-enable nil))
 
 ;; annotate.el
 ;; Source https://github.com/danilevy1212/doom#annotateel
