@@ -77,6 +77,10 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; Use M-less alt-leader keys
+( setq doom-leader-alt-key "C-SPC"
+       doom-localleader-alt-key "C-SPC m")
+
 ;; Don't create per-project workspaces
 (setq +workspaces-on-switch-project-behavior nil)
 
