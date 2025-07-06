@@ -77,6 +77,10 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; Parameters for the initial frame
+ (setq initial-frame-alist
+       '((top . 1) (left . 1) (width . 85) (height . 40)))
+
 ;; Prefer vertical splits
 (setq split-width-threshold nil
       split-height-threshold 1)
