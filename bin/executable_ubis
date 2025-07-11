@@ -25,6 +25,13 @@ uninstall_bin() {
 	[ -x "$HOME/bin/$1" ] && rm -v "$HOME/bin/$1"
 }
 
+go_version_string() {
+	printf "$1 %s (%s %s)\n" \
+		$(strings "$HOME/bin/$1"|grep -Eo 'main.version=[^ ]+'|head -1|cut -d= -f2) \
+		$(strings "$HOME/bin/$1"|grep -Eo 'main.commit=[^ ]+'|head -1|cut -d= -f2|head -c7) \
+		$(strings "$HOME/bin/$1"|grep -Eo 'main.date=[^ ]+'|head -1|cut -d= -f2|cut -d"T" -f1)
+}
+
 install() {
 	install_bin https://github.com/astral-sh/uv
 	install_bin https://github.com/tingerrr/tytanic --exe tt
@@ -61,13 +68,10 @@ versions() {
 		hyperfine --version
 		glow --version
 		gojq --version
-		printf "jsondiff %s (%s %s)\n" \
-			$(strings "$HOME/bin/jsondiff"|grep -Eo 'main.version=[^ ]+'|head -1|cut -d= -f2) \
-			$(strings "$HOME/bin/jsondiff"|grep -Eo 'main.commit=[^ ]+'|head -1|cut -d= -f2|head -c7) \
-			$(strings "$HOME/bin/jsondiff"|grep -Eo 'main.date=[^ ]+'|head -1|cut -d= -f2|cut -d"T" -f1)
+		go_version_string "jsondiff"
 		ouch --version
 		gocurl --version
-		reader --version
+		go_version_string "reader"
 	) | sort
 }
 
