@@ -35,6 +35,7 @@ install() {
 	install_bin https://github.com/aereal/jsondiff
 	install_bin https://github.com/ouch-org/ouch
 	install_bin https://github.com/ameshkov/gocurl
+	install_bin https://github.com/mrusme/reader
 }
 
 uninstall() {
@@ -47,6 +48,7 @@ uninstall() {
 	uninstall_bin jsondiff
 	uninstall_bin ouch
 	uninstall_bin gocurl
+	uninstall_bin reader
 }
 
 versions() {
@@ -65,6 +67,7 @@ versions() {
 			$(strings "$HOME/bin/jsondiff"|grep -Eo 'main.date=[^ ]+'|head -1|cut -d= -f2|cut -d"T" -f1)
 		ouch --version
 		gocurl --version
+		reader --version
 	) | sort
 }
 
