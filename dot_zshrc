@@ -261,17 +261,6 @@ function cu() {
     _tmuxw =cu $*
 }
 
-# @re
-# run command elsewhere (on all .hosts except this one)
-function re() {
-    if [ "$#" -lt "1" ]; then
-        echo 'ERROR: no command specified'
-        return
-    fi
-    h=$(grep -v "$HOSTNAME" "$HOME/.hosts"|tr '\n' ',')
-    pdsh -w "${h%?}" "$*"
-}
-
 # helpers for go/python q module
 qq() {
     clear
