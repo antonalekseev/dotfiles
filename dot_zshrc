@@ -450,6 +450,12 @@ function 4cw() {
     grep -Eo '^[a-z]{4}$' /usr/share/dict/words|sort -r|shuf|head -1
 }
 
+# abdr
+# removes the annoying reference citation from a text copied from Apple Books
+function abdr() {
+    pbpaste|pcregrep -M -o1 '(?s)^“((?:.|$)*)”'|pbcopy
+}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
