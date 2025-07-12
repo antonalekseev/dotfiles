@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: qq
-# key: qq
-# --
-__import__("q").q(${1:...})  # DEBUG

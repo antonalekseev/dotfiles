@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: doc notes section
-# key: dsn
-# --
-Notes
------
-${1:note}
-$0

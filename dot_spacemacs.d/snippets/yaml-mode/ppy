@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: ppy
-# key: ppy
-# expand-env: ((yas-indent-line nil))
-# --
-- name: DEBUG var $1
-  ansible.builtin.debug:
-    msg: '{{ $1 | to_nice_yaml }}'
-  tags: always

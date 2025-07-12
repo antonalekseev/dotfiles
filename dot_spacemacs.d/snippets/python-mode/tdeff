@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: tdeff
-# key: tdeff
-# --
-@pytest.fixture
-def $1($2):
-    $0

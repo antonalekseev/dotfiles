@@ -1,7 +1,0 @@
-# -*- mode: snippet -*-
-# name: doc parameter
-# key: dp
-# --
-${1:name}${2: : ${3:type}}
-${4:description}
-$0

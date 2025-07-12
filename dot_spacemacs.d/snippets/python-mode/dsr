@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: doc returns section
-# key: dsr
-# --
-Returns
--------
-${1:type}
-    ${2:description}
-$0

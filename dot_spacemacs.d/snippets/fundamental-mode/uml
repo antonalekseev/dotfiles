@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: Universal modeline for vi/Emacs
-# key: uml
-# --
--*- mode: $1 -*- vim: $2 :

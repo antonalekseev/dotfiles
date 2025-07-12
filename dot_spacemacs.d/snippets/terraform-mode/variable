@@ -1,9 +1,0 @@
-# -*- mode: snippet -*-
-# name: variable
-# key: var
-# --
-variable "${1:name}" {
-  ${2:description = "$3"}
-  type = ${4:string}
-  ${5:default = "$6"}
-}
