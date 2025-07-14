@@ -53,12 +53,6 @@
 
 (package! rmsbolt)
 
-(package! whitespace4r
-  :recipe (:type git
-           :host github
-           :protocol ssh
-           :repo "twlz0ne/whitespace4r.el"))
-
 ;; Disable solaire-mode to make scrolling and cursor movement less painful on macOS
 ;; see https://github.com/doomemacs/doomemacs/issues/2217 for the details
 (package! solaire-mode :disable t)

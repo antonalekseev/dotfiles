@@ -122,7 +122,7 @@
       :leader
       :desc "Set input method" "\\" #'set-input-method
       :desc "Run RMSbolt" "c g" #'rmsbolt-compile
-      :desc "Show non-printable chars" "t s" #'whitespace4r-mode)
+      :desc "Show non-printable chars" "t s" #'whitespace-mode)
 
 (map!
  (:when (modulep! :completion vertico)
@@ -191,3 +191,10 @@
 
 ;; LaTeX
 (setq +latex-viewers '(pdf-tools))
+
+;; whitespace-mode
+;; revert Doom-specific whitespace-mode behaviour, instead toggle whitespace-mode manually
+;; $HOME/.emacs.d/modules/config/default/config.el
+;; https://github.com/doomemacs/doomemacs/issues/2673#issuecomment-595361339
+(remove-hook 'after-change-major-mode-hook #'+emacs-highlight-non-default-indentation-h)
+(setq whitespace-style '(face tabs spaces trailing lines space-before-tab newline indentation empty space-after-tab space-mark tab-mark newline-mark missing-newline-at-eof))
