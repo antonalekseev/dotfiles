@@ -32,6 +32,10 @@ go_version_string() {
 		$(strings "$HOME/bin/$1"|grep -Eo 'main.date=[^ ]+'|head -1|cut -d= -f2|cut -d"T" -f1)
 }
 
+must_gather_clean_version() {
+	printf "must-gather-clean %s\n" $(must-gather-clean version|grep -o -e 'v[0-9]\+\.[0-9]\+\.[0-9]\+[^"]*')
+}
+
 install() {
 	install_bin https://github.com/astral-sh/uv
 	install_bin https://github.com/tingerrr/tytanic --exe tt
@@ -43,6 +47,7 @@ install() {
 	install_bin https://github.com/ouch-org/ouch
 	install_bin https://github.com/ameshkov/gocurl
 	install_bin https://github.com/mrusme/reader
+	install_bin https://github.com/openshift/must-gather-clean
 }
 
 uninstall() {
@@ -56,6 +61,7 @@ uninstall() {
 	uninstall_bin ouch
 	uninstall_bin gocurl
 	uninstall_bin reader
+	uninstall_bin must-gather-clean
 }
 
 versions() {
@@ -72,6 +78,7 @@ versions() {
 		ouch --version
 		gocurl --version
 		go_version_string "reader"
+		must_gather_clean_version
 	) | sort
 }
 
