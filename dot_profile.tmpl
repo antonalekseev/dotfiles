@@ -27,7 +27,7 @@ MANPATH=/opt/local/man:/usr/local/share/man:/usr/man:/usr/share/man
 XCODE_SDK="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
 XCODE_CMD="/Library/Developer/CommandLineTools"
 [ -d "$XCODE_CMD" ] && MANPATH=${MANPATH}:${XCODE_CMD}/usr/share/man
-[ -d "$XCODE_SDK" ] && MANPATH=${MANPATH}:${XCODE_DIR}/usr/share/man
+[ -d "$XCODE_SDK" ] && MANPATH=${MANPATH}:${XCODE_SDK}/usr/share/man
 {{- end }}
 export MANPATH
 export LC_ALL=en_US.UTF-8
