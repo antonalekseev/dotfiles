@@ -21,6 +21,7 @@ HOSTNAME=$(hostname)
 export HOSTNAME
 export EDITOR='vim'
 export PAGER='less'
+export PYTHON_BASIC_REPL=1
 MANPATH=/opt/local/man:/usr/local/share/man:/usr/man:/usr/share/man
 {{- if eq .chezmoi.os "darwin" }}
 [ -n "$HOMEBREW_PREFIX" ] && MANPATH=${MANPATH}:${HOMEBREW_PREFIX}/manpages:${HOMEBREW_PREFIX}/share/man
