@@ -1,7 +1,6 @@
-# use readline instead of editline for python
-python3:edit off
-
 bind -v
 bind \\t rl_complete
-bind "^K" em-inc-search-prev
-bind "^L" ed-clear-screen
+
+bind "^K" ed-search-prev-history
+^(?!python3):bind "^J" ed-search-next-history
+python3:bind "^N" ed-search-next-history
