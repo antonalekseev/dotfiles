@@ -183,12 +183,6 @@
         "]" #'annotate-goto-next-annotation
         "[" #'annotate-goto-previous-annotation))
 
-;; symex
-(use-package symex
-  :config
-  (symex-initialize)
-  (global-set-key (kbd "C-;") 'symex-mode-interface))
-
 ;; LaTeX
 (setq +latex-viewers '(pdf-tools))
 

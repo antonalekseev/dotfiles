@@ -61,6 +61,4 @@
   :recipe (:host github
            :repo "bastibe/annotate.el"))
 
-(package! symex)
-
 (package! adoc-mode)
