@@ -192,3 +192,6 @@
 ;; https://github.com/doomemacs/doomemacs/issues/2673#issuecomment-595361339
 (remove-hook 'after-change-major-mode-hook #'+emacs-highlight-non-default-indentation-h)
 (setq whitespace-style '(face tabs spaces trailing lines space-before-tab newline indentation empty space-after-tab space-mark tab-mark newline-mark missing-newline-at-eof))
+
+;; Silence the straigt.el warning, see https://github.com/doomemacs/doomemacs/issues/8568
+(setq straight-package--warning-displayed t)
