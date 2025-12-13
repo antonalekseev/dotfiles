@@ -62,3 +62,18 @@
            :repo "bastibe/annotate.el"))
 
 (package! adoc-mode)
+
+;; Symex
+(package! symex-core
+  :recipe (:host github
+           :repo "drym-org/symex.el"
+           :branch "main"
+           :files ("symex-core/symex*.el"))
+  :pin "955c7b866c6cda3d035404b68ca8d4d3c9741c77")
+
+(package! symex
+  :recipe (:host github
+           :repo "drym-org/symex.el"
+           :branch "main"
+           :files ("symex/symex*.el" "symex/doc/*.texi" "symex/doc/figures"))
+  :pin "955c7b866c6cda3d035404b68ca8d4d3c9741c77")

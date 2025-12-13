@@ -186,6 +186,12 @@
 ;; LaTeX
 (setq +latex-viewers '(pdf-tools))
 
+;; Symex
+(use-package! symex
+  :after symex-core
+  :config
+  (symex-mode 1))
+
 ;; whitespace-mode
 ;; revert Doom-specific whitespace-mode behaviour, instead toggle whitespace-mode manually
 ;; $HOME/.emacs.d/modules/config/default/config.el
@@ -195,3 +201,5 @@
 
 ;; Silence the straigt.el warning, see https://github.com/doomemacs/doomemacs/issues/8568
 (setq straight-package--warning-displayed t)
+
+(global-set-key (kbd "C-;") #'symex-mode-interface)
