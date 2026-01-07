@@ -203,3 +203,7 @@
 (setq straight-package--warning-displayed t)
 
 (global-set-key (kbd "C-;") #'symex-mode-interface)
+
+;; markdown-mode
+(after! markdown-mode
+  (setq markdown-list-indent-width 2))
