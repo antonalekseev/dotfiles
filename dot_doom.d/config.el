@@ -97,11 +97,12 @@
 
 ;; Disable modeline icons as advised here
 ;; https://github.com/seagle0128/doom-modeline/issues/558#issuecomment-1220565602
+(setq doom-modeline-icon nil)
+
 (after! doom-modeline
   (setq doom-modeline-height 1
         doom-modeline-bar-width 0
-        doom-modeline-icon nil
-        doom-modeline-lsp-icon nil))
+        doom-modeline-checker-simple-format t))
 
 ;; Projectile
 (after! projectile
@@ -151,7 +152,9 @@
   (setq lsp-go-use-gofumpt t
         lsp-headerline-breadcrumb-icons-enable nil
         lsp-modeline-code-action-icons-enable nil
-        lsp-modeline-code-actions-enable nil))
+        lsp-modeline-code-actions-enable nil
+        lsp-progress-prefix ""
+        lsp-progress-function nil))
 
 ;; annotate.el
 ;; Source https://github.com/danilevy1212/doom#annotateel
