@@ -218,3 +218,7 @@
 ;; markdown-mode
 (after! markdown-mode
   (setq markdown-list-indent-width 2))
+
+;; go-ts-mode
+(add-hook! go-ts-mode
+  (setq go-ts-mode-indent-offset standard-indent))
