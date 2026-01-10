@@ -106,10 +106,13 @@
 
 ;; Projectile
 (after! projectile
-  (setq projectile-project-search-path '(
-                                         "~/p/"
-                                         ("~/workspace/antonalekseev" . 2)
-                                         ("~/workspace/" . 4))))
+  (progn
+    (setq projectile-project-search-path '(
+                                           "~/p/"
+                                           ("~/workspace/antonalekseev" . 2)
+                                           ("~/workspace/" . 4)))
+    (add-to-list 'projectile-project-root-files-bottom-up "pyproject.toml" t)
+    (add-to-list 'projectile-project-root-files-bottom-up "go.mod" t)))
 ;; Multiple cursors
 (after! evil-multiedit
   (evil-multiedit-default-keybinds))
