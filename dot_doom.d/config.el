@@ -156,8 +156,13 @@
         lsp-headerline-breadcrumb-icons-enable nil
         lsp-modeline-code-action-icons-enable nil
         lsp-modeline-code-actions-enable nil
-        lsp-progress-prefix ""
-        lsp-progress-function nil))
+        ))
+
+;; lsp-pylsp
+(after! lsp-pylsp
+  (setq lsp-pylsp-plugins-flake8-enabled nil
+        lsp-pylsp-plugins-mccabe-enabled nil
+        lsp-pylsp-plugins-pylint-enabled t))
 
 ;; annotate.el
 ;; Source https://github.com/danilevy1212/doom#annotateel
