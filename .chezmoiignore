@@ -2,6 +2,7 @@
 Library
 .duti
 .iterm2
+.config/emacs-plus
 .config/karabiner
 .editrc
 {{- else if ne .chezmoi.os "linux" }}
