@@ -123,7 +123,7 @@ else
     TMUX_SESSION_NAME="${WHOAMI}-default"
 fi
 
-if [ "$TERM" != "screen-256color" ]; then
+if [ "$TERM" != "tmux-256color" ]; then
     tmux list-sessions -F "#{session_name}:#{session_attached}"\
         |grep -q "${TMUX_SESSION_NAME}"\
         || tmux new-session -s "$TMUX_SESSION_NAME"
