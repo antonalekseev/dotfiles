@@ -425,11 +425,15 @@ function nstr() {
 }
 
 # nstld <domain>
-# executes a nonrecursive query of the specified type against all authoritative nameservers
-# for the TLD of the domain
+# Query each advertised TLD nameserver directly for <domain>'s NS delegation.
+# Intended to check publication of registrar-submitted nameserver changes
+# at the parent zone; does not check expiry of cached delegations.
+# Assumes <domain> is delegated directly from its TLD.
 function nstld() {
-    for ns in $(dig -t ns "${1##*.}."|jc --dig -m|jq -r '.[].answer[] | select(.type == "NS") |  .data | @text'); do
-        dig +norecurse +authority -t ns "$1" "@$ns"
+    domain=${1%.}
+    tld=${domain##*.}
+    for ns in $(dig +short NS "${tld}."); do
+        dig +norecurse +authority -t ns "${domain}" "@$ns"
     done
 }
 
