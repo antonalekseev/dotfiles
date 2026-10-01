@@ -299,7 +299,7 @@ function abbrpwd() {
 
 # jf opens directory in Finder.app: $PWD if called without args, $1 otherwise
 function jf() {
-    if [ -z "$1"]; then
+    if [ -z "$1" ]; then
         open "$PWD"
     else
         open "$1"
