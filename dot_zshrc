@@ -443,6 +443,13 @@ function 4cw() {
     grep -Eo '^[a-z]{4}$' /usr/share/dict/words|sort -r|shuf|head -1
 }
 
+# vtq
+# Calculate the SHA256 of a file and check it against Virustotal.com
+function vtq() {
+	sha256sum --quiet "${1}" | vt file --format json - \
+		| jq -r '.[] | { "name": .meaningful_name, "size": .size } , ( .last_analysis_stats | with_entries(select(.value > 0)) ) | to_entries |map("\(.key): \(.value)")[]'
+}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
