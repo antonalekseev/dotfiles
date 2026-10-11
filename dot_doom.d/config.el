@@ -222,3 +222,23 @@
 ;; go-ts-mode
 (add-hook! go-ts-mode
   (setq go-ts-mode-indent-offset standard-indent))
+;; llm
+(after! gptel
+  (setq gptel-backend
+        (gptel-make-openai "OpenRouter"
+          :host "openrouter.ai"
+          :endpoint "/api/v1/chat/completions"
+          :stream t
+          :key (auth-source-pick-first-password
+                :host "openrouter.ai"
+                :user "emacs")
+          :models '("anthropic/claude-opus-5.5"
+                    "anthropic/claude-sonnet-5.5"
+                    "anthropic/claude-haiku-5.5"
+                    "anthropic/claude-fable-5.1"
+                    "openai/gpt-6.1-sol"
+                    "openai/gpt-6.1-luna"
+                    "openai/gpt-6-astra"
+                    "google/gemini-3.8-flash"
+                    "qwen/qwen3.8-omni-flash"
+                    "moonshotai/kimi-k3"))))
