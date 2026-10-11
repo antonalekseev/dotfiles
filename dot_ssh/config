@@ -1,6 +1,4 @@
-Include config.d/november
-Include config.d/india
-Include config.d/sierra
+Include config.d/*
 
 Host *
 	IdentityFile ~/.ssh/id_rsa
