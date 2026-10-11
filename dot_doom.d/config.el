@@ -86,7 +86,8 @@
       split-height-threshold 1)
 
 (after! magit
-  (setq-default +magit-open-windows-in-direction 'down))
+  (setq-default +magit-open-windows-in-direction 'down
+                magit-process-finish-apply-ansi-colors t))
 
 ;; Use M-less alt-leader keys
 ( setq doom-leader-alt-key "C-SPC"
