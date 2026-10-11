@@ -1,0 +1,14 @@
+title = "Extras"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "vpn-subscription-uri"
+description = "VPN nodes or subscription URI"
+# This regex detects properly, but redacts quite poorly.
+# Need to improve the regex or create more specific rules
+regex = '''(?i)\b(ss|ssr|vmess|vless|trojan|hysteria|hysteria2|hy2|tuic)://[A-Za-z0-9._~%/?#\[\]@!$&()*+,;=:-]{8,}'''
+keywords = ["ss://", "ssr://", "vmess://", "vless://", "trojan://", "hysteria://", "hysteria2://", "hy2://", "tuic://"]
+
+
