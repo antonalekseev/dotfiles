@@ -77,3 +77,5 @@
            :branch "main"
            :files ("symex/symex*.el" "symex/doc/*.texi" "symex/doc/figures"))
   :pin "955c7b866c6cda3d035404b68ca8d4d3c9741c77")
+
+(package! ssh-config-mode :pin "da45cc5496dad6160d318c9a815cb5d7f620ed99")

@@ -222,6 +222,7 @@
 ;; go-ts-mode
 (add-hook! go-ts-mode
   (setq go-ts-mode-indent-offset standard-indent))
+
 ;; llm
 (after! gptel
   (setq gptel-backend
@@ -242,3 +243,10 @@
                     "google/gemini-3.8-flash"
                     "qwen/qwen3.8-omni-flash"
                     "moonshotai/kimi-k3"))))
+
+;; ssh-config-mode
+(use-package! ssh-config-mode
+  :mode (("/\\.ssh/config\\'"              . ssh-config-mode)
+         ("/\\.ssh/config\\.d/[^/]+\\'"    . ssh-config-mode)
+         ("/ssh_config\\'"                 . ssh-config-mode)
+         ("/sshd_config\\'"                . ssh-config-mode)))
