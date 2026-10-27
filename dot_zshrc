@@ -90,6 +90,8 @@ if [ "$(uname)" != "Linux" ]; then
 else
     alias mls="stat -c '%a %n'"
 fi
+[ -d "$HOME/.local/man/linux" ] && alias manl='man -M $HOME/.local/man/linux'
+[ -d "$HOME/.local/man/linux-posix" ] && alias manp='man -M $HOME/.local/man/linux-posix'
 
 # Python
 export VIRTUAL_ENV_DISABLE_PROMPT='1'
