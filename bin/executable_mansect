@@ -1,0 +1,42 @@
+#!/bin/sh
+
+# mansect - Generates MANSECT for the current user
+
+set -eu
+
+# default value is from /etc/man.conf
+if [ "$(uname)" = "Darwin" ]; then
+	default="1:1p:8:2:3:3p:4:5:6:7:9:0p:tcl:n:l:p:o"
+	xcode_sdk_dir="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/share/man/"
+	xcode_cmd_dir="/Library/Developer/CommandLineTools/usr/share/man/"
+fi
+# default value is from man(1)
+[ "$(uname)" = "FreeBSD" ] && default="1:8:2:3:3lua:n:4:5:6:7:9:l"
+
+[ -d "$HOME/.local/man/" ] && dotlocal=$(find "$HOME/.local/man/" -type d -mindepth 2 -name "man*" -print0 |
+	xargs -0 -I {} basename {} |
+	sed -e 's/^man//g' |
+	tr '\n' ':')
+
+[ -n "$HOMEBREW_PREFIX" ] && [ -d "$HOMEBREW_PREFIX/share/man" ] && homebrew=$(find "$HOMEBREW_PREFIX/share/man" -type d -mindepth 2 -name "man*" -print0 |
+	xargs -0 -I {} basename {} |
+	sed -e 's/^man//g' |
+	tr '\n' ':')
+
+[ -d "$xcode_sdk_dir" ] && xcode_sdk=$(find "$xcode_sdk_dir" -type d -mindepth 1 -name "man*" -print0 |
+	xargs -0 -I {} basename {} |
+	sed -e 's/^man//g' |
+	tr '\n' ':')
+
+[ -d "$xcode_cmd_dir" ] && xcode_cmd=$(find "$xcode_cmd_dir" -type d -mindepth 1 -name "man*" -print0 |
+	xargs -0 -I {} basename {} |
+	sed -e 's/^man//g' |
+	tr '\n' ':')
+
+printf "%s:%s:%s:%s:%s" "$default" "$dotlocal" "$homebrew" "$xcode_sdk" "$xcode_cmd" |
+	tr ':' '\n' |
+	sort -n |
+	uniq |
+	tr '\n' ':' |
+	sed -Ee 's/[:]+$//g' |
+	sed -Ee 's/^[:]+//g'
