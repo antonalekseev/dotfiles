@@ -1,0 +1,17 @@
+{{- if ne .chezmoi.os "linux" }}
+[".local/man/linux-posix"]
+    type = "archive"
+    url = "https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/man-pages-posix/man-pages-posix-2017-a.tar.xz"
+    checksum.sha256 = "ce67bb25b5048b20dad772e405a83f4bc70faf051afa289361c81f9660318bc3"
+    exact = true
+    stripComponents = 1
+    include = ["*/man[013]p/**"]
+
+[".local/man/linux"]
+    type = "archive"
+    url = "https://mirrors.edge.kernel.org/pub/linux/docs/man-pages/man-pages-6.20.tar.xz"
+    checksum.sha256 = "180f0d16a2142dd9671760ac0afeadcc25e861f695eb420293e1206a87ca083f"
+    exact = true
+    stripComponents = 2
+    include = ["*/man/**"]
+{{- end}}
