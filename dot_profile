@@ -1,0 +1,53 @@
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+HOSTNAME=$(hostname)
+EDITOR='vim'
+PAGER='less'
+
+GOPATH="$HOME/go"
+
+PYTHON_BASIC_REPL=1
+PYENV_ROOT="$HOME/.pyenv"
+
+# PATH
+LOCAL_PATH=.:$HOME/bin:$HOME/.local/bin:$HOME/.emacs.d/bin:$HOME/.pyenv:$GOPATH/bin:/usr/local/bin
+
+# man
+
+# $HOME/.local/man is deliberatly *excluded* from MANPATH
+# those should be looked up explicitly with `man -M ...`
+EXTRA_MANPATH="."
+
+# MANSECT is generated manually with $HOME/bin/mansect
+if [ "$(uname)" = "Darwin" ]; then
+	MANSECT="0:0p:l:n:o:p:tcl:1:1p:2:2const:2type:3:3attr:3const:3head:3p:3type:4:5:6:7:8:9"
+	xcode_sdk="/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+	xcode_cmd="/Library/Developer/CommandLineTools"
+	[ -d "$xcode_cmd" ] && EXTRA_MANPATH=$EXTRA_MANPATH:$xcode_cmd/usr/share/man
+	[ -d "$xcode_sdk" ] && EXTRA_MANPATH=$EXTRA_MANPATH:$xcode_sdk/usr/share/man
+fi
+
+# Homebrew
+[ -x /usr/local/bin/brew ] && eval "$(/usr/local/bin/brew shellenv sh)"
+[ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv sh)"
+if [ -n "$HOMEBREW_PREFIX" ]; then
+	PATH="$(brew --prefix curl)/bin:$PATH"
+	PATH="$(brew --prefix sqlite)/bin:$PATH"
+fi
+
+PATH=$LOCAL_PATH:$PATH
+MANPATH=$EXTRA_MANPATH:$MANPATH
+
+# exports
+export EDITOR
+export GOPATH
+export HOSTNAME
+export LANG
+export LC_ALL
+export MANPATH
+export MANSECT
+export PAGER
+export PATH
+export PYENV_ROOT
+export PYTHON_BASIC_REPL
